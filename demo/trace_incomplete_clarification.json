@@ -1,0 +1,113 @@
+{
+  "scenario_name": "incomplete_clarification",
+  "input": "AC theek karwana hai",
+  "parse_response": {
+    "trace_id": "TRC-2026-05-12-BHV3",
+    "intent": {
+      "language_detected": "roman_urdu",
+      "service_category_id": null,
+      "service_category_confidence": 0.0,
+      "raw_service_phrase": "",
+      "location": {
+        "city": null,
+        "sector": null,
+        "raw_phrase": "",
+        "confidence": 0.0
+      },
+      "time": {
+        "preference": "flexible",
+        "specific_iso": null,
+        "raw_phrase": ""
+      },
+      "urgency": "normal",
+      "urgency_signals": [],
+      "constraints": {
+        "max_budget_pkr": null,
+        "gender_preference": "any",
+        "language_preference": []
+      },
+      "missing_info": [
+        "service_category",
+        "city",
+        "sector"
+      ],
+      "clarification_question_ur": "Aap ka service aur location batayein? Kis sector mein hain aur kya service chahiye?",
+      "clarification_question_en": "Please share your service and location. Which sector and what service?",
+      "reasoning": "Parsed with rule-based engine.",
+      "_engine": "rule_based"
+    },
+    "needs_clarification": true,
+    "trace": {
+      "trace_id": "TRC-2026-05-12-BHV3",
+      "workflow_id": "khidmat_main_orchestration_v1",
+      "started_at": "2026-05-12T20:48:36.695644",
+      "user_input": "AC theek karwana hai",
+      "user_id": "U001",
+      "steps": [
+        {
+          "step": 1,
+          "agent": "intent_parser",
+          "started_at": "2026-05-12T20:48:36.695644",
+          "duration_ms": 2,
+          "engine": "rule_based",
+          "tool_calls": [
+            {
+              "tool": "get_service_catalog",
+              "result": "20 categories loaded"
+            },
+            {
+              "tool": "get_city_catalog",
+              "result": "4 cities loaded"
+            },
+            {
+              "tool": "detect_language",
+              "result": "roman_urdu"
+            }
+          ],
+          "output": {
+            "language_detected": "roman_urdu",
+            "service_category_id": null,
+            "service_category_confidence": 0.0,
+            "raw_service_phrase": "",
+            "location": {
+              "city": null,
+              "sector": null,
+              "raw_phrase": "",
+              "confidence": 0.0
+            },
+            "time": {
+              "preference": "flexible",
+              "specific_iso": null,
+              "raw_phrase": ""
+            },
+            "urgency": "normal",
+            "urgency_signals": [],
+            "constraints": {
+              "max_budget_pkr": null,
+              "gender_preference": "any",
+              "language_preference": []
+            },
+            "missing_info": [
+              "service_category",
+              "city",
+              "sector"
+            ],
+            "clarification_question_ur": "Aap ka service aur location batayein? Kis sector mein hain aur kya service chahiye?",
+            "clarification_question_en": "Please share your service and location. Which sector and what service?",
+            "reasoning": "Parsed with rule-based engine.",
+            "_engine": "rule_based"
+          },
+          "reasoning_text": "Parsed with rule-based engine."
+        }
+      ],
+      "completed_at": "2026-05-12T20:48:36.698163",
+      "final_state": {
+        "status": "awaiting_clarification",
+        "clarification": {
+          "ur": "Aap ka service aur location batayein? Kis sector mein hain aur kya service chahiye?",
+          "en": "Please share your service and location. Which sector and what service?"
+        }
+      }
+    }
+  }
+}

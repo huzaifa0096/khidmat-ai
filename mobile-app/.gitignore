@@ -1,0 +1,27 @@
+
+# Dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native builds
+android/
+ios/
+
+# Local env
+.env.local
+.env.*.local
+
+# Logs and OS
+*.log
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+.DS_Store
+
+# Metro
+.metro-health-check*

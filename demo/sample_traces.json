@@ -1,0 +1,3439 @@
+{
+  "total": 5,
+  "scenarios": [
+    {
+      "scenario_name": "happy_path_ac_tech_g13",
+      "input": "Mujhe kal subah G-13 mein AC technician chahiye",
+      "parse_response": {
+        "trace_id": "TRC-2026-05-12-186G",
+        "intent": {
+          "language_detected": "roman_urdu",
+          "service_category_id": "ac_technician",
+          "service_category_confidence": 0.95,
+          "raw_service_phrase": "ac technician",
+          "location": {
+            "city": "islamabad",
+            "sector": "G-13",
+            "raw_phrase": "G-13",
+            "confidence": 0.98
+          },
+          "time": {
+            "preference": "tomorrow_morning",
+            "specific_iso": "2026-05-13T10:00:00",
+            "raw_phrase": "kal subah"
+          },
+          "urgency": "normal",
+          "urgency_signals": [],
+          "constraints": {
+            "max_budget_pkr": null,
+            "gender_preference": "any",
+            "language_preference": []
+          },
+          "missing_info": [],
+          "clarification_question_ur": null,
+          "clarification_question_en": null,
+          "reasoning": "Identified service as ac_technician (confidence 0.95). Location parsed: G-13, islamabad. Time preference: tomorrow_morning (kal subah).",
+          "_engine": "rule_based"
+        },
+        "crisis": null,
+        "discovery_summary": {
+          "total_matched": 3,
+          "filtered_out_count": 1
+        },
+        "ranking": {
+          "top_3": [
+            {
+              "rank": 1,
+              "provider_id": "P1007",
+              "provider": {
+                "name": "Iqbal Mirza",
+                "business_name": "Iqbal AC Solutions",
+                "rating": 3.9,
+                "reviews_count": 131,
+                "phone": "0308-3770370",
+                "profile_image": "https://i.pravatar.cc/300?u=P1007",
+                "sector": "G-13",
+                "city": "Islamabad",
+                "price_range": "PKR 1394-5776",
+                "experience_years": 19,
+                "languages": [
+                  "Urdu",
+                  "Pashto"
+                ],
+                "completion_rate_percent": 97,
+                "avg_response_minutes": 18,
+                "verified": true,
+                "emergency_24x7": false,
+                "availability": "available_today",
+                "description": "Certified AC technician with experience in all major brands — Haier, Gree, Dawlance, Orient, Mitsubishi. Specializing in deep cleaning and gas top-up.",
+                "location": {
+                  "lat": 33.63901825227649,
+                  "lng": 72.99503401974594
+                }
+              },
+              "distance_km": 1.06,
+              "final_score": 0.768,
+              "score_breakdown": {
+                "distance": 0.929,
+                "rating": 0.45,
+                "reviews": 0.707,
+                "verified": 1.0,
+                "availability": 0.85,
+                "completion": 0.85,
+                "response_time": 0.8
+              },
+              "reasoning_en": "Best match because only 1.1 km away in G-13, rated 3.9★ with 131 reviews, available today, 97% completion rate, verified provider.",
+              "reasoning_ur": "Sab se behtareen choice kyunke sirf 1.1 km door G-13 mein, 3.9★ rating aur 131 reviews, aaj available hai, 97% kaam complete karte hain, verified hain.",
+              "tradeoffs": [],
+              "highlight_badges": [
+                "Closest",
+                "Verified",
+                "Fastest Response",
+                "Most Experienced",
+                "Reliable"
+              ]
+            },
+            {
+              "rank": 2,
+              "provider_id": "P1001",
+              "provider": {
+                "name": "Vakeel Chaudhry",
+                "business_name": "Vakeel Cooling Experts",
+                "rating": 3.9,
+                "reviews_count": 385,
+                "phone": "0321-1445199",
+                "profile_image": "https://i.pravatar.cc/300?u=P1001",
+                "sector": "F-6",
+                "city": "Islamabad",
+                "price_range": "PKR 1527-5503",
+                "experience_years": 4,
+                "languages": [
+                  "Urdu",
+                  "English",
+                  "Pashto"
+                ],
+                "completion_rate_percent": 91,
+                "avg_response_minutes": 85,
+                "verified": true,
+                "emergency_24x7": true,
+                "availability": "available_now",
+                "description": "Premium AC installation, ducting, and 24/7 emergency repairs. Trained engineers, original parts only.",
+                "location": {
+                  "lat": 33.723548685756676,
+                  "lng": 73.06018386144137
+                }
+              },
+              "distance_km": 10.55,
+              "final_score": 0.581,
+              "score_breakdown": {
+                "distance": 0.297,
+                "rating": 0.45,
+                "reviews": 0.862,
+                "verified": 1.0,
+                "availability": 1.0,
+                "completion": 0.55,
+                "response_time": 0.056
+              },
+              "reasoning_en": "Good available option — only 10.6 km away in F-6, rated 3.9★ with 385 reviews, available right now, 91% completion rate, verified provider.",
+              "reasoning_ur": "Achhi available choice — sirf 10.6 km door F-6 mein, 3.9★ rating aur 385 reviews, abhi available hai, 91% kaam complete karte hain, verified hain.",
+              "tradeoffs": [
+                "9.5 km farther than the closest option, but stronger overall score"
+              ],
+              "highlight_badges": [
+                "Verified",
+                "24/7"
+              ]
+            },
+            {
+              "rank": 3,
+              "provider_id": "P1002",
+              "provider": {
+                "name": "Shahid Rana",
+                "business_name": "Shahid AC Solutions",
+                "rating": 4.0,
+                "reviews_count": 118,
+                "phone": "0301-7350753",
+                "profile_image": "https://i.pravatar.cc/300?u=P1002",
+                "sector": "G-6",
+                "city": "Islamabad",
+                "price_range": "PKR 1310-4763",
+                "experience_years": 11,
+                "languages": [
+                  "Urdu",
+                  "English",
+                  "Pashto"
+                ],
+                "completion_rate_percent": 94,
+                "avg_response_minutes": 54,
+                "verified": false,
+                "emergency_24x7": false,
+                "availability": "available_now",
+                "description": "Quick AC repair, PCB fault diagnosis, compressor replacement, and seasonal maintenance. 90-day service warranty.",
+                "location": {
+                  "lat": 33.70304281063015,
+                  "lng": 73.08502619711213
+                }
+              },
+              "distance_km": 10.62,
+              "final_score": 0.557,
+              "score_breakdown": {
+                "distance": 0.292,
+                "rating": 0.5,
+                "reviews": 0.692,
+                "verified": 0.5,
+                "availability": 1.0,
+                "completion": 0.7,
+                "response_time": 0.4
+              },
+              "reasoning_en": "Good available option — only 10.6 km away in G-6, rated 4.0★ with 118 reviews, available right now, 94% completion rate.",
+              "reasoning_ur": "Achhi available choice — sirf 10.6 km door G-6 mein, 4.0★ rating aur 118 reviews, abhi available hai, 94% kaam complete karte hain.",
+              "tradeoffs": [
+                "9.6 km farther than the closest option, but stronger overall score"
+              ],
+              "highlight_badges": []
+            }
+          ],
+          "decision_summary_en": "Selected Iqbal AC Solutions as top recommendation — Best match because only 1.1 km away in G-13, rated 3.9★ with 131 reviews, available today, 97% completion rate, verified provider.",
+          "decision_summary_ur": "Iqbal AC Solutions ko top choice diya hai — Sab se behtareen choice kyunke sirf 1.1 km door G-13 mein, 3.9★ rating aur 131 reviews, aaj available hai, 97% kaam complete karte hain, verified hain.",
+          "alternative_consideration": "If you prioritize rating over distance, see rank 2.",
+          "weights_used_urgency": "normal"
+        },
+        "trace": {
+          "trace_id": "TRC-2026-05-12-186G",
+          "workflow_id": "khidmat_main_orchestration_v1",
+          "started_at": "2026-05-12T20:48:36.660304",
+          "user_input": "Mujhe kal subah G-13 mein AC technician chahiye",
+          "user_id": "U001",
+          "steps": [
+            {
+              "step": 1,
+              "agent": "intent_parser",
+              "started_at": "2026-05-12T20:48:36.660304",
+              "duration_ms": 0,
+              "engine": "rule_based",
+              "tool_calls": [
+                {
+                  "tool": "get_service_catalog",
+                  "result": "20 categories loaded"
+                },
+                {
+                  "tool": "get_city_catalog",
+                  "result": "4 cities loaded"
+                },
+                {
+                  "tool": "detect_language",
+                  "result": "roman_urdu"
+                }
+              ],
+              "output": {
+                "language_detected": "roman_urdu",
+                "service_category_id": "ac_technician",
+                "service_category_confidence": 0.95,
+                "raw_service_phrase": "ac technician",
+                "location": {
+                  "city": "islamabad",
+                  "sector": "G-13",
+                  "raw_phrase": "G-13",
+                  "confidence": 0.98
+                },
+                "time": {
+                  "preference": "tomorrow_morning",
+                  "specific_iso": "2026-05-13T10:00:00",
+                  "raw_phrase": "kal subah"
+                },
+                "urgency": "normal",
+                "urgency_signals": [],
+                "constraints": {
+                  "max_budget_pkr": null,
+                  "gender_preference": "any",
+                  "language_preference": []
+                },
+                "missing_info": [],
+                "clarification_question_ur": null,
+                "clarification_question_en": null,
+                "reasoning": "Identified service as ac_technician (confidence 0.95). Location parsed: G-13, islamabad. Time preference: tomorrow_morning (kal subah).",
+                "_engine": "rule_based"
+              },
+              "reasoning_text": "Identified service as ac_technician (confidence 0.95). Location parsed: G-13, islamabad. Time preference: tomorrow_morning (kal subah)."
+            },
+            {
+              "step": 2,
+              "agent": "provider_discovery",
+              "started_at": "2026-05-12T20:48:36.660304",
+              "duration_ms": 0,
+              "tool_calls": [
+                {
+                  "tool": "find_providers_by_category_and_city",
+                  "args": {
+                    "category_id": "ac_technician",
+                    "city_id": "islamabad"
+                  },
+                  "result": "3 matched"
+                },
+                {
+                  "tool": "compute_distance",
+                  "result": "3 candidates with distance"
+                }
+              ],
+              "output": {
+                "total_matched": 3,
+                "candidates_ids": [
+                  "P1007",
+                  "P1001",
+                  "P1002"
+                ],
+                "filtered_out_count": 1,
+                "filtered_out_sample": [
+                  {
+                    "provider_id": "P1003",
+                    "reason": "availability: busy_until_evening, incompatible with tomorrow_morning"
+                  }
+                ]
+              },
+              "reasoning_text": "Found 4 primary + 0 secondary providers for ac_technician in islamabad. Filtered 1 due to constraints. Sorted by proximity to G-13. Top 3 returned."
+            },
+            {
+              "step": 4,
+              "agent": "ranking_reasoning",
+              "started_at": "2026-05-12T20:48:36.660304",
+              "duration_ms": 0,
+              "tool_calls": [
+                {
+                  "tool": "compute_score",
+                  "args": {
+                    "urgency": "normal",
+                    "weights_used": "normal"
+                  },
+                  "calls": 3
+                }
+              ],
+              "output": {
+                "top_3_ids": [
+                  "P1007",
+                  "P1001",
+                  "P1002"
+                ],
+                "decision_summary_en": "Selected Iqbal AC Solutions as top recommendation — Best match because only 1.1 km away in G-13, rated 3.9★ with 131 reviews, available today, 97% completion rate, verified provider.",
+                "decision_summary_ur": "Iqbal AC Solutions ko top choice diya hai — Sab se behtareen choice kyunke sirf 1.1 km door G-13 mein, 3.9★ rating aur 131 reviews, aaj available hai, 97% kaam complete karte hain, verified hain."
+              },
+              "reasoning_text": "Selected Iqbal AC Solutions as top recommendation — Best match because only 1.1 km away in G-13, rated 3.9★ with 131 reviews, available today, 97% completion rate, verified provider."
+            }
+          ],
+          "completed_at": "2026-05-12T20:48:36.660304",
+          "duration_ms": 0,
+          "final_state": {
+            "status": "awaiting_user_choice",
+            "presented_options": 3
+          }
+        }
+      },
+      "booking_response": {
+        "trace_id": "TRC-2026-05-12-186G",
+        "booking": {
+          "booking_id": "KHD-2026-05-12-RDHID",
+          "status": "confirmed",
+          "created_at": "2026-05-12T20:48:36.664550",
+          "scheduled_for": "2026-05-13T10:00:00",
+          "provider": {
+            "id": "P1007",
+            "name": "Iqbal Mirza",
+            "business_name": "Iqbal AC Solutions",
+            "phone": "0308-3770370",
+            "rating": 3.9,
+            "profile_image": "https://i.pravatar.cc/300?u=P1007"
+          },
+          "user": {
+            "id": "U001",
+            "name": "Huzaifa",
+            "phone": "0300-1234567"
+          },
+          "service": {
+            "category": "ac_technician",
+            "category_name_en": "AC Technician",
+            "estimated_duration_minutes": 90
+          },
+          "location": {
+            "city": "islamabad",
+            "sector": "G-13",
+            "address_text": "G-13, Islamabad"
+          },
+          "pricing": {
+            "estimated_range_pkr": "PKR 1394-5776",
+            "visit_charge_pkr": 500,
+            "payment_method": "cash_on_completion"
+          },
+          "receipt": {
+            "receipt_id": "RCP-XNUDNY7C",
+            "lines": [
+              {
+                "label": "Service",
+                "value": "AC Technician — Diagnosis & Service"
+              },
+              {
+                "label": "Provider",
+                "value": "Iqbal AC Solutions"
+              },
+              {
+                "label": "Slot",
+                "value": "Wed, 13 May 2026 — 10:00 AM"
+              },
+              {
+                "label": "Location",
+                "value": "G-13, Islamabad"
+              },
+              {
+                "label": "Visit Charge",
+                "value": "PKR 500"
+              },
+              {
+                "label": "Estimated Total",
+                "value": "PKR 1394-5776"
+              }
+            ],
+            "qr_payload": "khidmat://booking/KHD-2026-05-12-RDHID"
+          },
+          "notifications": {
+            "user_in_app": "✅ Booking Confirmed!\nIqbal AC Solutions will arrive at G-13 on Wed, 13 May 2026 — 10:00 AM. Booking ID: KHD-2026-05-12-RDHID.",
+            "user_sms": "Khidmat AI: Booking confirmed with Iqbal AC Solutions for Wed, 13 May 2026 — 10:00 AM at G-13. Reply CANCEL to cancel. Receipt: khidmat.ai/r/KHD-2026-05-12-RDHID",
+            "provider_whatsapp": "Assalam-o-alaikum Iqbal Mirza bhai. Aap ko ek booking mili hai:\n• Service: AC Technician\n• Time: Wed, 13 May 2026 — 10:00 AM\n• Location: G-13 Islamabad\n• Customer: Huzaifa (0300-1234567)\nReply YES to confirm.",
+            "provider_sms": "Khidmat: New booking — AC Technician, G-13, Wed, 13 May 2026 — 10:00 AM. Confirm: khidmat.ai/p/KHD-2026-05-12-RDHID"
+          },
+          "calendar_ics_url": "/api/bookings/KHD-2026-05-12-RDHID/ics",
+          "system_state_changes": [
+            {
+              "type": "provider_availability",
+              "provider_id": "P1007",
+              "slot_taken": "2026-05-13T10:00:00"
+            },
+            {
+              "type": "booking_created",
+              "booking_id": "KHD-2026-05-12-RDHID"
+            },
+            {
+              "type": "user_history",
+              "user_id": "U001",
+              "added": "KHD-2026-05-12-RDHID"
+            }
+          ],
+          "action_log": [
+            {
+              "step": 1,
+              "action": "generate_booking_id",
+              "result": "KHD-2026-05-12-RDHID",
+              "ts": "2026-05-12T20:48:36.664550"
+            },
+            {
+              "step": 2,
+              "action": "reserve_slot",
+              "result": "success",
+              "ts": "2026-05-12T20:48:36.664550"
+            },
+            {
+              "step": 3,
+              "action": "create_booking_record",
+              "result": "stored",
+              "ts": "2026-05-12T20:48:36.664550"
+            },
+            {
+              "step": 4,
+              "action": "generate_receipt",
+              "result": "RCP-XNUDNY7C",
+              "ts": "2026-05-12T20:48:36.664550"
+            },
+            {
+              "step": 5,
+              "action": "draft_user_notification",
+              "result": "ready",
+              "ts": "2026-05-12T20:48:36.664550"
+            },
+            {
+              "step": 6,
+              "action": "draft_provider_notification",
+              "result": "ready",
+              "ts": "2026-05-12T20:48:36.664550"
+            },
+            {
+              "step": 7,
+              "action": "generate_ics_calendar",
+              "result": "ready",
+              "ts": "2026-05-12T20:48:36.664550"
+            },
+            {
+              "step": 8,
+              "action": "update_system_state",
+              "result": "applied",
+              "ts": "2026-05-12T20:48:36.664550"
+            }
+          ],
+          "calendar_ics": "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Khidmat AI//EN\nBEGIN:VEVENT\nUID:KHD-2026-05-12-RDHID@khidmat.ai\nDTSTAMP:20260512T204836Z\nDTSTART:20260513T100000\nDTEND:20260513T113000\nSUMMARY:Khidmat AI — Iqbal AC Solutions\nLOCATION:G-13, islamabad\nDESCRIPTION:Booking ID: KHD-2026-05-12-RDHID\\nService: ac_technician\nEND:VEVENT\nEND:VCALENDAR"
+        },
+        "followup_plan": {
+          "booking_id": "KHD-2026-05-12-RDHID",
+          "follow_up_plan_id": "FLP-VRKASE",
+          "language": "roman_urdu",
+          "events": [
+            {
+              "event_id": "FE-VGJ0AY",
+              "trigger_at": "2026-05-12T10:00:00",
+              "type": "reminder_24h",
+              "channel": "sms",
+              "audience": "user",
+              "message_ur": "Kal aap ki AC Technician appointment hai Iqbal AC Solutions ke saath 10:00 AM baje G-13 par. Confirm karne ke liye reply karein YES.",
+              "message_en": "Reminder: Tomorrow's AC Technician appointment with Iqbal AC Solutions at 10:00 AM in G-13. Reply YES to confirm.",
+              "auto_send": true,
+              "expected_response": "confirmation"
+            },
+            {
+              "event_id": "FE-ZR1Y95",
+              "trigger_at": "2026-05-13T08:00:00",
+              "type": "provider_status_check",
+              "channel": "whatsapp",
+              "audience": "provider",
+              "message_ur": "Bhai aap ka AC Technician appointment 2 ghante mein hai G-13 par. Aap on the way honge?",
+              "message_en": "Reminder: AC Technician appointment in 2 hours at G-13. Confirm you're prepared.",
+              "auto_send": true,
+              "expected_response": "confirmation_or_eta"
+            },
+            {
+              "event_id": "FE-9LV39D",
+              "trigger_at": "2026-05-13T09:30:00",
+              "type": "user_eta_update",
+              "channel": "push",
+              "audience": "user",
+              "message_ur": "Iqbal AC Solutions aap ke ghar ki taraf rawana ho rahe hain. ETA 30 min.",
+              "message_en": "Iqbal AC Solutions is on the way. ETA 30 min.",
+              "auto_send": true
+            },
+            {
+              "event_id": "FE-UGP8L0",
+              "trigger_at": "2026-05-13T10:30:00",
+              "type": "service_progress_check",
+              "channel": "in_app",
+              "audience": "user",
+              "message_ur": "Kya service shuru ho gayi hai? Reply: 1=Haan shuru hui, 2=Provider nahi aaya, 3=Koi issue hai",
+              "message_en": "Has the service started? Reply: 1=Yes started, 2=Provider not arrived, 3=Issue",
+              "auto_send": true,
+              "expected_response": "1|2|3"
+            },
+            {
+              "event_id": "FE-D11A3O",
+              "trigger_at": "2026-05-13T11:30:00",
+              "type": "completion_check",
+              "channel": "in_app",
+              "audience": "user",
+              "message_ur": "Aap ki service complete ho gayi? Reply: 1=Mukammal, 2=Abhi nahi, 3=Koi issue hai",
+              "message_en": "Service complete? Reply: 1=Complete, 2=Not yet, 3=Issue",
+              "auto_send": true,
+              "expected_response": "1|2|3"
+            },
+            {
+              "event_id": "FE-QJVEM1",
+              "trigger_at": "2026-05-13T11:45:00",
+              "type": "rating_prompt",
+              "channel": "push",
+              "audience": "user",
+              "message_ur": "Please Iqbal AC Solutions ko rate karein (1-5 stars) aur 1 line feedback dein.",
+              "message_en": "Please rate Iqbal AC Solutions (1-5 stars) and share a one-line feedback.",
+              "auto_send": true
+            },
+            {
+              "event_id": "FE-7BQE9H",
+              "trigger_at": "2026-05-14T11:30:00",
+              "type": "rebooking_prompt",
+              "channel": "in_app",
+              "audience": "user",
+              "message_ur": "Aap ki service achhi rahi! Aglay visit ki schedule karein?",
+              "message_en": "Glad your service went well! Schedule your next visit?",
+              "auto_send": false
+            }
+          ],
+          "branching_rules": [
+            {
+              "if_response": "1",
+              "on_event_type": "service_progress_check",
+              "then": "mark_in_progress"
+            },
+            {
+              "if_response": "2",
+              "on_event_type": "service_progress_check",
+              "then": "escalate_to_provider"
+            },
+            {
+              "if_response": "3",
+              "on_event_type": "service_progress_check",
+              "then": "escalate_to_support"
+            },
+            {
+              "if_response": "1",
+              "on_event_type": "completion_check",
+              "then": "mark_complete"
+            },
+            {
+              "if_response": "3",
+              "on_event_type": "completion_check",
+              "then": "escalate_to_support"
+            }
+          ],
+          "issue_detection_keywords": [
+            "nahi aaya",
+            "didn't come",
+            "problem",
+            "complaint",
+            "refund",
+            "shikayat"
+          ],
+          "completion_estimated_at": "2026-05-13T11:30:00",
+          "total_events_scheduled": 7,
+          "reasoning": "Generated standard service follow-up for ac_technician with 7 touchpoints; included escalation rules for no-show and issues; language: roman_urdu."
+        },
+        "trace": {
+          "trace_id": "TRC-2026-05-12-186G",
+          "workflow_id": "khidmat_main_orchestration_v1",
+          "started_at": "2026-05-12T20:48:36.660304",
+          "user_input": "Mujhe kal subah G-13 mein AC technician chahiye",
+          "user_id": "U001",
+          "steps": [
+            {
+              "step": 1,
+              "agent": "intent_parser",
+              "started_at": "2026-05-12T20:48:36.660304",
+              "duration_ms": 0,
+              "engine": "rule_based",
+              "tool_calls": [
+                {
+                  "tool": "get_service_catalog",
+                  "result": "20 categories loaded"
+                },
+                {
+                  "tool": "get_city_catalog",
+                  "result": "4 cities loaded"
+                },
+                {
+                  "tool": "detect_language",
+                  "result": "roman_urdu"
+                }
+              ],
+              "output": {
+                "language_detected": "roman_urdu",
+                "service_category_id": "ac_technician",
+                "service_category_confidence": 0.95,
+                "raw_service_phrase": "ac technician",
+                "location": {
+                  "city": "islamabad",
+                  "sector": "G-13",
+                  "raw_phrase": "G-13",
+                  "confidence": 0.98
+                },
+                "time": {
+                  "preference": "tomorrow_morning",
+                  "specific_iso": "2026-05-13T10:00:00",
+                  "raw_phrase": "kal subah"
+                },
+                "urgency": "normal",
+                "urgency_signals": [],
+                "constraints": {
+                  "max_budget_pkr": null,
+                  "gender_preference": "any",
+                  "language_preference": []
+                },
+                "missing_info": [],
+                "clarification_question_ur": null,
+                "clarification_question_en": null,
+                "reasoning": "Identified service as ac_technician (confidence 0.95). Location parsed: G-13, islamabad. Time preference: tomorrow_morning (kal subah).",
+                "_engine": "rule_based"
+              },
+              "reasoning_text": "Identified service as ac_technician (confidence 0.95). Location parsed: G-13, islamabad. Time preference: tomorrow_morning (kal subah)."
+            },
+            {
+              "step": 2,
+              "agent": "provider_discovery",
+              "started_at": "2026-05-12T20:48:36.660304",
+              "duration_ms": 0,
+              "tool_calls": [
+                {
+                  "tool": "find_providers_by_category_and_city",
+                  "args": {
+                    "category_id": "ac_technician",
+                    "city_id": "islamabad"
+                  },
+                  "result": "3 matched"
+                },
+                {
+                  "tool": "compute_distance",
+                  "result": "3 candidates with distance"
+                }
+              ],
+              "output": {
+                "total_matched": 3,
+                "candidates_ids": [
+                  "P1007",
+                  "P1001",
+                  "P1002"
+                ],
+                "filtered_out_count": 1,
+                "filtered_out_sample": [
+                  {
+                    "provider_id": "P1003",
+                    "reason": "availability: busy_until_evening, incompatible with tomorrow_morning"
+                  }
+                ]
+              },
+              "reasoning_text": "Found 4 primary + 0 secondary providers for ac_technician in islamabad. Filtered 1 due to constraints. Sorted by proximity to G-13. Top 3 returned."
+            },
+            {
+              "step": 4,
+              "agent": "ranking_reasoning",
+              "started_at": "2026-05-12T20:48:36.660304",
+              "duration_ms": 0,
+              "tool_calls": [
+                {
+                  "tool": "compute_score",
+                  "args": {
+                    "urgency": "normal",
+                    "weights_used": "normal"
+                  },
+                  "calls": 3
+                }
+              ],
+              "output": {
+                "top_3_ids": [
+                  "P1007",
+                  "P1001",
+                  "P1002"
+                ],
+                "decision_summary_en": "Selected Iqbal AC Solutions as top recommendation — Best match because only 1.1 km away in G-13, rated 3.9★ with 131 reviews, available today, 97% completion rate, verified provider.",
+                "decision_summary_ur": "Iqbal AC Solutions ko top choice diya hai — Sab se behtareen choice kyunke sirf 1.1 km door G-13 mein, 3.9★ rating aur 131 reviews, aaj available hai, 97% kaam complete karte hain, verified hain."
+              },
+              "reasoning_text": "Selected Iqbal AC Solutions as top recommendation — Best match because only 1.1 km away in G-13, rated 3.9★ with 131 reviews, available today, 97% completion rate, verified provider."
+            },
+            {
+              "step": 5,
+              "agent": "booking_executor",
+              "started_at": "2026-05-12T20:48:36.664550",
+              "duration_ms": 0,
+              "tool_calls": [
+                {
+                  "tool": "generate_booking_id",
+                  "result": "KHD-2026-05-12-RDHID"
+                },
+                {
+                  "tool": "reserve_slot",
+                  "args": {
+                    "provider_id": "P1007",
+                    "slot_iso": "2026-05-13T10:00:00"
+                  },
+                  "result": "success"
+                },
+                {
+                  "tool": "create_booking_record",
+                  "result": "stored"
+                },
+                {
+                  "tool": "generate_receipt",
+                  "result": "RCP-XNUDNY7C"
+                },
+                {
+                  "tool": "draft_user_notification",
+                  "result": "ready"
+                },
+                {
+                  "tool": "draft_provider_notification",
+                  "result": "ready"
+                },
+                {
+                  "tool": "generate_ics_calendar",
+                  "result": "ready"
+                },
+                {
+                  "tool": "update_system_state",
+                  "result": "3 changes applied"
+                }
+              ],
+              "output": {
+                "booking_id": "KHD-2026-05-12-RDHID",
+                "receipt_id": "RCP-XNUDNY7C",
+                "scheduled_for": "2026-05-13T10:00:00",
+                "state_changes": [
+                  {
+                    "type": "provider_availability",
+                    "provider_id": "P1007",
+                    "slot_taken": "2026-05-13T10:00:00"
+                  },
+                  {
+                    "type": "booking_created",
+                    "booking_id": "KHD-2026-05-12-RDHID"
+                  },
+                  {
+                    "type": "user_history",
+                    "user_id": "U001",
+                    "added": "KHD-2026-05-12-RDHID"
+                  }
+                ]
+              },
+              "reasoning_text": "Booking executed end-to-end with 8 tool calls. Slot reserved at 2026-05-13T10:00:00. Notifications drafted for user and provider."
+            },
+            {
+              "step": 6,
+              "agent": "followup_automator",
+              "started_at": "2026-05-12T20:48:36.664550",
+              "duration_ms": 0,
+              "tool_calls": [
+                {
+                  "tool": "schedule_event",
+                  "calls": 7
+                },
+                {
+                  "tool": "register_branching_rule",
+                  "calls": 5
+                }
+              ],
+              "output": {
+                "follow_up_plan_id": "FLP-VRKASE",
+                "total_events_scheduled": 7,
+                "completion_estimated_at": "2026-05-13T11:30:00"
+              },
+              "reasoning_text": "Generated standard service follow-up for ac_technician with 7 touchpoints; included escalation rules for no-show and issues; language: roman_urdu."
+            }
+          ],
+          "completed_at": "2026-05-12T20:48:36.664550",
+          "duration_ms": 0,
+          "final_state": {
+            "status": "confirmed_with_followup_scheduled",
+            "booking_id": "KHD-2026-05-12-RDHID",
+            "follow_up_plan_id": "FLP-VRKASE"
+          }
+        }
+      }
+    },
+    {
+      "scenario_name": "crisis_g10_flooding",
+      "input": "Ghar mein pani bhar gaya hai, foran plumber bhejo G-10 mein",
+      "parse_response": {
+        "trace_id": "TRC-2026-05-12-LTYY",
+        "intent": {
+          "language_detected": "roman_urdu",
+          "service_category_id": "plumber",
+          "service_category_confidence": 0.95,
+          "raw_service_phrase": "plumber",
+          "location": {
+            "city": "islamabad",
+            "sector": "G-10",
+            "raw_phrase": "G-10",
+            "confidence": 0.98
+          },
+          "time": {
+            "preference": "now",
+            "specific_iso": "2026-05-12T21:18:36.675061",
+            "raw_phrase": "abhi/now"
+          },
+          "urgency": "emergency",
+          "urgency_signals": [
+            "foran",
+            "ghar mein pani",
+            "pani bhar gaya"
+          ],
+          "constraints": {
+            "max_budget_pkr": null,
+            "gender_preference": "any",
+            "language_preference": []
+          },
+          "missing_info": [],
+          "clarification_question_ur": null,
+          "clarification_question_en": null,
+          "reasoning": "Identified service as plumber (confidence 0.95). Location parsed: G-10, islamabad. Time preference: now (abhi/now). Urgency: emergency (signals: ['foran', 'ghar mein pani', 'pani bhar gaya']).",
+          "_engine": "rule_based"
+        },
+        "crisis": {
+          "crisis_assessment": {
+            "type": "urban_flooding",
+            "confidence": 1.0,
+            "area_wide": true,
+            "severity": "critical",
+            "evidence": [
+              "User keywords: ['foran', 'ghar mein pani', 'pani bhar gaya', 'plumber']",
+              "Weather alert: Flash flood alert active, rainfall 38mm",
+              "Traffic +320% vs normal",
+              "3 similar reports in last 2 hours in this sector"
+            ]
+          },
+          "dispatch_plan": {
+            "primary_providers": [
+              {
+                "provider_id": "P1013",
+                "business_name": "Moin Plumbing Services",
+                "role": "plumber",
+                "eta_minutes": 41
+              },
+              {
+                "provider_id": "P1014",
+                "business_name": "Kamran Plumbing Co.",
+                "role": "plumber",
+                "eta_minutes": 74
+              }
+            ],
+            "secondary_providers": [],
+            "total_dispatched": 2,
+            "redundancy": true
+          },
+          "pricing": {
+            "emergency_surcharge_multiplier": 2.0,
+            "estimated_cost_pkr": "PKR 3000-12000",
+            "surcharge_reason": "Emergency response (critical severity), priority dispatch, weather/traffic conditions considered"
+          },
+          "area_alert": {
+            "broadcast": true,
+            "audience_estimated": 540,
+            "message_ur": "⚠️ G-10 mein flooding report hui hai. Apni gaariyan zameen pe na chorein. Bijli ke connections check karein.",
+            "message_en": "⚠️ Flooding reported in G-10. Move vehicles to higher ground. Check electrical connections."
+          },
+          "emergency_ticket": {
+            "priority": "P0",
+            "status": "dispatched",
+            "escalated_to_authority": true,
+            "escalation_recommended": "If situation worsens, recommend dispatch to ICT Emergency Services (1122)"
+          },
+          "outcome_projection": {
+            "before": "User stranded, urban_flooding situation, no help dispatched",
+            "after": "2 providers en-route, area alert broadcasted, emergency ticket logged",
+            "metrics": {
+              "response_time_minutes": 41,
+              "vs_baseline_minutes": 90,
+              "improvement_percent": 54
+            }
+          }
+        },
+        "discovery_summary": {
+          "total_matched": 2,
+          "filtered_out_count": 2
+        },
+        "ranking": {
+          "top_3": [
+            {
+              "rank": 1,
+              "provider_id": "P1013",
+              "provider": {
+                "name": "Moin Shah",
+                "business_name": "Moin Plumbing Services",
+                "rating": 3.7,
+                "reviews_count": 117,
+                "phone": "0304-9874152",
+                "profile_image": "https://i.pravatar.cc/300?u=P1013",
+                "sector": "I-9",
+                "city": "Islamabad",
+                "price_range": "PKR 681-3975",
+                "experience_years": 17,
+                "languages": [
+                  "Urdu",
+                  "English",
+                  "Punjabi"
+                ],
+                "completion_rate_percent": 90,
+                "avg_response_minutes": 41,
+                "verified": true,
+                "emergency_24x7": true,
+                "availability": "available_now",
+                "description": "Leak repairs, pipe fitting, toilet/tap installation, bathroom renovation. Available for emergency calls.",
+                "location": {
+                  "lat": 33.65181642975219,
+                  "lng": 73.05943723109428
+                }
+              },
+              "distance_km": 3.84,
+              "final_score": 0.767,
+              "score_breakdown": {
+                "distance": 0.744,
+                "rating": 0.35,
+                "reviews": 0.691,
+                "verified": 1.0,
+                "availability": 1.0,
+                "completion": 0.5,
+                "response_time": 0.544
+              },
+              "reasoning_en": "Best match because only 3.8 km away in I-9, rated 3.7★ with 117 reviews, available right now, 90% completion rate, verified provider.",
+              "reasoning_ur": "Sab se behtareen choice kyunke sirf 3.8 km door I-9 mein, 3.7★ rating aur 117 reviews, abhi available hai, 90% kaam complete karte hain, verified hain.",
+              "tradeoffs": [],
+              "highlight_badges": [
+                "Closest",
+                "Verified",
+                "24/7",
+                "Most Experienced"
+              ]
+            },
+            {
+              "rank": 2,
+              "provider_id": "P1014",
+              "provider": {
+                "name": "Kamran Chaudhry",
+                "business_name": "Kamran Plumbing Co.",
+                "rating": 4.4,
+                "reviews_count": 375,
+                "phone": "0322-8106422",
+                "profile_image": "https://i.pravatar.cc/300?u=P1014",
+                "sector": "DHA Phase 2",
+                "city": "Islamabad",
+                "price_range": "PKR 879-3029",
+                "experience_years": 11,
+                "languages": [
+                  "Urdu",
+                  "English",
+                  "Punjabi"
+                ],
+                "completion_rate_percent": 92,
+                "avg_response_minutes": 74,
+                "verified": false,
+                "emergency_24x7": true,
+                "availability": "available_now",
+                "description": "Specialist in PPRC and UPVC piping, water tank cleaning, motor installation, and drainage solutions.",
+                "location": {
+                  "lat": 33.55279581710924,
+                  "lng": 73.17421917344791
+                }
+              },
+              "distance_km": 19.13,
+              "final_score": 0.418,
+              "score_breakdown": {
+                "distance": 0.0,
+                "rating": 0.7,
+                "reviews": 0.858,
+                "verified": 0.5,
+                "availability": 1.0,
+                "completion": 0.6,
+                "response_time": 0.178
+              },
+              "reasoning_en": "Good available option — only 19.1 km away in DHA Phase 2, rated 4.4★ with 375 reviews, available right now, 92% completion rate.",
+              "reasoning_ur": "Achhi available choice — sirf 19.1 km door DHA Phase 2 mein, 4.4★ rating aur 375 reviews, abhi available hai, 92% kaam complete karte hain.",
+              "tradeoffs": [
+                "15.3 km farther than the closest option, but stronger overall score"
+              ],
+              "highlight_badges": [
+                "24/7"
+              ]
+            }
+          ],
+          "decision_summary_en": "Selected Moin Plumbing Services as top recommendation — Best match because only 3.8 km away in I-9, rated 3.7★ with 117 reviews, available right now, 90% completion rate, verified provider.",
+          "decision_summary_ur": "Moin Plumbing Services ko top choice diya hai — Sab se behtareen choice kyunke sirf 3.8 km door I-9 mein, 3.7★ rating aur 117 reviews, abhi available hai, 90% kaam complete karte hain, verified hain.",
+          "alternative_consideration": "If you prioritize rating over distance, see rank 2.",
+          "weights_used_urgency": "emergency"
+        },
+        "trace": {
+          "trace_id": "TRC-2026-05-12-LTYY",
+          "workflow_id": "khidmat_main_orchestration_v1",
+          "started_at": "2026-05-12T20:48:36.675061",
+          "user_input": "Ghar mein pani bhar gaya hai, foran plumber bhejo G-10 mein",
+          "user_id": "U001",
+          "steps": [
+            {
+              "step": 1,
+              "agent": "intent_parser",
+              "started_at": "2026-05-12T20:48:36.675061",
+              "duration_ms": 0,
+              "engine": "rule_based",
+              "tool_calls": [
+                {
+                  "tool": "get_service_catalog",
+                  "result": "20 categories loaded"
+                },
+                {
+                  "tool": "get_city_catalog",
+                  "result": "4 cities loaded"
+                },
+                {
+                  "tool": "detect_language",
+                  "result": "roman_urdu"
+                }
+              ],
+              "output": {
+                "language_detected": "roman_urdu",
+                "service_category_id": "plumber",
+                "service_category_confidence": 0.95,
+                "raw_service_phrase": "plumber",
+                "location": {
+                  "city": "islamabad",
+                  "sector": "G-10",
+                  "raw_phrase": "G-10",
+                  "confidence": 0.98
+                },
+                "time": {
+                  "preference": "now",
+                  "specific_iso": "2026-05-12T21:18:36.675061",
+                  "raw_phrase": "abhi/now"
+                },
+                "urgency": "emergency",
+                "urgency_signals": [
+                  "foran",
+                  "ghar mein pani",
+                  "pani bhar gaya"
+                ],
+                "constraints": {
+                  "max_budget_pkr": null,
+                  "gender_preference": "any",
+                  "language_preference": []
+                },
+                "missing_info": [],
+                "clarification_question_ur": null,
+                "clarification_question_en": null,
+                "reasoning": "Identified service as plumber (confidence 0.95). Location parsed: G-10, islamabad. Time preference: now (abhi/now). Urgency: emergency (signals: ['foran', 'ghar mein pani', 'pani bhar gaya']).",
+                "_engine": "rule_based"
+              },
+              "reasoning_text": "Identified service as plumber (confidence 0.95). Location parsed: G-10, islamabad. Time preference: now (abhi/now). Urgency: emergency (signals: ['foran', 'ghar mein pani', 'pani bhar gaya'])."
+            },
+            {
+              "step": 2,
+              "agent": "provider_discovery",
+              "started_at": "2026-05-12T20:48:36.675061",
+              "duration_ms": 0,
+              "tool_calls": [
+                {
+                  "tool": "find_providers_by_category_and_city",
+                  "args": {
+                    "category_id": "plumber",
+                    "city_id": "islamabad"
+                  },
+                  "result": "2 matched"
+                },
+                {
+                  "tool": "compute_distance",
+                  "result": "2 candidates with distance"
+                }
+              ],
+              "output": {
+                "total_matched": 2,
+                "candidates_ids": [
+                  "P1013",
+                  "P1014"
+                ],
+                "filtered_out_count": 2,
+                "filtered_out_sample": [
+                  {
+                    "provider_id": "P1049",
+                    "reason": "availability: available_tomorrow, incompatible with now"
+                  },
+                  {
+                    "provider_id": "P1054",
+                    "reason": "not emergency_24x7"
+                  }
+                ]
+              },
+              "reasoning_text": "Found 2 primary + 2 secondary providers for plumber in islamabad. Filtered 2 due to constraints. Sorted by proximity to G-10. Top 2 returned."
+            },
+            {
+              "step": 3,
+              "agent": "crisis_specialist",
+              "started_at": "2026-05-12T20:48:36.675061",
+              "duration_ms": 0,
+              "mode": "A_crisis",
+              "tool_calls": [
+                {
+                  "tool": "fetch_weather",
+                  "args": {
+                    "city": "islamabad"
+                  },
+                  "result": {
+                    "city": "islamabad",
+                    "time": "2026-05-12T20:48:36.675061",
+                    "condition": "Heavy Rain",
+                    "temp_c": 24,
+                    "rainfall_mm": 38,
+                    "wind_kmph": 22,
+                    "alert": "Flash flood alert active"
+                  }
+                },
+                {
+                  "tool": "fetch_traffic_density",
+                  "args": {
+                    "sector": "G-10"
+                  },
+                  "result": {
+                    "sector": "G-10",
+                    "fetched_at": "2026-05-12T20:48:36.675061",
+                    "density": "very_high",
+                    "delta_percent_vs_normal": 320,
+                    "incidents": [
+                      "water_logging"
+                    ]
+                  }
+                },
+                {
+                  "tool": "fetch_recent_emergency_reports",
+                  "args": {
+                    "sector": "G-10",
+                    "hours": 2
+                  },
+                  "result": {
+                    "cluster_detected": true,
+                    "count": 3
+                  }
+                }
+              ],
+              "output": {
+                "crisis_assessment": {
+                  "type": "urban_flooding",
+                  "confidence": 1.0,
+                  "area_wide": true,
+                  "severity": "critical",
+                  "evidence": [
+                    "User keywords: ['foran', 'ghar mein pani', 'pani bhar gaya', 'plumber']",
+                    "Weather alert: Flash flood alert active, rainfall 38mm",
+                    "Traffic +320% vs normal",
+                    "3 similar reports in last 2 hours in this sector"
+                  ]
+                },
+                "dispatch_plan": {
+                  "primary_providers": [
+                    {
+                      "provider_id": "P1013",
+                      "business_name": "Moin Plumbing Services",
+                      "role": "plumber",
+                      "eta_minutes": 41
+                    },
+                    {
+                      "provider_id": "P1014",
+                      "business_name": "Kamran Plumbing Co.",
+                      "role": "plumber",
+                      "eta_minutes": 74
+                    }
+                  ],
+                  "secondary_providers": [],
+                  "total_dispatched": 2,
+                  "redundancy": true
+                },
+                "pricing": {
+                  "emergency_surcharge_multiplier": 2.0,
+                  "estimated_cost_pkr": "PKR 3000-12000",
+                  "surcharge_reason": "Emergency response (critical severity), priority dispatch, weather/traffic conditions considered"
+                },
+                "area_alert": {
+                  "broadcast": true,
+                  "audience_estimated": 540,
+                  "message_ur": "⚠️ G-10 mein flooding report hui hai. Apni gaariyan zameen pe na chorein. Bijli ke connections check karein.",
+                  "message_en": "⚠️ Flooding reported in G-10. Move vehicles to higher ground. Check electrical connections."
+                },
+                "emergency_ticket": {
+                  "priority": "P0",
+                  "status": "dispatched",
+                  "escalated_to_authority": true,
+                  "escalation_recommended": "If situation worsens, recommend dispatch to ICT Emergency Services (1122)"
+                },
+                "outcome_projection": {
+                  "before": "User stranded, urban_flooding situation, no help dispatched",
+                  "after": "2 providers en-route, area alert broadcasted, emergency ticket logged",
+                  "metrics": {
+                    "response_time_minutes": 41,
+                    "vs_baseline_minutes": 90,
+                    "improvement_percent": 54
+                  }
+                }
+              },
+              "reasoning_text": "Crisis type: urban_flooding, severity: critical, confidence: 1.0"
+            },
+            {
+              "step": 3.5,
+              "agent": "crisis_specialist",
+              "action": "broadcast_area_alert",
+              "output": {
+                "city": "islamabad",
+                "sector": "G-10",
+                "message_ur": "⚠️ G-10 mein flooding report hui hai. Apni gaariyan zameen pe na chorein. Bijli ke connections check karein.",
+                "message_en": "⚠️ Flooding reported in G-10. Move vehicles to higher ground. Check electrical connections.",
+                "audience_estimated": 540,
+                "broadcast_at": "2026-05-12T20:48:36.675061",
+                "status": "broadcast_simulated"
+              }
+            },
+            {
+              "step": 3.6,
+              "agent": "crisis_specialist",
+              "action": "create_emergency_ticket",
+              "output": {
+                "ticket_id": "EMG-2026-05-12-709",
+                "priority": "P0",
+                "status": "dispatched",
+                "type": "urban_flooding",
+                "city": "islamabad",
+                "sector": "G-10",
+                "created_at": "2026-05-12T20:48:36.675061",
+                "evidence": [
+                  "User keywords: ['foran', 'ghar mein pani', 'pani bhar gaya', 'plumber']",
+                  "Weather alert: Flash flood alert active, rainfall 38mm",
+                  "Traffic +320% vs normal",
+                  "3 similar reports in last 2 hours in this sector"
+                ],
+                "providers_dispatched": [
+                  "P1013",
+                  "P1014"
+                ],
+                "escalated_to_authority": true,
+                "escalation_recommended": "If situation worsens, recommend dispatch to ICT Emergency Services (1122)"
+              }
+            },
+            {
+              "step": 4,
+              "agent": "ranking_reasoning",
+              "started_at": "2026-05-12T20:48:36.675061",
+              "duration_ms": 0,
+              "tool_calls": [
+                {
+                  "tool": "compute_score",
+                  "args": {
+                    "urgency": "emergency",
+                    "weights_used": "emergency"
+                  },
+                  "calls": 2
+                }
+              ],
+              "output": {
+                "top_3_ids": [
+                  "P1013",
+                  "P1014"
+                ],
+                "decision_summary_en": "Selected Moin Plumbing Services as top recommendation — Best match because only 3.8 km away in I-9, rated 3.7★ with 117 reviews, available right now, 90% completion rate, verified provider.",
+                "decision_summary_ur": "Moin Plumbing Services ko top choice diya hai — Sab se behtareen choice kyunke sirf 3.8 km door I-9 mein, 3.7★ rating aur 117 reviews, abhi available hai, 90% kaam complete karte hain, verified hain."
+              },
+              "reasoning_text": "Selected Moin Plumbing Services as top recommendation — Best match because only 3.8 km away in I-9, rated 3.7★ with 117 reviews, available right now, 90% completion rate, verified provider."
+            }
+          ],
+          "completed_at": "2026-05-12T20:48:36.675061",
+          "duration_ms": 0,
+          "final_state": {
+            "status": "awaiting_user_choice",
+            "presented_options": 2
+          }
+        }
+      },
+      "booking_response": {
+        "trace_id": "TRC-2026-05-12-LTYY",
+        "booking": {
+          "booking_id": "KHD-2026-05-12-41UXY",
+          "status": "confirmed",
+          "created_at": "2026-05-12T20:48:36.678593",
+          "scheduled_for": "2026-05-12T21:18:36.675061",
+          "provider": {
+            "id": "P1013",
+            "name": "Moin Shah",
+            "business_name": "Moin Plumbing Services",
+            "phone": "0304-9874152",
+            "rating": 3.7,
+            "profile_image": "https://i.pravatar.cc/300?u=P1013"
+          },
+          "user": {
+            "id": "U001",
+            "name": "Huzaifa",
+            "phone": "0300-1234567"
+          },
+          "service": {
+            "category": "plumber",
+            "category_name_en": "Plumber",
+            "estimated_duration_minutes": 90
+          },
+          "location": {
+            "city": "islamabad",
+            "sector": "G-10",
+            "address_text": "G-10, Islamabad"
+          },
+          "pricing": {
+            "estimated_range_pkr": "PKR 681-3975",
+            "visit_charge_pkr": 500,
+            "payment_method": "cash_on_completion"
+          },
+          "receipt": {
+            "receipt_id": "RCP-QBF9D038",
+            "lines": [
+              {
+                "label": "Service",
+                "value": "Plumber — Diagnosis & Service"
+              },
+              {
+                "label": "Provider",
+                "value": "Moin Plumbing Services"
+              },
+              {
+                "label": "Slot",
+                "value": "Tue, 12 May 2026 — 09:18 PM"
+              },
+              {
+                "label": "Location",
+                "value": "G-10, Islamabad"
+              },
+              {
+                "label": "Visit Charge",
+                "value": "PKR 500"
+              },
+              {
+                "label": "Estimated Total",
+                "value": "PKR 681-3975"
+              }
+            ],
+            "qr_payload": "khidmat://booking/KHD-2026-05-12-41UXY"
+          },
+          "notifications": {
+            "user_in_app": "✅ Booking Confirmed!\nMoin Plumbing Services will arrive at G-10 on Tue, 12 May 2026 — 09:18 PM. Booking ID: KHD-2026-05-12-41UXY.",
+            "user_sms": "Khidmat AI: Booking confirmed with Moin Plumbing Services for Tue, 12 May 2026 — 09:18 PM at G-10. Reply CANCEL to cancel. Receipt: khidmat.ai/r/KHD-2026-05-12-41UXY",
+            "provider_whatsapp": "Assalam-o-alaikum Moin Shah bhai. Aap ko ek booking mili hai:\n• Service: Plumber\n• Time: Tue, 12 May 2026 — 09:18 PM\n• Location: G-10 Islamabad\n• Customer: Huzaifa (0300-1234567)\nReply YES to confirm.",
+            "provider_sms": "Khidmat: New booking — Plumber, G-10, Tue, 12 May 2026 — 09:18 PM. Confirm: khidmat.ai/p/KHD-2026-05-12-41UXY"
+          },
+          "calendar_ics_url": "/api/bookings/KHD-2026-05-12-41UXY/ics",
+          "system_state_changes": [
+            {
+              "type": "provider_availability",
+              "provider_id": "P1013",
+              "slot_taken": "2026-05-12T21:18:36.675061"
+            },
+            {
+              "type": "booking_created",
+              "booking_id": "KHD-2026-05-12-41UXY"
+            },
+            {
+              "type": "user_history",
+              "user_id": "U001",
+              "added": "KHD-2026-05-12-41UXY"
+            }
+          ],
+          "action_log": [
+            {
+              "step": 1,
+              "action": "generate_booking_id",
+              "result": "KHD-2026-05-12-41UXY",
+              "ts": "2026-05-12T20:48:36.678593"
+            },
+            {
+              "step": 2,
+              "action": "reserve_slot",
+              "result": "success",
+              "ts": "2026-05-12T20:48:36.678593"
+            },
+            {
+              "step": 3,
+              "action": "create_booking_record",
+              "result": "stored",
+              "ts": "2026-05-12T20:48:36.678593"
+            },
+            {
+              "step": 4,
+              "action": "generate_receipt",
+              "result": "RCP-QBF9D038",
+              "ts": "2026-05-12T20:48:36.678593"
+            },
+            {
+              "step": 5,
+              "action": "draft_user_notification",
+              "result": "ready",
+              "ts": "2026-05-12T20:48:36.678593"
+            },
+            {
+              "step": 6,
+              "action": "draft_provider_notification",
+              "result": "ready",
+              "ts": "2026-05-12T20:48:36.678593"
+            },
+            {
+              "step": 7,
+              "action": "generate_ics_calendar",
+              "result": "ready",
+              "ts": "2026-05-12T20:48:36.678593"
+            },
+            {
+              "step": 8,
+              "action": "update_system_state",
+              "result": "applied",
+              "ts": "2026-05-12T20:48:36.678593"
+            }
+          ],
+          "calendar_ics": "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Khidmat AI//EN\nBEGIN:VEVENT\nUID:KHD-2026-05-12-41UXY@khidmat.ai\nDTSTAMP:20260512T204836Z\nDTSTART:20260512T211836.675061\nDTEND:20260512T224836.675061\nSUMMARY:Khidmat AI — Moin Plumbing Services\nLOCATION:G-10, islamabad\nDESCRIPTION:Booking ID: KHD-2026-05-12-41UXY\\nService: plumber\nEND:VEVENT\nEND:VCALENDAR"
+        },
+        "followup_plan": {
+          "booking_id": "KHD-2026-05-12-41UXY",
+          "follow_up_plan_id": "FLP-4O91AN",
+          "language": "roman_urdu",
+          "events": [
+            {
+              "event_id": "FE-SVGDIB",
+              "trigger_at": "2026-05-11T21:18:36.675061",
+              "type": "reminder_24h",
+              "channel": "sms",
+              "audience": "user",
+              "message_ur": "Kal aap ki Plumber appointment hai Moin Plumbing Services ke saath 09:18 PM baje G-10 par. Confirm karne ke liye reply karein YES.",
+              "message_en": "Reminder: Tomorrow's Plumber appointment with Moin Plumbing Services at 09:18 PM in G-10. Reply YES to confirm.",
+              "auto_send": true,
+              "expected_response": "confirmation"
+            },
+            {
+              "event_id": "FE-XWTI8L",
+              "trigger_at": "2026-05-12T19:18:36.675061",
+              "type": "provider_status_check",
+              "channel": "whatsapp",
+              "audience": "provider",
+              "message_ur": "Bhai aap ka Plumber appointment 2 ghante mein hai G-10 par. Aap on the way honge?",
+              "message_en": "Reminder: Plumber appointment in 2 hours at G-10. Confirm you're prepared.",
+              "auto_send": true,
+              "expected_response": "confirmation_or_eta"
+            },
+            {
+              "event_id": "FE-3N1UDH",
+              "trigger_at": "2026-05-12T20:48:36.675061",
+              "type": "user_eta_update",
+              "channel": "push",
+              "audience": "user",
+              "message_ur": "Moin Plumbing Services aap ke ghar ki taraf rawana ho rahe hain. ETA 30 min.",
+              "message_en": "Moin Plumbing Services is on the way. ETA 30 min.",
+              "auto_send": true
+            },
+            {
+              "event_id": "FE-8Z4TA6",
+              "trigger_at": "2026-05-12T21:48:36.675061",
+              "type": "service_progress_check",
+              "channel": "in_app",
+              "audience": "user",
+              "message_ur": "Kya service shuru ho gayi hai? Reply: 1=Haan shuru hui, 2=Provider nahi aaya, 3=Koi issue hai",
+              "message_en": "Has the service started? Reply: 1=Yes started, 2=Provider not arrived, 3=Issue",
+              "auto_send": true,
+              "expected_response": "1|2|3"
+            },
+            {
+              "event_id": "FE-ZKNA72",
+              "trigger_at": "2026-05-12T22:48:36.675061",
+              "type": "completion_check",
+              "channel": "in_app",
+              "audience": "user",
+              "message_ur": "Aap ki service complete ho gayi? Reply: 1=Mukammal, 2=Abhi nahi, 3=Koi issue hai",
+              "message_en": "Service complete? Reply: 1=Complete, 2=Not yet, 3=Issue",
+              "auto_send": true,
+              "expected_response": "1|2|3"
+            },
+            {
+              "event_id": "FE-3PKD3L",
+              "trigger_at": "2026-05-12T23:03:36.675061",
+              "type": "rating_prompt",
+              "channel": "push",
+              "audience": "user",
+              "message_ur": "Please Moin Plumbing Services ko rate karein (1-5 stars) aur 1 line feedback dein.",
+              "message_en": "Please rate Moin Plumbing Services (1-5 stars) and share a one-line feedback.",
+              "auto_send": true
+            },
+            {
+              "event_id": "FE-MK4GO4",
+              "trigger_at": "2026-05-13T22:48:36.675061",
+              "type": "rebooking_prompt",
+              "channel": "in_app",
+              "audience": "user",
+              "message_ur": "Aap ki service achhi rahi! Aglay visit ki schedule karein?",
+              "message_en": "Glad your service went well! Schedule your next visit?",
+              "auto_send": false
+            }
+          ],
+          "branching_rules": [
+            {
+              "if_response": "1",
+              "on_event_type": "service_progress_check",
+              "then": "mark_in_progress"
+            },
+            {
+              "if_response": "2",
+              "on_event_type": "service_progress_check",
+              "then": "escalate_to_provider"
+            },
+            {
+              "if_response": "3",
+              "on_event_type": "service_progress_check",
+              "then": "escalate_to_support"
+            },
+            {
+              "if_response": "1",
+              "on_event_type": "completion_check",
+              "then": "mark_complete"
+            },
+            {
+              "if_response": "3",
+              "on_event_type": "completion_check",
+              "then": "escalate_to_support"
+            }
+          ],
+          "issue_detection_keywords": [
+            "nahi aaya",
+            "didn't come",
+            "problem",
+            "complaint",
+            "refund",
+            "shikayat"
+          ],
+          "completion_estimated_at": "2026-05-12T22:48:36.675061",
+          "total_events_scheduled": 7,
+          "reasoning": "Generated standard service follow-up for plumber with 7 touchpoints; included escalation rules for no-show and issues; language: roman_urdu."
+        },
+        "trace": {
+          "trace_id": "TRC-2026-05-12-LTYY",
+          "workflow_id": "khidmat_main_orchestration_v1",
+          "started_at": "2026-05-12T20:48:36.675061",
+          "user_input": "Ghar mein pani bhar gaya hai, foran plumber bhejo G-10 mein",
+          "user_id": "U001",
+          "steps": [
+            {
+              "step": 1,
+              "agent": "intent_parser",
+              "started_at": "2026-05-12T20:48:36.675061",
+              "duration_ms": 0,
+              "engine": "rule_based",
+              "tool_calls": [
+                {
+                  "tool": "get_service_catalog",
+                  "result": "20 categories loaded"
+                },
+                {
+                  "tool": "get_city_catalog",
+                  "result": "4 cities loaded"
+                },
+                {
+                  "tool": "detect_language",
+                  "result": "roman_urdu"
+                }
+              ],
+              "output": {
+                "language_detected": "roman_urdu",
+                "service_category_id": "plumber",
+                "service_category_confidence": 0.95,
+                "raw_service_phrase": "plumber",
+                "location": {
+                  "city": "islamabad",
+                  "sector": "G-10",
+                  "raw_phrase": "G-10",
+                  "confidence": 0.98
+                },
+                "time": {
+                  "preference": "now",
+                  "specific_iso": "2026-05-12T21:18:36.675061",
+                  "raw_phrase": "abhi/now"
+                },
+                "urgency": "emergency",
+                "urgency_signals": [
+                  "foran",
+                  "ghar mein pani",
+                  "pani bhar gaya"
+                ],
+                "constraints": {
+                  "max_budget_pkr": null,
+                  "gender_preference": "any",
+                  "language_preference": []
+                },
+                "missing_info": [],
+                "clarification_question_ur": null,
+                "clarification_question_en": null,
+                "reasoning": "Identified service as plumber (confidence 0.95). Location parsed: G-10, islamabad. Time preference: now (abhi/now). Urgency: emergency (signals: ['foran', 'ghar mein pani', 'pani bhar gaya']).",
+                "_engine": "rule_based"
+              },
+              "reasoning_text": "Identified service as plumber (confidence 0.95). Location parsed: G-10, islamabad. Time preference: now (abhi/now). Urgency: emergency (signals: ['foran', 'ghar mein pani', 'pani bhar gaya'])."
+            },
+            {
+              "step": 2,
+              "agent": "provider_discovery",
+              "started_at": "2026-05-12T20:48:36.675061",
+              "duration_ms": 0,
+              "tool_calls": [
+                {
+                  "tool": "find_providers_by_category_and_city",
+                  "args": {
+                    "category_id": "plumber",
+                    "city_id": "islamabad"
+                  },
+                  "result": "2 matched"
+                },
+                {
+                  "tool": "compute_distance",
+                  "result": "2 candidates with distance"
+                }
+              ],
+              "output": {
+                "total_matched": 2,
+                "candidates_ids": [
+                  "P1013",
+                  "P1014"
+                ],
+                "filtered_out_count": 2,
+                "filtered_out_sample": [
+                  {
+                    "provider_id": "P1049",
+                    "reason": "availability: available_tomorrow, incompatible with now"
+                  },
+                  {
+                    "provider_id": "P1054",
+                    "reason": "not emergency_24x7"
+                  }
+                ]
+              },
+              "reasoning_text": "Found 2 primary + 2 secondary providers for plumber in islamabad. Filtered 2 due to constraints. Sorted by proximity to G-10. Top 2 returned."
+            },
+            {
+              "step": 3,
+              "agent": "crisis_specialist",
+              "started_at": "2026-05-12T20:48:36.675061",
+              "duration_ms": 0,
+              "mode": "A_crisis",
+              "tool_calls": [
+                {
+                  "tool": "fetch_weather",
+                  "args": {
+                    "city": "islamabad"
+                  },
+                  "result": {
+                    "city": "islamabad",
+                    "time": "2026-05-12T20:48:36.675061",
+                    "condition": "Heavy Rain",
+                    "temp_c": 24,
+                    "rainfall_mm": 38,
+                    "wind_kmph": 22,
+                    "alert": "Flash flood alert active"
+                  }
+                },
+                {
+                  "tool": "fetch_traffic_density",
+                  "args": {
+                    "sector": "G-10"
+                  },
+                  "result": {
+                    "sector": "G-10",
+                    "fetched_at": "2026-05-12T20:48:36.675061",
+                    "density": "very_high",
+                    "delta_percent_vs_normal": 320,
+                    "incidents": [
+                      "water_logging"
+                    ]
+                  }
+                },
+                {
+                  "tool": "fetch_recent_emergency_reports",
+                  "args": {
+                    "sector": "G-10",
+                    "hours": 2
+                  },
+                  "result": {
+                    "cluster_detected": true,
+                    "count": 3
+                  }
+                }
+              ],
+              "output": {
+                "crisis_assessment": {
+                  "type": "urban_flooding",
+                  "confidence": 1.0,
+                  "area_wide": true,
+                  "severity": "critical",
+                  "evidence": [
+                    "User keywords: ['foran', 'ghar mein pani', 'pani bhar gaya', 'plumber']",
+                    "Weather alert: Flash flood alert active, rainfall 38mm",
+                    "Traffic +320% vs normal",
+                    "3 similar reports in last 2 hours in this sector"
+                  ]
+                },
+                "dispatch_plan": {
+                  "primary_providers": [
+                    {
+                      "provider_id": "P1013",
+                      "business_name": "Moin Plumbing Services",
+                      "role": "plumber",
+                      "eta_minutes": 41
+                    },
+                    {
+                      "provider_id": "P1014",
+                      "business_name": "Kamran Plumbing Co.",
+                      "role": "plumber",
+                      "eta_minutes": 74
+                    }
+                  ],
+                  "secondary_providers": [],
+                  "total_dispatched": 2,
+                  "redundancy": true
+                },
+                "pricing": {
+                  "emergency_surcharge_multiplier": 2.0,
+                  "estimated_cost_pkr": "PKR 3000-12000",
+                  "surcharge_reason": "Emergency response (critical severity), priority dispatch, weather/traffic conditions considered"
+                },
+                "area_alert": {
+                  "broadcast": true,
+                  "audience_estimated": 540,
+                  "message_ur": "⚠️ G-10 mein flooding report hui hai. Apni gaariyan zameen pe na chorein. Bijli ke connections check karein.",
+                  "message_en": "⚠️ Flooding reported in G-10. Move vehicles to higher ground. Check electrical connections."
+                },
+                "emergency_ticket": {
+                  "priority": "P0",
+                  "status": "dispatched",
+                  "escalated_to_authority": true,
+                  "escalation_recommended": "If situation worsens, recommend dispatch to ICT Emergency Services (1122)"
+                },
+                "outcome_projection": {
+                  "before": "User stranded, urban_flooding situation, no help dispatched",
+                  "after": "2 providers en-route, area alert broadcasted, emergency ticket logged",
+                  "metrics": {
+                    "response_time_minutes": 41,
+                    "vs_baseline_minutes": 90,
+                    "improvement_percent": 54
+                  }
+                }
+              },
+              "reasoning_text": "Crisis type: urban_flooding, severity: critical, confidence: 1.0"
+            },
+            {
+              "step": 3.5,
+              "agent": "crisis_specialist",
+              "action": "broadcast_area_alert",
+              "output": {
+                "city": "islamabad",
+                "sector": "G-10",
+                "message_ur": "⚠️ G-10 mein flooding report hui hai. Apni gaariyan zameen pe na chorein. Bijli ke connections check karein.",
+                "message_en": "⚠️ Flooding reported in G-10. Move vehicles to higher ground. Check electrical connections.",
+                "audience_estimated": 540,
+                "broadcast_at": "2026-05-12T20:48:36.675061",
+                "status": "broadcast_simulated"
+              }
+            },
+            {
+              "step": 3.6,
+              "agent": "crisis_specialist",
+              "action": "create_emergency_ticket",
+              "output": {
+                "ticket_id": "EMG-2026-05-12-709",
+                "priority": "P0",
+                "status": "dispatched",
+                "type": "urban_flooding",
+                "city": "islamabad",
+                "sector": "G-10",
+                "created_at": "2026-05-12T20:48:36.675061",
+                "evidence": [
+                  "User keywords: ['foran', 'ghar mein pani', 'pani bhar gaya', 'plumber']",
+                  "Weather alert: Flash flood alert active, rainfall 38mm",
+                  "Traffic +320% vs normal",
+                  "3 similar reports in last 2 hours in this sector"
+                ],
+                "providers_dispatched": [
+                  "P1013",
+                  "P1014"
+                ],
+                "escalated_to_authority": true,
+                "escalation_recommended": "If situation worsens, recommend dispatch to ICT Emergency Services (1122)"
+              }
+            },
+            {
+              "step": 4,
+              "agent": "ranking_reasoning",
+              "started_at": "2026-05-12T20:48:36.675061",
+              "duration_ms": 0,
+              "tool_calls": [
+                {
+                  "tool": "compute_score",
+                  "args": {
+                    "urgency": "emergency",
+                    "weights_used": "emergency"
+                  },
+                  "calls": 2
+                }
+              ],
+              "output": {
+                "top_3_ids": [
+                  "P1013",
+                  "P1014"
+                ],
+                "decision_summary_en": "Selected Moin Plumbing Services as top recommendation — Best match because only 3.8 km away in I-9, rated 3.7★ with 117 reviews, available right now, 90% completion rate, verified provider.",
+                "decision_summary_ur": "Moin Plumbing Services ko top choice diya hai — Sab se behtareen choice kyunke sirf 3.8 km door I-9 mein, 3.7★ rating aur 117 reviews, abhi available hai, 90% kaam complete karte hain, verified hain."
+              },
+              "reasoning_text": "Selected Moin Plumbing Services as top recommendation — Best match because only 3.8 km away in I-9, rated 3.7★ with 117 reviews, available right now, 90% completion rate, verified provider."
+            },
+            {
+              "step": 5,
+              "agent": "booking_executor",
+              "started_at": "2026-05-12T20:48:36.678593",
+              "duration_ms": 0,
+              "tool_calls": [
+                {
+                  "tool": "generate_booking_id",
+                  "result": "KHD-2026-05-12-41UXY"
+                },
+                {
+                  "tool": "reserve_slot",
+                  "args": {
+                    "provider_id": "P1013",
+                    "slot_iso": "2026-05-12T21:18:36.675061"
+                  },
+                  "result": "success"
+                },
+                {
+                  "tool": "create_booking_record",
+                  "result": "stored"
+                },
+                {
+                  "tool": "generate_receipt",
+                  "result": "RCP-QBF9D038"
+                },
+                {
+                  "tool": "draft_user_notification",
+                  "result": "ready"
+                },
+                {
+                  "tool": "draft_provider_notification",
+                  "result": "ready"
+                },
+                {
+                  "tool": "generate_ics_calendar",
+                  "result": "ready"
+                },
+                {
+                  "tool": "update_system_state",
+                  "result": "3 changes applied"
+                }
+              ],
+              "output": {
+                "booking_id": "KHD-2026-05-12-41UXY",
+                "receipt_id": "RCP-QBF9D038",
+                "scheduled_for": "2026-05-12T21:18:36.675061",
+                "state_changes": [
+                  {
+                    "type": "provider_availability",
+                    "provider_id": "P1013",
+                    "slot_taken": "2026-05-12T21:18:36.675061"
+                  },
+                  {
+                    "type": "booking_created",
+                    "booking_id": "KHD-2026-05-12-41UXY"
+                  },
+                  {
+                    "type": "user_history",
+                    "user_id": "U001",
+                    "added": "KHD-2026-05-12-41UXY"
+                  }
+                ]
+              },
+              "reasoning_text": "Booking executed end-to-end with 8 tool calls. Slot reserved at 2026-05-12T21:18:36.675061. Notifications drafted for user and provider."
+            },
+            {
+              "step": 6,
+              "agent": "followup_automator",
+              "started_at": "2026-05-12T20:48:36.678593",
+              "duration_ms": 0,
+              "tool_calls": [
+                {
+                  "tool": "schedule_event",
+                  "calls": 7
+                },
+                {
+                  "tool": "register_branching_rule",
+                  "calls": 5
+                }
+              ],
+              "output": {
+                "follow_up_plan_id": "FLP-4O91AN",
+                "total_events_scheduled": 7,
+                "completion_estimated_at": "2026-05-12T22:48:36.675061"
+              },
+              "reasoning_text": "Generated standard service follow-up for plumber with 7 touchpoints; included escalation rules for no-show and issues; language: roman_urdu."
+            }
+          ],
+          "completed_at": "2026-05-12T20:48:36.678593",
+          "duration_ms": 0,
+          "final_state": {
+            "status": "confirmed_with_followup_scheduled",
+            "booking_id": "KHD-2026-05-12-41UXY",
+            "follow_up_plan_id": "FLP-4O91AN"
+          }
+        }
+      }
+    },
+    {
+      "scenario_name": "incomplete_clarification",
+      "input": "AC theek karwana hai",
+      "parse_response": {
+        "trace_id": "TRC-2026-05-12-BHV3",
+        "intent": {
+          "language_detected": "roman_urdu",
+          "service_category_id": null,
+          "service_category_confidence": 0.0,
+          "raw_service_phrase": "",
+          "location": {
+            "city": null,
+            "sector": null,
+            "raw_phrase": "",
+            "confidence": 0.0
+          },
+          "time": {
+            "preference": "flexible",
+            "specific_iso": null,
+            "raw_phrase": ""
+          },
+          "urgency": "normal",
+          "urgency_signals": [],
+          "constraints": {
+            "max_budget_pkr": null,
+            "gender_preference": "any",
+            "language_preference": []
+          },
+          "missing_info": [
+            "service_category",
+            "city",
+            "sector"
+          ],
+          "clarification_question_ur": "Aap ka service aur location batayein? Kis sector mein hain aur kya service chahiye?",
+          "clarification_question_en": "Please share your service and location. Which sector and what service?",
+          "reasoning": "Parsed with rule-based engine.",
+          "_engine": "rule_based"
+        },
+        "needs_clarification": true,
+        "trace": {
+          "trace_id": "TRC-2026-05-12-BHV3",
+          "workflow_id": "khidmat_main_orchestration_v1",
+          "started_at": "2026-05-12T20:48:36.695644",
+          "user_input": "AC theek karwana hai",
+          "user_id": "U001",
+          "steps": [
+            {
+              "step": 1,
+              "agent": "intent_parser",
+              "started_at": "2026-05-12T20:48:36.695644",
+              "duration_ms": 2,
+              "engine": "rule_based",
+              "tool_calls": [
+                {
+                  "tool": "get_service_catalog",
+                  "result": "20 categories loaded"
+                },
+                {
+                  "tool": "get_city_catalog",
+                  "result": "4 cities loaded"
+                },
+                {
+                  "tool": "detect_language",
+                  "result": "roman_urdu"
+                }
+              ],
+              "output": {
+                "language_detected": "roman_urdu",
+                "service_category_id": null,
+                "service_category_confidence": 0.0,
+                "raw_service_phrase": "",
+                "location": {
+                  "city": null,
+                  "sector": null,
+                  "raw_phrase": "",
+                  "confidence": 0.0
+                },
+                "time": {
+                  "preference": "flexible",
+                  "specific_iso": null,
+                  "raw_phrase": ""
+                },
+                "urgency": "normal",
+                "urgency_signals": [],
+                "constraints": {
+                  "max_budget_pkr": null,
+                  "gender_preference": "any",
+                  "language_preference": []
+                },
+                "missing_info": [
+                  "service_category",
+                  "city",
+                  "sector"
+                ],
+                "clarification_question_ur": "Aap ka service aur location batayein? Kis sector mein hain aur kya service chahiye?",
+                "clarification_question_en": "Please share your service and location. Which sector and what service?",
+                "reasoning": "Parsed with rule-based engine.",
+                "_engine": "rule_based"
+              },
+              "reasoning_text": "Parsed with rule-based engine."
+            }
+          ],
+          "completed_at": "2026-05-12T20:48:36.698163",
+          "final_state": {
+            "status": "awaiting_clarification",
+            "clarification": {
+              "ur": "Aap ka service aur location batayein? Kis sector mein hain aur kya service chahiye?",
+              "en": "Please share your service and location. Which sector and what service?"
+            }
+          }
+        }
+      }
+    },
+    {
+      "scenario_name": "english_tutor_request",
+      "input": "I need a math tutor for O-Levels in F-10 Islamabad",
+      "parse_response": {
+        "trace_id": "TRC-2026-05-12-I5M1",
+        "intent": {
+          "language_detected": "english",
+          "service_category_id": "tutor",
+          "service_category_confidence": 0.95,
+          "raw_service_phrase": "math tutor",
+          "location": {
+            "city": "islamabad",
+            "sector": "F-10",
+            "raw_phrase": "F-10",
+            "confidence": 0.98
+          },
+          "time": {
+            "preference": "flexible",
+            "specific_iso": null,
+            "raw_phrase": ""
+          },
+          "urgency": "normal",
+          "urgency_signals": [],
+          "constraints": {
+            "max_budget_pkr": null,
+            "gender_preference": "any",
+            "language_preference": []
+          },
+          "missing_info": [],
+          "clarification_question_ur": null,
+          "clarification_question_en": null,
+          "reasoning": "Identified service as tutor (confidence 0.95). Location parsed: F-10, islamabad.",
+          "_engine": "rule_based"
+        },
+        "crisis": null,
+        "discovery_summary": {
+          "total_matched": 1,
+          "filtered_out_count": 0
+        },
+        "ranking": {
+          "top_3": [
+            {
+              "rank": 1,
+              "provider_id": "P1060",
+              "provider": {
+                "name": "Nasir Hussain",
+                "business_name": "Nasir Tuition Center",
+                "rating": 4.9,
+                "reviews_count": 186,
+                "phone": "0302-2264218",
+                "profile_image": "https://i.pravatar.cc/300?u=P1060",
+                "sector": "Bahria Town",
+                "city": "Islamabad",
+                "price_range": "PKR 4515-28012",
+                "experience_years": 12,
+                "languages": [
+                  "Urdu",
+                  "Pashto"
+                ],
+                "completion_rate_percent": 88,
+                "avg_response_minutes": 28,
+                "verified": true,
+                "emergency_24x7": false,
+                "availability": "busy_until_evening",
+                "description": "Quranic studies, English language coaching, and IELTS/SAT preparation.",
+                "location": {
+                  "lat": 33.51884323732804,
+                  "lng": 73.08296397653861
+                }
+              },
+              "distance_km": 20.7,
+              "final_score": 0.548,
+              "score_breakdown": {
+                "distance": 0.0,
+                "rating": 0.95,
+                "reviews": 0.757,
+                "verified": 1.0,
+                "availability": 0.4,
+                "completion": 0.4,
+                "response_time": 0.689
+              },
+              "reasoning_en": "Good available option — only 20.7 km away in Bahria Town, rated 4.9★ with 186 reviews, 88% completion rate, verified provider.",
+              "reasoning_ur": "Achhi available choice — sirf 20.7 km door Bahria Town mein, 4.9★ rating aur 186 reviews, 88% kaam complete karte hain, verified hain.",
+              "tradeoffs": [],
+              "highlight_badges": [
+                "Closest",
+                "Top Rated",
+                "Verified",
+                "Most Experienced"
+              ]
+            }
+          ],
+          "decision_summary_en": "Selected Nasir Tuition Center as top recommendation — Good available option — only 20.7 km away in Bahria Town, rated 4.9★ with 186 reviews, 88% completion rate, verified provider.",
+          "decision_summary_ur": "Nasir Tuition Center ko top choice diya hai — Achhi available choice — sirf 20.7 km door Bahria Town mein, 4.9★ rating aur 186 reviews, 88% kaam complete karte hain, verified hain.",
+          "alternative_consideration": "",
+          "weights_used_urgency": "normal"
+        },
+        "trace": {
+          "trace_id": "TRC-2026-05-12-I5M1",
+          "workflow_id": "khidmat_main_orchestration_v1",
+          "started_at": "2026-05-12T20:48:36.706364",
+          "user_input": "I need a math tutor for O-Levels in F-10 Islamabad",
+          "user_id": "U001",
+          "steps": [
+            {
+              "step": 1,
+              "agent": "intent_parser",
+              "started_at": "2026-05-12T20:48:36.706364",
+              "duration_ms": 0,
+              "engine": "rule_based",
+              "tool_calls": [
+                {
+                  "tool": "get_service_catalog",
+                  "result": "20 categories loaded"
+                },
+                {
+                  "tool": "get_city_catalog",
+                  "result": "4 cities loaded"
+                },
+                {
+                  "tool": "detect_language",
+                  "result": "english"
+                }
+              ],
+              "output": {
+                "language_detected": "english",
+                "service_category_id": "tutor",
+                "service_category_confidence": 0.95,
+                "raw_service_phrase": "math tutor",
+                "location": {
+                  "city": "islamabad",
+                  "sector": "F-10",
+                  "raw_phrase": "F-10",
+                  "confidence": 0.98
+                },
+                "time": {
+                  "preference": "flexible",
+                  "specific_iso": null,
+                  "raw_phrase": ""
+                },
+                "urgency": "normal",
+                "urgency_signals": [],
+                "constraints": {
+                  "max_budget_pkr": null,
+                  "gender_preference": "any",
+                  "language_preference": []
+                },
+                "missing_info": [],
+                "clarification_question_ur": null,
+                "clarification_question_en": null,
+                "reasoning": "Identified service as tutor (confidence 0.95). Location parsed: F-10, islamabad.",
+                "_engine": "rule_based"
+              },
+              "reasoning_text": "Identified service as tutor (confidence 0.95). Location parsed: F-10, islamabad."
+            },
+            {
+              "step": 2,
+              "agent": "provider_discovery",
+              "started_at": "2026-05-12T20:48:36.706364",
+              "duration_ms": 0,
+              "tool_calls": [
+                {
+                  "tool": "find_providers_by_category_and_city",
+                  "args": {
+                    "category_id": "tutor",
+                    "city_id": "islamabad"
+                  },
+                  "result": "1 matched"
+                },
+                {
+                  "tool": "compute_distance",
+                  "result": "1 candidates with distance"
+                }
+              ],
+              "output": {
+                "total_matched": 1,
+                "candidates_ids": [
+                  "P1060"
+                ],
+                "filtered_out_count": 0,
+                "filtered_out_sample": []
+              },
+              "reasoning_text": "Found 1 primary + 0 secondary providers for tutor in islamabad. Filtered 0 due to constraints. Sorted by proximity to F-10. Top 1 returned."
+            },
+            {
+              "step": 4,
+              "agent": "ranking_reasoning",
+              "started_at": "2026-05-12T20:48:36.706364",
+              "duration_ms": 0,
+              "tool_calls": [
+                {
+                  "tool": "compute_score",
+                  "args": {
+                    "urgency": "normal",
+                    "weights_used": "normal"
+                  },
+                  "calls": 1
+                }
+              ],
+              "output": {
+                "top_3_ids": [
+                  "P1060"
+                ],
+                "decision_summary_en": "Selected Nasir Tuition Center as top recommendation — Good available option — only 20.7 km away in Bahria Town, rated 4.9★ with 186 reviews, 88% completion rate, verified provider.",
+                "decision_summary_ur": "Nasir Tuition Center ko top choice diya hai — Achhi available choice — sirf 20.7 km door Bahria Town mein, 4.9★ rating aur 186 reviews, 88% kaam complete karte hain, verified hain."
+              },
+              "reasoning_text": "Selected Nasir Tuition Center as top recommendation — Good available option — only 20.7 km away in Bahria Town, rated 4.9★ with 186 reviews, 88% completion rate, verified provider."
+            }
+          ],
+          "completed_at": "2026-05-12T20:48:36.706364",
+          "duration_ms": 0,
+          "final_state": {
+            "status": "awaiting_user_choice",
+            "presented_options": 1
+          }
+        }
+      },
+      "booking_response": {
+        "trace_id": "TRC-2026-05-12-I5M1",
+        "booking": {
+          "booking_id": "KHD-2026-05-12-X28G3",
+          "status": "confirmed",
+          "created_at": "2026-05-12T20:48:36.716126",
+          "scheduled_for": "2026-05-13T10:00:00",
+          "provider": {
+            "id": "P1060",
+            "name": "Nasir Hussain",
+            "business_name": "Nasir Tuition Center",
+            "phone": "0302-2264218",
+            "rating": 4.9,
+            "profile_image": "https://i.pravatar.cc/300?u=P1060"
+          },
+          "user": {
+            "id": "U001",
+            "name": "Huzaifa",
+            "phone": "0300-1234567"
+          },
+          "service": {
+            "category": "tutor",
+            "category_name_en": "Tutor",
+            "estimated_duration_minutes": 90
+          },
+          "location": {
+            "city": "islamabad",
+            "sector": "F-10",
+            "address_text": "F-10, Islamabad"
+          },
+          "pricing": {
+            "estimated_range_pkr": "PKR 4515-28012",
+            "visit_charge_pkr": 500,
+            "payment_method": "cash_on_completion"
+          },
+          "receipt": {
+            "receipt_id": "RCP-ERC7IPER",
+            "lines": [
+              {
+                "label": "Service",
+                "value": "Tutor — Diagnosis & Service"
+              },
+              {
+                "label": "Provider",
+                "value": "Nasir Tuition Center"
+              },
+              {
+                "label": "Slot",
+                "value": "Wed, 13 May 2026 — 10:00 AM"
+              },
+              {
+                "label": "Location",
+                "value": "F-10, Islamabad"
+              },
+              {
+                "label": "Visit Charge",
+                "value": "PKR 500"
+              },
+              {
+                "label": "Estimated Total",
+                "value": "PKR 4515-28012"
+              }
+            ],
+            "qr_payload": "khidmat://booking/KHD-2026-05-12-X28G3"
+          },
+          "notifications": {
+            "user_in_app": "✅ Booking Confirmed!\nNasir Tuition Center will arrive at F-10 on Wed, 13 May 2026 — 10:00 AM. Booking ID: KHD-2026-05-12-X28G3.",
+            "user_sms": "Khidmat AI: Booking confirmed with Nasir Tuition Center for Wed, 13 May 2026 — 10:00 AM at F-10. Reply CANCEL to cancel. Receipt: khidmat.ai/r/KHD-2026-05-12-X28G3",
+            "provider_whatsapp": "Assalam-o-alaikum Nasir Hussain bhai. Aap ko ek booking mili hai:\n• Service: Tutor\n• Time: Wed, 13 May 2026 — 10:00 AM\n• Location: F-10 Islamabad\n• Customer: Huzaifa (0300-1234567)\nReply YES to confirm.",
+            "provider_sms": "Khidmat: New booking — Tutor, F-10, Wed, 13 May 2026 — 10:00 AM. Confirm: khidmat.ai/p/KHD-2026-05-12-X28G3"
+          },
+          "calendar_ics_url": "/api/bookings/KHD-2026-05-12-X28G3/ics",
+          "system_state_changes": [
+            {
+              "type": "provider_availability",
+              "provider_id": "P1060",
+              "slot_taken": "2026-05-13T10:00:00"
+            },
+            {
+              "type": "booking_created",
+              "booking_id": "KHD-2026-05-12-X28G3"
+            },
+            {
+              "type": "user_history",
+              "user_id": "U001",
+              "added": "KHD-2026-05-12-X28G3"
+            }
+          ],
+          "action_log": [
+            {
+              "step": 1,
+              "action": "generate_booking_id",
+              "result": "KHD-2026-05-12-X28G3",
+              "ts": "2026-05-12T20:48:36.716126"
+            },
+            {
+              "step": 2,
+              "action": "reserve_slot",
+              "result": "success",
+              "ts": "2026-05-12T20:48:36.716126"
+            },
+            {
+              "step": 3,
+              "action": "create_booking_record",
+              "result": "stored",
+              "ts": "2026-05-12T20:48:36.716126"
+            },
+            {
+              "step": 4,
+              "action": "generate_receipt",
+              "result": "RCP-ERC7IPER",
+              "ts": "2026-05-12T20:48:36.716126"
+            },
+            {
+              "step": 5,
+              "action": "draft_user_notification",
+              "result": "ready",
+              "ts": "2026-05-12T20:48:36.716126"
+            },
+            {
+              "step": 6,
+              "action": "draft_provider_notification",
+              "result": "ready",
+              "ts": "2026-05-12T20:48:36.716126"
+            },
+            {
+              "step": 7,
+              "action": "generate_ics_calendar",
+              "result": "ready",
+              "ts": "2026-05-12T20:48:36.716126"
+            },
+            {
+              "step": 8,
+              "action": "update_system_state",
+              "result": "applied",
+              "ts": "2026-05-12T20:48:36.716126"
+            }
+          ],
+          "calendar_ics": "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Khidmat AI//EN\nBEGIN:VEVENT\nUID:KHD-2026-05-12-X28G3@khidmat.ai\nDTSTAMP:20260512T204836Z\nDTSTART:20260513T100000\nDTEND:20260513T113000\nSUMMARY:Khidmat AI — Nasir Tuition Center\nLOCATION:F-10, islamabad\nDESCRIPTION:Booking ID: KHD-2026-05-12-X28G3\\nService: tutor\nEND:VEVENT\nEND:VCALENDAR"
+        },
+        "followup_plan": {
+          "booking_id": "KHD-2026-05-12-X28G3",
+          "follow_up_plan_id": "FLP-U6GI5I",
+          "language": "english",
+          "events": [
+            {
+              "event_id": "FE-YBQCQI",
+              "trigger_at": "2026-05-12T10:00:00",
+              "type": "reminder_24h",
+              "channel": "sms",
+              "audience": "user",
+              "message_ur": "Kal aap ki Tutor appointment hai Nasir Tuition Center ke saath 10:00 AM baje F-10 par. Confirm karne ke liye reply karein YES.",
+              "message_en": "Reminder: Tomorrow's Tutor appointment with Nasir Tuition Center at 10:00 AM in F-10. Reply YES to confirm.",
+              "auto_send": true,
+              "expected_response": "confirmation"
+            },
+            {
+              "event_id": "FE-8UJ6D9",
+              "trigger_at": "2026-05-13T08:00:00",
+              "type": "provider_status_check",
+              "channel": "whatsapp",
+              "audience": "provider",
+              "message_ur": "Bhai aap ka Tutor appointment 2 ghante mein hai F-10 par. Aap on the way honge?",
+              "message_en": "Reminder: Tutor appointment in 2 hours at F-10. Confirm you're prepared.",
+              "auto_send": true,
+              "expected_response": "confirmation_or_eta"
+            },
+            {
+              "event_id": "FE-E49YQ8",
+              "trigger_at": "2026-05-13T09:30:00",
+              "type": "user_eta_update",
+              "channel": "push",
+              "audience": "user",
+              "message_ur": "Nasir Tuition Center aap ke ghar ki taraf rawana ho rahe hain. ETA 30 min.",
+              "message_en": "Nasir Tuition Center is on the way. ETA 30 min.",
+              "auto_send": true
+            },
+            {
+              "event_id": "FE-Y1V7TU",
+              "trigger_at": "2026-05-13T10:30:00",
+              "type": "service_progress_check",
+              "channel": "in_app",
+              "audience": "user",
+              "message_ur": "Kya service shuru ho gayi hai? Reply: 1=Haan shuru hui, 2=Provider nahi aaya, 3=Koi issue hai",
+              "message_en": "Has the service started? Reply: 1=Yes started, 2=Provider not arrived, 3=Issue",
+              "auto_send": true,
+              "expected_response": "1|2|3"
+            },
+            {
+              "event_id": "FE-5HT3TC",
+              "trigger_at": "2026-05-13T11:30:00",
+              "type": "completion_check",
+              "channel": "in_app",
+              "audience": "user",
+              "message_ur": "Aap ki service complete ho gayi? Reply: 1=Mukammal, 2=Abhi nahi, 3=Koi issue hai",
+              "message_en": "Service complete? Reply: 1=Complete, 2=Not yet, 3=Issue",
+              "auto_send": true,
+              "expected_response": "1|2|3"
+            },
+            {
+              "event_id": "FE-IPZVNV",
+              "trigger_at": "2026-05-13T11:45:00",
+              "type": "rating_prompt",
+              "channel": "push",
+              "audience": "user",
+              "message_ur": "Please Nasir Tuition Center ko rate karein (1-5 stars) aur 1 line feedback dein.",
+              "message_en": "Please rate Nasir Tuition Center (1-5 stars) and share a one-line feedback.",
+              "auto_send": true
+            },
+            {
+              "event_id": "FE-4XS2RL",
+              "trigger_at": "2026-05-14T11:30:00",
+              "type": "rebooking_prompt",
+              "channel": "in_app",
+              "audience": "user",
+              "message_ur": "Aap ki service achhi rahi! Aglay visit ki schedule karein?",
+              "message_en": "Glad your service went well! Schedule your next visit?",
+              "auto_send": false
+            }
+          ],
+          "branching_rules": [
+            {
+              "if_response": "1",
+              "on_event_type": "service_progress_check",
+              "then": "mark_in_progress"
+            },
+            {
+              "if_response": "2",
+              "on_event_type": "service_progress_check",
+              "then": "escalate_to_provider"
+            },
+            {
+              "if_response": "3",
+              "on_event_type": "service_progress_check",
+              "then": "escalate_to_support"
+            },
+            {
+              "if_response": "1",
+              "on_event_type": "completion_check",
+              "then": "mark_complete"
+            },
+            {
+              "if_response": "3",
+              "on_event_type": "completion_check",
+              "then": "escalate_to_support"
+            }
+          ],
+          "issue_detection_keywords": [
+            "nahi aaya",
+            "didn't come",
+            "problem",
+            "complaint",
+            "refund",
+            "shikayat"
+          ],
+          "completion_estimated_at": "2026-05-13T11:30:00",
+          "total_events_scheduled": 7,
+          "reasoning": "Generated standard service follow-up for tutor with 7 touchpoints; included escalation rules for no-show and issues; language: english."
+        },
+        "trace": {
+          "trace_id": "TRC-2026-05-12-I5M1",
+          "workflow_id": "khidmat_main_orchestration_v1",
+          "started_at": "2026-05-12T20:48:36.706364",
+          "user_input": "I need a math tutor for O-Levels in F-10 Islamabad",
+          "user_id": "U001",
+          "steps": [
+            {
+              "step": 1,
+              "agent": "intent_parser",
+              "started_at": "2026-05-12T20:48:36.706364",
+              "duration_ms": 0,
+              "engine": "rule_based",
+              "tool_calls": [
+                {
+                  "tool": "get_service_catalog",
+                  "result": "20 categories loaded"
+                },
+                {
+                  "tool": "get_city_catalog",
+                  "result": "4 cities loaded"
+                },
+                {
+                  "tool": "detect_language",
+                  "result": "english"
+                }
+              ],
+              "output": {
+                "language_detected": "english",
+                "service_category_id": "tutor",
+                "service_category_confidence": 0.95,
+                "raw_service_phrase": "math tutor",
+                "location": {
+                  "city": "islamabad",
+                  "sector": "F-10",
+                  "raw_phrase": "F-10",
+                  "confidence": 0.98
+                },
+                "time": {
+                  "preference": "flexible",
+                  "specific_iso": null,
+                  "raw_phrase": ""
+                },
+                "urgency": "normal",
+                "urgency_signals": [],
+                "constraints": {
+                  "max_budget_pkr": null,
+                  "gender_preference": "any",
+                  "language_preference": []
+                },
+                "missing_info": [],
+                "clarification_question_ur": null,
+                "clarification_question_en": null,
+                "reasoning": "Identified service as tutor (confidence 0.95). Location parsed: F-10, islamabad.",
+                "_engine": "rule_based"
+              },
+              "reasoning_text": "Identified service as tutor (confidence 0.95). Location parsed: F-10, islamabad."
+            },
+            {
+              "step": 2,
+              "agent": "provider_discovery",
+              "started_at": "2026-05-12T20:48:36.706364",
+              "duration_ms": 0,
+              "tool_calls": [
+                {
+                  "tool": "find_providers_by_category_and_city",
+                  "args": {
+                    "category_id": "tutor",
+                    "city_id": "islamabad"
+                  },
+                  "result": "1 matched"
+                },
+                {
+                  "tool": "compute_distance",
+                  "result": "1 candidates with distance"
+                }
+              ],
+              "output": {
+                "total_matched": 1,
+                "candidates_ids": [
+                  "P1060"
+                ],
+                "filtered_out_count": 0,
+                "filtered_out_sample": []
+              },
+              "reasoning_text": "Found 1 primary + 0 secondary providers for tutor in islamabad. Filtered 0 due to constraints. Sorted by proximity to F-10. Top 1 returned."
+            },
+            {
+              "step": 4,
+              "agent": "ranking_reasoning",
+              "started_at": "2026-05-12T20:48:36.706364",
+              "duration_ms": 0,
+              "tool_calls": [
+                {
+                  "tool": "compute_score",
+                  "args": {
+                    "urgency": "normal",
+                    "weights_used": "normal"
+                  },
+                  "calls": 1
+                }
+              ],
+              "output": {
+                "top_3_ids": [
+                  "P1060"
+                ],
+                "decision_summary_en": "Selected Nasir Tuition Center as top recommendation — Good available option — only 20.7 km away in Bahria Town, rated 4.9★ with 186 reviews, 88% completion rate, verified provider.",
+                "decision_summary_ur": "Nasir Tuition Center ko top choice diya hai — Achhi available choice — sirf 20.7 km door Bahria Town mein, 4.9★ rating aur 186 reviews, 88% kaam complete karte hain, verified hain."
+              },
+              "reasoning_text": "Selected Nasir Tuition Center as top recommendation — Good available option — only 20.7 km away in Bahria Town, rated 4.9★ with 186 reviews, 88% completion rate, verified provider."
+            },
+            {
+              "step": 5,
+              "agent": "booking_executor",
+              "started_at": "2026-05-12T20:48:36.713995",
+              "duration_ms": 2,
+              "tool_calls": [
+                {
+                  "tool": "generate_booking_id",
+                  "result": "KHD-2026-05-12-X28G3"
+                },
+                {
+                  "tool": "reserve_slot",
+                  "args": {
+                    "provider_id": "P1060",
+                    "slot_iso": "2026-05-13T10:00:00"
+                  },
+                  "result": "success"
+                },
+                {
+                  "tool": "create_booking_record",
+                  "result": "stored"
+                },
+                {
+                  "tool": "generate_receipt",
+                  "result": "RCP-ERC7IPER"
+                },
+                {
+                  "tool": "draft_user_notification",
+                  "result": "ready"
+                },
+                {
+                  "tool": "draft_provider_notification",
+                  "result": "ready"
+                },
+                {
+                  "tool": "generate_ics_calendar",
+                  "result": "ready"
+                },
+                {
+                  "tool": "update_system_state",
+                  "result": "3 changes applied"
+                }
+              ],
+              "output": {
+                "booking_id": "KHD-2026-05-12-X28G3",
+                "receipt_id": "RCP-ERC7IPER",
+                "scheduled_for": "2026-05-13T10:00:00",
+                "state_changes": [
+                  {
+                    "type": "provider_availability",
+                    "provider_id": "P1060",
+                    "slot_taken": "2026-05-13T10:00:00"
+                  },
+                  {
+                    "type": "booking_created",
+                    "booking_id": "KHD-2026-05-12-X28G3"
+                  },
+                  {
+                    "type": "user_history",
+                    "user_id": "U001",
+                    "added": "KHD-2026-05-12-X28G3"
+                  }
+                ]
+              },
+              "reasoning_text": "Booking executed end-to-end with 8 tool calls. Slot reserved at 2026-05-13T10:00:00. Notifications drafted for user and provider."
+            },
+            {
+              "step": 6,
+              "agent": "followup_automator",
+              "started_at": "2026-05-12T20:48:36.716126",
+              "duration_ms": 2,
+              "tool_calls": [
+                {
+                  "tool": "schedule_event",
+                  "calls": 7
+                },
+                {
+                  "tool": "register_branching_rule",
+                  "calls": 5
+                }
+              ],
+              "output": {
+                "follow_up_plan_id": "FLP-U6GI5I",
+                "total_events_scheduled": 7,
+                "completion_estimated_at": "2026-05-13T11:30:00"
+              },
+              "reasoning_text": "Generated standard service follow-up for tutor with 7 touchpoints; included escalation rules for no-show and issues; language: english."
+            }
+          ],
+          "completed_at": "2026-05-12T20:48:36.716126",
+          "duration_ms": 0,
+          "final_state": {
+            "status": "confirmed_with_followup_scheduled",
+            "booking_id": "KHD-2026-05-12-X28G3",
+            "follow_up_plan_id": "FLP-U6GI5I"
+          }
+        }
+      }
+    },
+    {
+      "scenario_name": "lahore_plumber",
+      "input": "DHA Phase 5 Lahore mein plumber chahiye abhi",
+      "parse_response": {
+        "trace_id": "TRC-2026-05-12-7N20",
+        "intent": {
+          "language_detected": "roman_urdu",
+          "service_category_id": "plumber",
+          "service_category_confidence": 0.95,
+          "raw_service_phrase": "plumber",
+          "location": {
+            "city": "karachi",
+            "sector": "DHA Phase 5",
+            "raw_phrase": "DHA Phase 5",
+            "confidence": 0.98
+          },
+          "time": {
+            "preference": "now",
+            "specific_iso": "2026-05-12T21:18:36.734664",
+            "raw_phrase": "abhi/now"
+          },
+          "urgency": "normal",
+          "urgency_signals": [],
+          "constraints": {
+            "max_budget_pkr": null,
+            "gender_preference": "any",
+            "language_preference": []
+          },
+          "missing_info": [],
+          "clarification_question_ur": null,
+          "clarification_question_en": null,
+          "reasoning": "Identified service as plumber (confidence 0.95). Location parsed: DHA Phase 5, karachi. Time preference: now (abhi/now).",
+          "_engine": "rule_based"
+        },
+        "crisis": null,
+        "discovery_summary": {
+          "total_matched": 1,
+          "filtered_out_count": 2
+        },
+        "ranking": {
+          "top_3": [
+            {
+              "rank": 1,
+              "provider_id": "P1020",
+              "provider": {
+                "name": "Pervaiz Janjua",
+                "business_name": "Pervaiz Pro Plumbers",
+                "rating": 4.1,
+                "reviews_count": 427,
+                "phone": "0333-2221854",
+                "profile_image": "https://i.pravatar.cc/300?u=P1020",
+                "sector": "Bahadurabad",
+                "city": "Karachi",
+                "price_range": "PKR 789-4060",
+                "experience_years": 8,
+                "languages": [
+                  "Urdu",
+                  "Sindhi"
+                ],
+                "completion_rate_percent": 85,
+                "avg_response_minutes": 28,
+                "verified": true,
+                "emergency_24x7": false,
+                "availability": "available_now",
+                "description": "Specialist in PPRC and UPVC piping, water tank cleaning, motor installation, and drainage solutions.",
+                "location": {
+                  "lat": 24.89651446454676,
+                  "lng": 67.07537057535346
+                }
+              },
+              "distance_km": 9.85,
+              "final_score": 0.62,
+              "score_breakdown": {
+                "distance": 0.343,
+                "rating": 0.55,
+                "reviews": 0.877,
+                "verified": 1.0,
+                "availability": 1.0,
+                "completion": 0.25,
+                "response_time": 0.689
+              },
+              "reasoning_en": "Best match because only 9.8 km away in Bahadurabad, rated 4.1★ with 427 reviews, available right now, 85% completion rate, verified provider.",
+              "reasoning_ur": "Sab se behtareen choice kyunke sirf 9.8 km door Bahadurabad mein, 4.1★ rating aur 427 reviews, abhi available hai, 85% kaam complete karte hain, verified hain.",
+              "tradeoffs": [],
+              "highlight_badges": [
+                "Closest",
+                "Verified"
+              ]
+            }
+          ],
+          "decision_summary_en": "Selected Pervaiz Pro Plumbers as top recommendation — Best match because only 9.8 km away in Bahadurabad, rated 4.1★ with 427 reviews, available right now, 85% completion rate, verified provider.",
+          "decision_summary_ur": "Pervaiz Pro Plumbers ko top choice diya hai — Sab se behtareen choice kyunke sirf 9.8 km door Bahadurabad mein, 4.1★ rating aur 427 reviews, abhi available hai, 85% kaam complete karte hain, verified hain.",
+          "alternative_consideration": "",
+          "weights_used_urgency": "normal"
+        },
+        "trace": {
+          "trace_id": "TRC-2026-05-12-7N20",
+          "workflow_id": "khidmat_main_orchestration_v1",
+          "started_at": "2026-05-12T20:48:36.734664",
+          "user_input": "DHA Phase 5 Lahore mein plumber chahiye abhi",
+          "user_id": "U001",
+          "steps": [
+            {
+              "step": 1,
+              "agent": "intent_parser",
+              "started_at": "2026-05-12T20:48:36.734664",
+              "duration_ms": 0,
+              "engine": "rule_based",
+              "tool_calls": [
+                {
+                  "tool": "get_service_catalog",
+                  "result": "20 categories loaded"
+                },
+                {
+                  "tool": "get_city_catalog",
+                  "result": "4 cities loaded"
+                },
+                {
+                  "tool": "detect_language",
+                  "result": "roman_urdu"
+                }
+              ],
+              "output": {
+                "language_detected": "roman_urdu",
+                "service_category_id": "plumber",
+                "service_category_confidence": 0.95,
+                "raw_service_phrase": "plumber",
+                "location": {
+                  "city": "karachi",
+                  "sector": "DHA Phase 5",
+                  "raw_phrase": "DHA Phase 5",
+                  "confidence": 0.98
+                },
+                "time": {
+                  "preference": "now",
+                  "specific_iso": "2026-05-12T21:18:36.734664",
+                  "raw_phrase": "abhi/now"
+                },
+                "urgency": "normal",
+                "urgency_signals": [],
+                "constraints": {
+                  "max_budget_pkr": null,
+                  "gender_preference": "any",
+                  "language_preference": []
+                },
+                "missing_info": [],
+                "clarification_question_ur": null,
+                "clarification_question_en": null,
+                "reasoning": "Identified service as plumber (confidence 0.95). Location parsed: DHA Phase 5, karachi. Time preference: now (abhi/now).",
+                "_engine": "rule_based"
+              },
+              "reasoning_text": "Identified service as plumber (confidence 0.95). Location parsed: DHA Phase 5, karachi. Time preference: now (abhi/now)."
+            },
+            {
+              "step": 2,
+              "agent": "provider_discovery",
+              "started_at": "2026-05-12T20:48:36.735940",
+              "duration_ms": 1,
+              "tool_calls": [
+                {
+                  "tool": "find_providers_by_category_and_city",
+                  "args": {
+                    "category_id": "plumber",
+                    "city_id": "karachi"
+                  },
+                  "result": "1 matched"
+                },
+                {
+                  "tool": "compute_distance",
+                  "result": "1 candidates with distance"
+                }
+              ],
+              "output": {
+                "total_matched": 1,
+                "candidates_ids": [
+                  "P1020"
+                ],
+                "filtered_out_count": 2,
+                "filtered_out_sample": [
+                  {
+                    "provider_id": "P1019",
+                    "reason": "availability: available_today, incompatible with now"
+                  },
+                  {
+                    "provider_id": "P1113",
+                    "reason": "availability: available_today, incompatible with now"
+                  }
+                ]
+              },
+              "reasoning_text": "Found 2 primary + 1 secondary providers for plumber in karachi. Filtered 2 due to constraints. Sorted by proximity to DHA Phase 5. Top 1 returned."
+            },
+            {
+              "step": 4,
+              "agent": "ranking_reasoning",
+              "started_at": "2026-05-12T20:48:36.735940",
+              "duration_ms": 1,
+              "tool_calls": [
+                {
+                  "tool": "compute_score",
+                  "args": {
+                    "urgency": "normal",
+                    "weights_used": "normal"
+                  },
+                  "calls": 1
+                }
+              ],
+              "output": {
+                "top_3_ids": [
+                  "P1020"
+                ],
+                "decision_summary_en": "Selected Pervaiz Pro Plumbers as top recommendation — Best match because only 9.8 km away in Bahadurabad, rated 4.1★ with 427 reviews, available right now, 85% completion rate, verified provider.",
+                "decision_summary_ur": "Pervaiz Pro Plumbers ko top choice diya hai — Sab se behtareen choice kyunke sirf 9.8 km door Bahadurabad mein, 4.1★ rating aur 427 reviews, abhi available hai, 85% kaam complete karte hain, verified hain."
+              },
+              "reasoning_text": "Selected Pervaiz Pro Plumbers as top recommendation — Best match because only 9.8 km away in Bahadurabad, rated 4.1★ with 427 reviews, available right now, 85% completion rate, verified provider."
+            }
+          ],
+          "completed_at": "2026-05-12T20:48:36.735940",
+          "duration_ms": 1,
+          "final_state": {
+            "status": "awaiting_user_choice",
+            "presented_options": 1
+          }
+        }
+      },
+      "booking_response": {
+        "trace_id": "TRC-2026-05-12-7N20",
+        "booking": {
+          "booking_id": "KHD-2026-05-12-866IL",
+          "status": "confirmed",
+          "created_at": "2026-05-12T20:48:36.744656",
+          "scheduled_for": "2026-05-12T21:18:36.734664",
+          "provider": {
+            "id": "P1020",
+            "name": "Pervaiz Janjua",
+            "business_name": "Pervaiz Pro Plumbers",
+            "phone": "0333-2221854",
+            "rating": 4.1,
+            "profile_image": "https://i.pravatar.cc/300?u=P1020"
+          },
+          "user": {
+            "id": "U001",
+            "name": "Huzaifa",
+            "phone": "0300-1234567"
+          },
+          "service": {
+            "category": "plumber",
+            "category_name_en": "Plumber",
+            "estimated_duration_minutes": 90
+          },
+          "location": {
+            "city": "karachi",
+            "sector": "DHA Phase 5",
+            "address_text": "DHA Phase 5, Karachi"
+          },
+          "pricing": {
+            "estimated_range_pkr": "PKR 789-4060",
+            "visit_charge_pkr": 500,
+            "payment_method": "cash_on_completion"
+          },
+          "receipt": {
+            "receipt_id": "RCP-NLP6TASN",
+            "lines": [
+              {
+                "label": "Service",
+                "value": "Plumber — Diagnosis & Service"
+              },
+              {
+                "label": "Provider",
+                "value": "Pervaiz Pro Plumbers"
+              },
+              {
+                "label": "Slot",
+                "value": "Tue, 12 May 2026 — 09:18 PM"
+              },
+              {
+                "label": "Location",
+                "value": "DHA Phase 5, Karachi"
+              },
+              {
+                "label": "Visit Charge",
+                "value": "PKR 500"
+              },
+              {
+                "label": "Estimated Total",
+                "value": "PKR 789-4060"
+              }
+            ],
+            "qr_payload": "khidmat://booking/KHD-2026-05-12-866IL"
+          },
+          "notifications": {
+            "user_in_app": "✅ Booking Confirmed!\nPervaiz Pro Plumbers will arrive at DHA Phase 5 on Tue, 12 May 2026 — 09:18 PM. Booking ID: KHD-2026-05-12-866IL.",
+            "user_sms": "Khidmat AI: Booking confirmed with Pervaiz Pro Plumbers for Tue, 12 May 2026 — 09:18 PM at DHA Phase 5. Reply CANCEL to cancel. Receipt: khidmat.ai/r/KHD-2026-05-12-866IL",
+            "provider_whatsapp": "Assalam-o-alaikum Pervaiz Janjua bhai. Aap ko ek booking mili hai:\n• Service: Plumber\n• Time: Tue, 12 May 2026 — 09:18 PM\n• Location: DHA Phase 5 Karachi\n• Customer: Huzaifa (0300-1234567)\nReply YES to confirm.",
+            "provider_sms": "Khidmat: New booking — Plumber, DHA Phase 5, Tue, 12 May 2026 — 09:18 PM. Confirm: khidmat.ai/p/KHD-2026-05-12-866IL"
+          },
+          "calendar_ics_url": "/api/bookings/KHD-2026-05-12-866IL/ics",
+          "system_state_changes": [
+            {
+              "type": "provider_availability",
+              "provider_id": "P1020",
+              "slot_taken": "2026-05-12T21:18:36.734664"
+            },
+            {
+              "type": "booking_created",
+              "booking_id": "KHD-2026-05-12-866IL"
+            },
+            {
+              "type": "user_history",
+              "user_id": "U001",
+              "added": "KHD-2026-05-12-866IL"
+            }
+          ],
+          "action_log": [
+            {
+              "step": 1,
+              "action": "generate_booking_id",
+              "result": "KHD-2026-05-12-866IL",
+              "ts": "2026-05-12T20:48:36.744656"
+            },
+            {
+              "step": 2,
+              "action": "reserve_slot",
+              "result": "success",
+              "ts": "2026-05-12T20:48:36.744656"
+            },
+            {
+              "step": 3,
+              "action": "create_booking_record",
+              "result": "stored",
+              "ts": "2026-05-12T20:48:36.744656"
+            },
+            {
+              "step": 4,
+              "action": "generate_receipt",
+              "result": "RCP-NLP6TASN",
+              "ts": "2026-05-12T20:48:36.744656"
+            },
+            {
+              "step": 5,
+              "action": "draft_user_notification",
+              "result": "ready",
+              "ts": "2026-05-12T20:48:36.744656"
+            },
+            {
+              "step": 6,
+              "action": "draft_provider_notification",
+              "result": "ready",
+              "ts": "2026-05-12T20:48:36.744656"
+            },
+            {
+              "step": 7,
+              "action": "generate_ics_calendar",
+              "result": "ready",
+              "ts": "2026-05-12T20:48:36.744656"
+            },
+            {
+              "step": 8,
+              "action": "update_system_state",
+              "result": "applied",
+              "ts": "2026-05-12T20:48:36.744656"
+            }
+          ],
+          "calendar_ics": "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Khidmat AI//EN\nBEGIN:VEVENT\nUID:KHD-2026-05-12-866IL@khidmat.ai\nDTSTAMP:20260512T204836Z\nDTSTART:20260512T211836.734664\nDTEND:20260512T224836.734664\nSUMMARY:Khidmat AI — Pervaiz Pro Plumbers\nLOCATION:DHA Phase 5, karachi\nDESCRIPTION:Booking ID: KHD-2026-05-12-866IL\\nService: plumber\nEND:VEVENT\nEND:VCALENDAR"
+        },
+        "followup_plan": {
+          "booking_id": "KHD-2026-05-12-866IL",
+          "follow_up_plan_id": "FLP-4SO227",
+          "language": "roman_urdu",
+          "events": [
+            {
+              "event_id": "FE-M5AZNR",
+              "trigger_at": "2026-05-11T21:18:36.734664",
+              "type": "reminder_24h",
+              "channel": "sms",
+              "audience": "user",
+              "message_ur": "Kal aap ki Plumber appointment hai Pervaiz Pro Plumbers ke saath 09:18 PM baje DHA Phase 5 par. Confirm karne ke liye reply karein YES.",
+              "message_en": "Reminder: Tomorrow's Plumber appointment with Pervaiz Pro Plumbers at 09:18 PM in DHA Phase 5. Reply YES to confirm.",
+              "auto_send": true,
+              "expected_response": "confirmation"
+            },
+            {
+              "event_id": "FE-BQZWUX",
+              "trigger_at": "2026-05-12T19:18:36.734664",
+              "type": "provider_status_check",
+              "channel": "whatsapp",
+              "audience": "provider",
+              "message_ur": "Bhai aap ka Plumber appointment 2 ghante mein hai DHA Phase 5 par. Aap on the way honge?",
+              "message_en": "Reminder: Plumber appointment in 2 hours at DHA Phase 5. Confirm you're prepared.",
+              "auto_send": true,
+              "expected_response": "confirmation_or_eta"
+            },
+            {
+              "event_id": "FE-175SPN",
+              "trigger_at": "2026-05-12T20:48:36.734664",
+              "type": "user_eta_update",
+              "channel": "push",
+              "audience": "user",
+              "message_ur": "Pervaiz Pro Plumbers aap ke ghar ki taraf rawana ho rahe hain. ETA 30 min.",
+              "message_en": "Pervaiz Pro Plumbers is on the way. ETA 30 min.",
+              "auto_send": true
+            },
+            {
+              "event_id": "FE-3ZY61S",
+              "trigger_at": "2026-05-12T21:48:36.734664",
+              "type": "service_progress_check",
+              "channel": "in_app",
+              "audience": "user",
+              "message_ur": "Kya service shuru ho gayi hai? Reply: 1=Haan shuru hui, 2=Provider nahi aaya, 3=Koi issue hai",
+              "message_en": "Has the service started? Reply: 1=Yes started, 2=Provider not arrived, 3=Issue",
+              "auto_send": true,
+              "expected_response": "1|2|3"
+            },
+            {
+              "event_id": "FE-ITSE48",
+              "trigger_at": "2026-05-12T22:48:36.734664",
+              "type": "completion_check",
+              "channel": "in_app",
+              "audience": "user",
+              "message_ur": "Aap ki service complete ho gayi? Reply: 1=Mukammal, 2=Abhi nahi, 3=Koi issue hai",
+              "message_en": "Service complete? Reply: 1=Complete, 2=Not yet, 3=Issue",
+              "auto_send": true,
+              "expected_response": "1|2|3"
+            },
+            {
+              "event_id": "FE-TA00VQ",
+              "trigger_at": "2026-05-12T23:03:36.734664",
+              "type": "rating_prompt",
+              "channel": "push",
+              "audience": "user",
+              "message_ur": "Please Pervaiz Pro Plumbers ko rate karein (1-5 stars) aur 1 line feedback dein.",
+              "message_en": "Please rate Pervaiz Pro Plumbers (1-5 stars) and share a one-line feedback.",
+              "auto_send": true
+            },
+            {
+              "event_id": "FE-1XU0G5",
+              "trigger_at": "2026-05-13T22:48:36.734664",
+              "type": "rebooking_prompt",
+              "channel": "in_app",
+              "audience": "user",
+              "message_ur": "Aap ki service achhi rahi! Aglay visit ki schedule karein?",
+              "message_en": "Glad your service went well! Schedule your next visit?",
+              "auto_send": false
+            }
+          ],
+          "branching_rules": [
+            {
+              "if_response": "1",
+              "on_event_type": "service_progress_check",
+              "then": "mark_in_progress"
+            },
+            {
+              "if_response": "2",
+              "on_event_type": "service_progress_check",
+              "then": "escalate_to_provider"
+            },
+            {
+              "if_response": "3",
+              "on_event_type": "service_progress_check",
+              "then": "escalate_to_support"
+            },
+            {
+              "if_response": "1",
+              "on_event_type": "completion_check",
+              "then": "mark_complete"
+            },
+            {
+              "if_response": "3",
+              "on_event_type": "completion_check",
+              "then": "escalate_to_support"
+            }
+          ],
+          "issue_detection_keywords": [
+            "nahi aaya",
+            "didn't come",
+            "problem",
+            "complaint",
+            "refund",
+            "shikayat"
+          ],
+          "completion_estimated_at": "2026-05-12T22:48:36.734664",
+          "total_events_scheduled": 7,
+          "reasoning": "Generated standard service follow-up for plumber with 7 touchpoints; included escalation rules for no-show and issues; language: roman_urdu."
+        },
+        "trace": {
+          "trace_id": "TRC-2026-05-12-7N20",
+          "workflow_id": "khidmat_main_orchestration_v1",
+          "started_at": "2026-05-12T20:48:36.734664",
+          "user_input": "DHA Phase 5 Lahore mein plumber chahiye abhi",
+          "user_id": "U001",
+          "steps": [
+            {
+              "step": 1,
+              "agent": "intent_parser",
+              "started_at": "2026-05-12T20:48:36.734664",
+              "duration_ms": 0,
+              "engine": "rule_based",
+              "tool_calls": [
+                {
+                  "tool": "get_service_catalog",
+                  "result": "20 categories loaded"
+                },
+                {
+                  "tool": "get_city_catalog",
+                  "result": "4 cities loaded"
+                },
+                {
+                  "tool": "detect_language",
+                  "result": "roman_urdu"
+                }
+              ],
+              "output": {
+                "language_detected": "roman_urdu",
+                "service_category_id": "plumber",
+                "service_category_confidence": 0.95,
+                "raw_service_phrase": "plumber",
+                "location": {
+                  "city": "karachi",
+                  "sector": "DHA Phase 5",
+                  "raw_phrase": "DHA Phase 5",
+                  "confidence": 0.98
+                },
+                "time": {
+                  "preference": "now",
+                  "specific_iso": "2026-05-12T21:18:36.734664",
+                  "raw_phrase": "abhi/now"
+                },
+                "urgency": "normal",
+                "urgency_signals": [],
+                "constraints": {
+                  "max_budget_pkr": null,
+                  "gender_preference": "any",
+                  "language_preference": []
+                },
+                "missing_info": [],
+                "clarification_question_ur": null,
+                "clarification_question_en": null,
+                "reasoning": "Identified service as plumber (confidence 0.95). Location parsed: DHA Phase 5, karachi. Time preference: now (abhi/now).",
+                "_engine": "rule_based"
+              },
+              "reasoning_text": "Identified service as plumber (confidence 0.95). Location parsed: DHA Phase 5, karachi. Time preference: now (abhi/now)."
+            },
+            {
+              "step": 2,
+              "agent": "provider_discovery",
+              "started_at": "2026-05-12T20:48:36.735940",
+              "duration_ms": 1,
+              "tool_calls": [
+                {
+                  "tool": "find_providers_by_category_and_city",
+                  "args": {
+                    "category_id": "plumber",
+                    "city_id": "karachi"
+                  },
+                  "result": "1 matched"
+                },
+                {
+                  "tool": "compute_distance",
+                  "result": "1 candidates with distance"
+                }
+              ],
+              "output": {
+                "total_matched": 1,
+                "candidates_ids": [
+                  "P1020"
+                ],
+                "filtered_out_count": 2,
+                "filtered_out_sample": [
+                  {
+                    "provider_id": "P1019",
+                    "reason": "availability: available_today, incompatible with now"
+                  },
+                  {
+                    "provider_id": "P1113",
+                    "reason": "availability: available_today, incompatible with now"
+                  }
+                ]
+              },
+              "reasoning_text": "Found 2 primary + 1 secondary providers for plumber in karachi. Filtered 2 due to constraints. Sorted by proximity to DHA Phase 5. Top 1 returned."
+            },
+            {
+              "step": 4,
+              "agent": "ranking_reasoning",
+              "started_at": "2026-05-12T20:48:36.735940",
+              "duration_ms": 1,
+              "tool_calls": [
+                {
+                  "tool": "compute_score",
+                  "args": {
+                    "urgency": "normal",
+                    "weights_used": "normal"
+                  },
+                  "calls": 1
+                }
+              ],
+              "output": {
+                "top_3_ids": [
+                  "P1020"
+                ],
+                "decision_summary_en": "Selected Pervaiz Pro Plumbers as top recommendation — Best match because only 9.8 km away in Bahadurabad, rated 4.1★ with 427 reviews, available right now, 85% completion rate, verified provider.",
+                "decision_summary_ur": "Pervaiz Pro Plumbers ko top choice diya hai — Sab se behtareen choice kyunke sirf 9.8 km door Bahadurabad mein, 4.1★ rating aur 427 reviews, abhi available hai, 85% kaam complete karte hain, verified hain."
+              },
+              "reasoning_text": "Selected Pervaiz Pro Plumbers as top recommendation — Best match because only 9.8 km away in Bahadurabad, rated 4.1★ with 427 reviews, available right now, 85% completion rate, verified provider."
+            },
+            {
+              "step": 5,
+              "agent": "booking_executor",
+              "started_at": "2026-05-12T20:48:36.744087",
+              "duration_ms": 0,
+              "tool_calls": [
+                {
+                  "tool": "generate_booking_id",
+                  "result": "KHD-2026-05-12-866IL"
+                },
+                {
+                  "tool": "reserve_slot",
+                  "args": {
+                    "provider_id": "P1020",
+                    "slot_iso": "2026-05-12T21:18:36.734664"
+                  },
+                  "result": "success"
+                },
+                {
+                  "tool": "create_booking_record",
+                  "result": "stored"
+                },
+                {
+                  "tool": "generate_receipt",
+                  "result": "RCP-NLP6TASN"
+                },
+                {
+                  "tool": "draft_user_notification",
+                  "result": "ready"
+                },
+                {
+                  "tool": "draft_provider_notification",
+                  "result": "ready"
+                },
+                {
+                  "tool": "generate_ics_calendar",
+                  "result": "ready"
+                },
+                {
+                  "tool": "update_system_state",
+                  "result": "3 changes applied"
+                }
+              ],
+              "output": {
+                "booking_id": "KHD-2026-05-12-866IL",
+                "receipt_id": "RCP-NLP6TASN",
+                "scheduled_for": "2026-05-12T21:18:36.734664",
+                "state_changes": [
+                  {
+                    "type": "provider_availability",
+                    "provider_id": "P1020",
+                    "slot_taken": "2026-05-12T21:18:36.734664"
+                  },
+                  {
+                    "type": "booking_created",
+                    "booking_id": "KHD-2026-05-12-866IL"
+                  },
+                  {
+                    "type": "user_history",
+                    "user_id": "U001",
+                    "added": "KHD-2026-05-12-866IL"
+                  }
+                ]
+              },
+              "reasoning_text": "Booking executed end-to-end with 8 tool calls. Slot reserved at 2026-05-12T21:18:36.734664. Notifications drafted for user and provider."
+            },
+            {
+              "step": 6,
+              "agent": "followup_automator",
+              "started_at": "2026-05-12T20:48:36.744656",
+              "duration_ms": 0,
+              "tool_calls": [
+                {
+                  "tool": "schedule_event",
+                  "calls": 7
+                },
+                {
+                  "tool": "register_branching_rule",
+                  "calls": 5
+                }
+              ],
+              "output": {
+                "follow_up_plan_id": "FLP-4SO227",
+                "total_events_scheduled": 7,
+                "completion_estimated_at": "2026-05-12T22:48:36.734664"
+              },
+              "reasoning_text": "Generated standard service follow-up for plumber with 7 touchpoints; included escalation rules for no-show and issues; language: roman_urdu."
+            }
+          ],
+          "completed_at": "2026-05-12T20:48:36.744656",
+          "duration_ms": 1,
+          "final_state": {
+            "status": "confirmed_with_followup_scheduled",
+            "booking_id": "KHD-2026-05-12-866IL",
+            "follow_up_plan_id": "FLP-4SO227"
+          }
+        }
+      }
+    }
+  ]
+}

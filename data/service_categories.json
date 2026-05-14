@@ -1,0 +1,281 @@
+{
+  "categories": [
+    {
+      "id": "ac_technician",
+      "name_en": "AC Technician",
+      "name_ur": "اے سی ٹیکنیشن",
+      "aliases": ["AC tech", "AC repair", "air conditioner", "AC technician", "AC mechanic", "ایئر کنڈیشنر", "AC theek karne wala"],
+      "icon": "snowflake",
+      "color": "#4FC3F7",
+      "emergency_eligible": true,
+      "avg_price_pkr": "1500-5000"
+    },
+    {
+      "id": "plumber",
+      "name_en": "Plumber",
+      "name_ur": "پلمبر",
+      "aliases": ["plumber", "pipe fitter", "leak repair", "plumbing", "پلمبر", "pani wala", "tap repair", "nalka"],
+      "icon": "pipe",
+      "color": "#42A5F5",
+      "emergency_eligible": true,
+      "avg_price_pkr": "800-3500"
+    },
+    {
+      "id": "electrician",
+      "name_en": "Electrician",
+      "name_ur": "الیکٹریشن",
+      "aliases": ["electrician", "electric work", "wiring", "switch repair", "الیکٹریشن", "bijli wala", "bijli ka kaam"],
+      "icon": "flash",
+      "color": "#FFB300",
+      "emergency_eligible": true,
+      "avg_price_pkr": "800-4000"
+    },
+    {
+      "id": "carpenter",
+      "name_en": "Carpenter",
+      "name_ur": "بڑھئی",
+      "aliases": ["carpenter", "wood work", "furniture repair", "بڑھئی", "lakdi ka kaam", "furniture wala"],
+      "icon": "hammer",
+      "color": "#8D6E63",
+      "emergency_eligible": false,
+      "avg_price_pkr": "1500-8000"
+    },
+    {
+      "id": "painter",
+      "name_en": "Painter",
+      "name_ur": "پینٹر",
+      "aliases": ["painter", "wall painting", "paint", "پینٹر", "rang wala", "rangsaaz"],
+      "icon": "brush",
+      "color": "#EF5350",
+      "emergency_eligible": false,
+      "avg_price_pkr": "5000-30000"
+    },
+    {
+      "id": "cleaner",
+      "name_en": "Home Cleaner",
+      "name_ur": "گھر صفائی",
+      "aliases": ["cleaner", "house cleaning", "maid", "صفائی", "safai wala", "cleaning service", "deep cleaning"],
+      "icon": "broom",
+      "color": "#66BB6A",
+      "emergency_eligible": false,
+      "avg_price_pkr": "1500-6000"
+    },
+    {
+      "id": "tutor",
+      "name_en": "Tutor",
+      "name_ur": "ٹیوٹر",
+      "aliases": ["tutor", "teacher", "home tuition", "ٹیوشن", "ustad", "academy", "math tutor", "physics tutor", "english tutor", "olevel tutor", "alevel tutor", "matric tutor"],
+      "icon": "school",
+      "color": "#AB47BC",
+      "emergency_eligible": false,
+      "avg_price_pkr": "5000-25000"
+    },
+    {
+      "id": "beautician",
+      "name_en": "Beautician",
+      "name_ur": "بیوٹیشن",
+      "aliases": ["beautician", "makeup artist", "salon at home", "بیوٹیشن", "facial", "bridal makeup", "parlour"],
+      "icon": "spa",
+      "color": "#EC407A",
+      "emergency_eligible": false,
+      "avg_price_pkr": "2000-25000"
+    },
+    {
+      "id": "mobile_repair",
+      "name_en": "Mobile Repair",
+      "name_ur": "موبائل ریپئر",
+      "aliases": ["mobile repair", "phone repair", "screen replacement", "موبائل ریپئر", "phone theek karne wala"],
+      "icon": "phone",
+      "color": "#26C6DA",
+      "emergency_eligible": false,
+      "avg_price_pkr": "1500-15000"
+    },
+    {
+      "id": "laptop_repair",
+      "name_en": "Laptop Repair",
+      "name_ur": "لیپ ٹاپ ریپئر",
+      "aliases": ["laptop repair", "computer repair", "PC repair", "لیپ ٹاپ ریپئر"],
+      "icon": "laptop",
+      "color": "#7E57C2",
+      "emergency_eligible": false,
+      "avg_price_pkr": "2000-20000"
+    },
+    {
+      "id": "pest_control",
+      "name_en": "Pest Control",
+      "name_ur": "کیڑے مار",
+      "aliases": ["pest control", "fumigation", "termite", "کاکروچ", "kakroach", "cockroach", "rat", "deemak"],
+      "icon": "bug",
+      "color": "#FF7043",
+      "emergency_eligible": true,
+      "avg_price_pkr": "3000-15000"
+    },
+    {
+      "id": "car_mechanic",
+      "name_en": "Car Mechanic",
+      "name_ur": "گاڑی مکینک",
+      "aliases": ["car mechanic", "car repair", "auto repair", "گاڑی مکینک", "gari theek karne wala"],
+      "icon": "car",
+      "color": "#5C6BC0",
+      "emergency_eligible": true,
+      "avg_price_pkr": "1500-25000"
+    },
+    {
+      "id": "bike_mechanic",
+      "name_en": "Bike Mechanic",
+      "name_ur": "بائیک مکینک",
+      "aliases": ["bike mechanic", "motorcycle repair", "بائیک مکینک", "bike wala"],
+      "icon": "motorcycle",
+      "color": "#78909C",
+      "emergency_eligible": false,
+      "avg_price_pkr": "500-5000"
+    },
+    {
+      "id": "photographer",
+      "name_en": "Photographer",
+      "name_ur": "فوٹوگرافر",
+      "aliases": ["photographer", "videographer", "event photography", "فوٹوگرافر", "wedding photographer"],
+      "icon": "camera",
+      "color": "#FFA726",
+      "emergency_eligible": false,
+      "avg_price_pkr": "15000-150000"
+    },
+    {
+      "id": "event_decorator",
+      "name_en": "Event Decorator",
+      "name_ur": "ایونٹ ڈیکوریٹر",
+      "aliases": ["decorator", "event planner", "wedding decoration", "ایونٹ ڈیکوریٹر", "shaadi decoration"],
+      "icon": "balloon",
+      "color": "#E91E63",
+      "emergency_eligible": false,
+      "avg_price_pkr": "20000-300000"
+    },
+    {
+      "id": "catering",
+      "name_en": "Catering Service",
+      "name_ur": "کیٹرنگ",
+      "aliases": ["catering", "caterer", "food service", "کیٹرنگ", "khana service"],
+      "icon": "food",
+      "color": "#FF6B35",
+      "emergency_eligible": false,
+      "avg_price_pkr": "30000-500000"
+    },
+    {
+      "id": "mason",
+      "name_en": "Mason (Raj Mistri)",
+      "name_ur": "راج مستری",
+      "aliases": ["mason", "raj mistri", "construction worker", "راج مستری", "memar"],
+      "icon": "wall",
+      "color": "#A1887F",
+      "emergency_eligible": false,
+      "avg_price_pkr": "2000-15000"
+    },
+    {
+      "id": "geyser_repair",
+      "name_en": "Geyser Repair",
+      "name_ur": "گیزر ریپئر",
+      "aliases": ["geyser repair", "water heater", "گیزر", "geyser theek"],
+      "icon": "water-boiler",
+      "color": "#EF6C00",
+      "emergency_eligible": true,
+      "avg_price_pkr": "1500-8000"
+    },
+    {
+      "id": "ro_water",
+      "name_en": "RO/Water Filter Service",
+      "name_ur": "آر او سروس",
+      "aliases": ["RO service", "water filter", "water purifier", "آر او", "ro repair"],
+      "icon": "water-pump",
+      "color": "#00ACC1",
+      "emergency_eligible": false,
+      "avg_price_pkr": "1500-10000"
+    },
+    {
+      "id": "generator_repair",
+      "name_en": "Generator/UPS Repair",
+      "name_ur": "جنریٹر ریپئر",
+      "aliases": ["generator repair", "ups repair", "جنریٹر", "ups wala"],
+      "icon": "battery",
+      "color": "#FBC02D",
+      "emergency_eligible": true,
+      "avg_price_pkr": "2000-20000"
+    }
+  ],
+  "cities": [
+    {
+      "id": "islamabad",
+      "name_en": "Islamabad",
+      "name_ur": "اسلام آباد",
+      "center": { "lat": 33.6844, "lng": 73.0479 },
+      "sectors": [
+        { "id": "F-6", "lat": 33.7333, "lng": 73.0666 },
+        { "id": "F-7", "lat": 33.7295, "lng": 73.0561 },
+        { "id": "F-8", "lat": 33.7167, "lng": 73.0418 },
+        { "id": "F-10", "lat": 33.6970, "lng": 73.0182 },
+        { "id": "F-11", "lat": 33.6886, "lng": 73.0140 },
+        { "id": "G-6", "lat": 33.7140, "lng": 73.0860 },
+        { "id": "G-7", "lat": 33.7115, "lng": 73.0750 },
+        { "id": "G-8", "lat": 33.6989, "lng": 73.0640 },
+        { "id": "G-9", "lat": 33.6878, "lng": 73.0526 },
+        { "id": "G-10", "lat": 33.6789, "lng": 73.0337 },
+        { "id": "G-11", "lat": 33.6695, "lng": 73.0202 },
+        { "id": "G-13", "lat": 33.6480, "lng": 72.9912 },
+        { "id": "G-14", "lat": 33.6385, "lng": 72.9778 },
+        { "id": "I-8", "lat": 33.6669, "lng": 73.0700 },
+        { "id": "I-9", "lat": 33.6533, "lng": 73.0584 },
+        { "id": "I-10", "lat": 33.6444, "lng": 73.0470 },
+        { "id": "Bahria Town", "lat": 33.5247, "lng": 73.0908 },
+        { "id": "DHA Phase 2", "lat": 33.5430, "lng": 73.1850 }
+      ]
+    },
+    {
+      "id": "lahore",
+      "name_en": "Lahore",
+      "name_ur": "لاہور",
+      "center": { "lat": 31.5204, "lng": 74.3587 },
+      "sectors": [
+        { "id": "DHA Phase 5", "lat": 31.4750, "lng": 74.4123 },
+        { "id": "DHA Phase 6", "lat": 31.4658, "lng": 74.4253 },
+        { "id": "Gulberg", "lat": 31.5114, "lng": 74.3414 },
+        { "id": "Model Town", "lat": 31.4810, "lng": 74.3220 },
+        { "id": "Johar Town", "lat": 31.4682, "lng": 74.2728 },
+        { "id": "Bahria Town", "lat": 31.3680, "lng": 74.1880 },
+        { "id": "Wapda Town", "lat": 31.4423, "lng": 74.2611 },
+        { "id": "Faisal Town", "lat": 31.4795, "lng": 74.3066 },
+        { "id": "Garden Town", "lat": 31.5005, "lng": 74.3260 },
+        { "id": "Allama Iqbal Town", "lat": 31.5009, "lng": 74.2901 }
+      ]
+    },
+    {
+      "id": "karachi",
+      "name_en": "Karachi",
+      "name_ur": "کراچی",
+      "center": { "lat": 24.8607, "lng": 67.0011 },
+      "sectors": [
+        { "id": "Clifton", "lat": 24.8138, "lng": 67.0299 },
+        { "id": "DHA Phase 5", "lat": 24.8083, "lng": 67.0667 },
+        { "id": "DHA Phase 6", "lat": 24.7960, "lng": 67.0490 },
+        { "id": "DHA Phase 8", "lat": 24.7944, "lng": 67.0928 },
+        { "id": "Gulshan-e-Iqbal", "lat": 24.9180, "lng": 67.0971 },
+        { "id": "Nazimabad", "lat": 24.9082, "lng": 67.0337 },
+        { "id": "North Nazimabad", "lat": 24.9358, "lng": 67.0387 },
+        { "id": "PECHS", "lat": 24.8728, "lng": 67.0664 },
+        { "id": "Bahadurabad", "lat": 24.8849, "lng": 67.0727 },
+        { "id": "Korangi", "lat": 24.8478, "lng": 67.1517 }
+      ]
+    },
+    {
+      "id": "rawalpindi",
+      "name_en": "Rawalpindi",
+      "name_ur": "راولپنڈی",
+      "center": { "lat": 33.5651, "lng": 73.0169 },
+      "sectors": [
+        { "id": "Saddar", "lat": 33.5921, "lng": 73.0451 },
+        { "id": "Satellite Town", "lat": 33.6418, "lng": 73.0673 },
+        { "id": "Bahria Town", "lat": 33.5247, "lng": 73.0908 },
+        { "id": "DHA Phase 1", "lat": 33.5430, "lng": 73.1850 },
+        { "id": "Chaklala", "lat": 33.5662, "lng": 73.1041 }
+      ]
+    }
+  ]
+}

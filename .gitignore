@@ -1,0 +1,149 @@
+# ============================================================
+# Khidmat AI — Git ignore rules
+# ============================================================
+
+# --- Secrets & environment files (NEVER commit these) ---
+.env
+.env.local
+.env.*.local
+**/.env
+backend/.env
+mobile-app/.env
+*.pem
+*.key
+credentials.json
+service-account*.json
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+MANIFEST
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+*.cover
+.hypothesis/
+
+# Python virtual environments
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# --- Node.js / React Native / Expo ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+.npm
+.yarn-integrity
+.yarn/
+
+# Expo
+.expo/
+.expo-shared/
+dist/
+web-build/
+expo-env.d.ts
+
+# Metro / React Native
+.metro-health-check*
+.gradle/
+local.properties
+*.iml
+.idea/
+*.hprof
+android/app/build/
+android/build/
+android/.gradle/
+android/.idea/
+android/local.properties
+ios/build/
+ios/Pods/
+ios/*.xcworkspace/xcuserdata/
+
+# --- EAS Build artefacts ---
+*.apk
+*.aab
+*.ipa
+build/
+android/app/release/
+ios/build/
+
+# --- IDE / Editor ---
+.vscode/
+.cursor/
+.claude/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- OS ---
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# --- Logs ---
+*.log
+logs/
+
+# --- Antigravity worktree (Agent generated, optional commit) ---
+# Uncomment if you want to keep Antigravity-generated scripts out of git
+# api_calls*.ps1
+# parse_part*.ps1
+
+# --- Backend runtime state ---
+backend/__pycache__/
+backend/*.db
+backend/state.json
+
+# --- Mobile bundle outputs ---
+mobile-app/android/
+mobile-app/ios/
+
+# --- Large media (commit only the necessary ones) ---
+# Keep antigravity-live-execution.mp4 (it's our key submission artefact)
+# Other large mp4 files in demo/ can be excluded if too big
+# demo/**/*.mp4
+
+# --- Cloudflared / Tunnel logs ---
+cloudflared.log
+*.cloudflared
+
+# --- Misc ---
+.cache/
+tmp/
+temp/
+*.tmp

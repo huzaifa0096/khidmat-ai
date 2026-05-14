@@ -1,0 +1,686 @@
+{
+  "scenario_name": "english_tutor_request",
+  "input": "I need a math tutor for O-Levels in F-10 Islamabad",
+  "parse_response": {
+    "trace_id": "TRC-2026-05-12-I5M1",
+    "intent": {
+      "language_detected": "english",
+      "service_category_id": "tutor",
+      "service_category_confidence": 0.95,
+      "raw_service_phrase": "math tutor",
+      "location": {
+        "city": "islamabad",
+        "sector": "F-10",
+        "raw_phrase": "F-10",
+        "confidence": 0.98
+      },
+      "time": {
+        "preference": "flexible",
+        "specific_iso": null,
+        "raw_phrase": ""
+      },
+      "urgency": "normal",
+      "urgency_signals": [],
+      "constraints": {
+        "max_budget_pkr": null,
+        "gender_preference": "any",
+        "language_preference": []
+      },
+      "missing_info": [],
+      "clarification_question_ur": null,
+      "clarification_question_en": null,
+      "reasoning": "Identified service as tutor (confidence 0.95). Location parsed: F-10, islamabad.",
+      "_engine": "rule_based"
+    },
+    "crisis": null,
+    "discovery_summary": {
+      "total_matched": 1,
+      "filtered_out_count": 0
+    },
+    "ranking": {
+      "top_3": [
+        {
+          "rank": 1,
+          "provider_id": "P1060",
+          "provider": {
+            "name": "Nasir Hussain",
+            "business_name": "Nasir Tuition Center",
+            "rating": 4.9,
+            "reviews_count": 186,
+            "phone": "0302-2264218",
+            "profile_image": "https://i.pravatar.cc/300?u=P1060",
+            "sector": "Bahria Town",
+            "city": "Islamabad",
+            "price_range": "PKR 4515-28012",
+            "experience_years": 12,
+            "languages": [
+              "Urdu",
+              "Pashto"
+            ],
+            "completion_rate_percent": 88,
+            "avg_response_minutes": 28,
+            "verified": true,
+            "emergency_24x7": false,
+            "availability": "busy_until_evening",
+            "description": "Quranic studies, English language coaching, and IELTS/SAT preparation.",
+            "location": {
+              "lat": 33.51884323732804,
+              "lng": 73.08296397653861
+            }
+          },
+          "distance_km": 20.7,
+          "final_score": 0.548,
+          "score_breakdown": {
+            "distance": 0.0,
+            "rating": 0.95,
+            "reviews": 0.757,
+            "verified": 1.0,
+            "availability": 0.4,
+            "completion": 0.4,
+            "response_time": 0.689
+          },
+          "reasoning_en": "Good available option — only 20.7 km away in Bahria Town, rated 4.9★ with 186 reviews, 88% completion rate, verified provider.",
+          "reasoning_ur": "Achhi available choice — sirf 20.7 km door Bahria Town mein, 4.9★ rating aur 186 reviews, 88% kaam complete karte hain, verified hain.",
+          "tradeoffs": [],
+          "highlight_badges": [
+            "Closest",
+            "Top Rated",
+            "Verified",
+            "Most Experienced"
+          ]
+        }
+      ],
+      "decision_summary_en": "Selected Nasir Tuition Center as top recommendation — Good available option — only 20.7 km away in Bahria Town, rated 4.9★ with 186 reviews, 88% completion rate, verified provider.",
+      "decision_summary_ur": "Nasir Tuition Center ko top choice diya hai — Achhi available choice — sirf 20.7 km door Bahria Town mein, 4.9★ rating aur 186 reviews, 88% kaam complete karte hain, verified hain.",
+      "alternative_consideration": "",
+      "weights_used_urgency": "normal"
+    },
+    "trace": {
+      "trace_id": "TRC-2026-05-12-I5M1",
+      "workflow_id": "khidmat_main_orchestration_v1",
+      "started_at": "2026-05-12T20:48:36.706364",
+      "user_input": "I need a math tutor for O-Levels in F-10 Islamabad",
+      "user_id": "U001",
+      "steps": [
+        {
+          "step": 1,
+          "agent": "intent_parser",
+          "started_at": "2026-05-12T20:48:36.706364",
+          "duration_ms": 0,
+          "engine": "rule_based",
+          "tool_calls": [
+            {
+              "tool": "get_service_catalog",
+              "result": "20 categories loaded"
+            },
+            {
+              "tool": "get_city_catalog",
+              "result": "4 cities loaded"
+            },
+            {
+              "tool": "detect_language",
+              "result": "english"
+            }
+          ],
+          "output": {
+            "language_detected": "english",
+            "service_category_id": "tutor",
+            "service_category_confidence": 0.95,
+            "raw_service_phrase": "math tutor",
+            "location": {
+              "city": "islamabad",
+              "sector": "F-10",
+              "raw_phrase": "F-10",
+              "confidence": 0.98
+            },
+            "time": {
+              "preference": "flexible",
+              "specific_iso": null,
+              "raw_phrase": ""
+            },
+            "urgency": "normal",
+            "urgency_signals": [],
+            "constraints": {
+              "max_budget_pkr": null,
+              "gender_preference": "any",
+              "language_preference": []
+            },
+            "missing_info": [],
+            "clarification_question_ur": null,
+            "clarification_question_en": null,
+            "reasoning": "Identified service as tutor (confidence 0.95). Location parsed: F-10, islamabad.",
+            "_engine": "rule_based"
+          },
+          "reasoning_text": "Identified service as tutor (confidence 0.95). Location parsed: F-10, islamabad."
+        },
+        {
+          "step": 2,
+          "agent": "provider_discovery",
+          "started_at": "2026-05-12T20:48:36.706364",
+          "duration_ms": 0,
+          "tool_calls": [
+            {
+              "tool": "find_providers_by_category_and_city",
+              "args": {
+                "category_id": "tutor",
+                "city_id": "islamabad"
+              },
+              "result": "1 matched"
+            },
+            {
+              "tool": "compute_distance",
+              "result": "1 candidates with distance"
+            }
+          ],
+          "output": {
+            "total_matched": 1,
+            "candidates_ids": [
+              "P1060"
+            ],
+            "filtered_out_count": 0,
+            "filtered_out_sample": []
+          },
+          "reasoning_text": "Found 1 primary + 0 secondary providers for tutor in islamabad. Filtered 0 due to constraints. Sorted by proximity to F-10. Top 1 returned."
+        },
+        {
+          "step": 4,
+          "agent": "ranking_reasoning",
+          "started_at": "2026-05-12T20:48:36.706364",
+          "duration_ms": 0,
+          "tool_calls": [
+            {
+              "tool": "compute_score",
+              "args": {
+                "urgency": "normal",
+                "weights_used": "normal"
+              },
+              "calls": 1
+            }
+          ],
+          "output": {
+            "top_3_ids": [
+              "P1060"
+            ],
+            "decision_summary_en": "Selected Nasir Tuition Center as top recommendation — Good available option — only 20.7 km away in Bahria Town, rated 4.9★ with 186 reviews, 88% completion rate, verified provider.",
+            "decision_summary_ur": "Nasir Tuition Center ko top choice diya hai — Achhi available choice — sirf 20.7 km door Bahria Town mein, 4.9★ rating aur 186 reviews, 88% kaam complete karte hain, verified hain."
+          },
+          "reasoning_text": "Selected Nasir Tuition Center as top recommendation — Good available option — only 20.7 km away in Bahria Town, rated 4.9★ with 186 reviews, 88% completion rate, verified provider."
+        }
+      ],
+      "completed_at": "2026-05-12T20:48:36.706364",
+      "duration_ms": 0,
+      "final_state": {
+        "status": "awaiting_user_choice",
+        "presented_options": 1
+      }
+    }
+  },
+  "booking_response": {
+    "trace_id": "TRC-2026-05-12-I5M1",
+    "booking": {
+      "booking_id": "KHD-2026-05-12-X28G3",
+      "status": "confirmed",
+      "created_at": "2026-05-12T20:48:36.716126",
+      "scheduled_for": "2026-05-13T10:00:00",
+      "provider": {
+        "id": "P1060",
+        "name": "Nasir Hussain",
+        "business_name": "Nasir Tuition Center",
+        "phone": "0302-2264218",
+        "rating": 4.9,
+        "profile_image": "https://i.pravatar.cc/300?u=P1060"
+      },
+      "user": {
+        "id": "U001",
+        "name": "Huzaifa",
+        "phone": "0300-1234567"
+      },
+      "service": {
+        "category": "tutor",
+        "category_name_en": "Tutor",
+        "estimated_duration_minutes": 90
+      },
+      "location": {
+        "city": "islamabad",
+        "sector": "F-10",
+        "address_text": "F-10, Islamabad"
+      },
+      "pricing": {
+        "estimated_range_pkr": "PKR 4515-28012",
+        "visit_charge_pkr": 500,
+        "payment_method": "cash_on_completion"
+      },
+      "receipt": {
+        "receipt_id": "RCP-ERC7IPER",
+        "lines": [
+          {
+            "label": "Service",
+            "value": "Tutor — Diagnosis & Service"
+          },
+          {
+            "label": "Provider",
+            "value": "Nasir Tuition Center"
+          },
+          {
+            "label": "Slot",
+            "value": "Wed, 13 May 2026 — 10:00 AM"
+          },
+          {
+            "label": "Location",
+            "value": "F-10, Islamabad"
+          },
+          {
+            "label": "Visit Charge",
+            "value": "PKR 500"
+          },
+          {
+            "label": "Estimated Total",
+            "value": "PKR 4515-28012"
+          }
+        ],
+        "qr_payload": "khidmat://booking/KHD-2026-05-12-X28G3"
+      },
+      "notifications": {
+        "user_in_app": "✅ Booking Confirmed!\nNasir Tuition Center will arrive at F-10 on Wed, 13 May 2026 — 10:00 AM. Booking ID: KHD-2026-05-12-X28G3.",
+        "user_sms": "Khidmat AI: Booking confirmed with Nasir Tuition Center for Wed, 13 May 2026 — 10:00 AM at F-10. Reply CANCEL to cancel. Receipt: khidmat.ai/r/KHD-2026-05-12-X28G3",
+        "provider_whatsapp": "Assalam-o-alaikum Nasir Hussain bhai. Aap ko ek booking mili hai:\n• Service: Tutor\n• Time: Wed, 13 May 2026 — 10:00 AM\n• Location: F-10 Islamabad\n• Customer: Huzaifa (0300-1234567)\nReply YES to confirm.",
+        "provider_sms": "Khidmat: New booking — Tutor, F-10, Wed, 13 May 2026 — 10:00 AM. Confirm: khidmat.ai/p/KHD-2026-05-12-X28G3"
+      },
+      "calendar_ics_url": "/api/bookings/KHD-2026-05-12-X28G3/ics",
+      "system_state_changes": [
+        {
+          "type": "provider_availability",
+          "provider_id": "P1060",
+          "slot_taken": "2026-05-13T10:00:00"
+        },
+        {
+          "type": "booking_created",
+          "booking_id": "KHD-2026-05-12-X28G3"
+        },
+        {
+          "type": "user_history",
+          "user_id": "U001",
+          "added": "KHD-2026-05-12-X28G3"
+        }
+      ],
+      "action_log": [
+        {
+          "step": 1,
+          "action": "generate_booking_id",
+          "result": "KHD-2026-05-12-X28G3",
+          "ts": "2026-05-12T20:48:36.716126"
+        },
+        {
+          "step": 2,
+          "action": "reserve_slot",
+          "result": "success",
+          "ts": "2026-05-12T20:48:36.716126"
+        },
+        {
+          "step": 3,
+          "action": "create_booking_record",
+          "result": "stored",
+          "ts": "2026-05-12T20:48:36.716126"
+        },
+        {
+          "step": 4,
+          "action": "generate_receipt",
+          "result": "RCP-ERC7IPER",
+          "ts": "2026-05-12T20:48:36.716126"
+        },
+        {
+          "step": 5,
+          "action": "draft_user_notification",
+          "result": "ready",
+          "ts": "2026-05-12T20:48:36.716126"
+        },
+        {
+          "step": 6,
+          "action": "draft_provider_notification",
+          "result": "ready",
+          "ts": "2026-05-12T20:48:36.716126"
+        },
+        {
+          "step": 7,
+          "action": "generate_ics_calendar",
+          "result": "ready",
+          "ts": "2026-05-12T20:48:36.716126"
+        },
+        {
+          "step": 8,
+          "action": "update_system_state",
+          "result": "applied",
+          "ts": "2026-05-12T20:48:36.716126"
+        }
+      ],
+      "calendar_ics": "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Khidmat AI//EN\nBEGIN:VEVENT\nUID:KHD-2026-05-12-X28G3@khidmat.ai\nDTSTAMP:20260512T204836Z\nDTSTART:20260513T100000\nDTEND:20260513T113000\nSUMMARY:Khidmat AI — Nasir Tuition Center\nLOCATION:F-10, islamabad\nDESCRIPTION:Booking ID: KHD-2026-05-12-X28G3\\nService: tutor\nEND:VEVENT\nEND:VCALENDAR"
+    },
+    "followup_plan": {
+      "booking_id": "KHD-2026-05-12-X28G3",
+      "follow_up_plan_id": "FLP-U6GI5I",
+      "language": "english",
+      "events": [
+        {
+          "event_id": "FE-YBQCQI",
+          "trigger_at": "2026-05-12T10:00:00",
+          "type": "reminder_24h",
+          "channel": "sms",
+          "audience": "user",
+          "message_ur": "Kal aap ki Tutor appointment hai Nasir Tuition Center ke saath 10:00 AM baje F-10 par. Confirm karne ke liye reply karein YES.",
+          "message_en": "Reminder: Tomorrow's Tutor appointment with Nasir Tuition Center at 10:00 AM in F-10. Reply YES to confirm.",
+          "auto_send": true,
+          "expected_response": "confirmation"
+        },
+        {
+          "event_id": "FE-8UJ6D9",
+          "trigger_at": "2026-05-13T08:00:00",
+          "type": "provider_status_check",
+          "channel": "whatsapp",
+          "audience": "provider",
+          "message_ur": "Bhai aap ka Tutor appointment 2 ghante mein hai F-10 par. Aap on the way honge?",
+          "message_en": "Reminder: Tutor appointment in 2 hours at F-10. Confirm you're prepared.",
+          "auto_send": true,
+          "expected_response": "confirmation_or_eta"
+        },
+        {
+          "event_id": "FE-E49YQ8",
+          "trigger_at": "2026-05-13T09:30:00",
+          "type": "user_eta_update",
+          "channel": "push",
+          "audience": "user",
+          "message_ur": "Nasir Tuition Center aap ke ghar ki taraf rawana ho rahe hain. ETA 30 min.",
+          "message_en": "Nasir Tuition Center is on the way. ETA 30 min.",
+          "auto_send": true
+        },
+        {
+          "event_id": "FE-Y1V7TU",
+          "trigger_at": "2026-05-13T10:30:00",
+          "type": "service_progress_check",
+          "channel": "in_app",
+          "audience": "user",
+          "message_ur": "Kya service shuru ho gayi hai? Reply: 1=Haan shuru hui, 2=Provider nahi aaya, 3=Koi issue hai",
+          "message_en": "Has the service started? Reply: 1=Yes started, 2=Provider not arrived, 3=Issue",
+          "auto_send": true,
+          "expected_response": "1|2|3"
+        },
+        {
+          "event_id": "FE-5HT3TC",
+          "trigger_at": "2026-05-13T11:30:00",
+          "type": "completion_check",
+          "channel": "in_app",
+          "audience": "user",
+          "message_ur": "Aap ki service complete ho gayi? Reply: 1=Mukammal, 2=Abhi nahi, 3=Koi issue hai",
+          "message_en": "Service complete? Reply: 1=Complete, 2=Not yet, 3=Issue",
+          "auto_send": true,
+          "expected_response": "1|2|3"
+        },
+        {
+          "event_id": "FE-IPZVNV",
+          "trigger_at": "2026-05-13T11:45:00",
+          "type": "rating_prompt",
+          "channel": "push",
+          "audience": "user",
+          "message_ur": "Please Nasir Tuition Center ko rate karein (1-5 stars) aur 1 line feedback dein.",
+          "message_en": "Please rate Nasir Tuition Center (1-5 stars) and share a one-line feedback.",
+          "auto_send": true
+        },
+        {
+          "event_id": "FE-4XS2RL",
+          "trigger_at": "2026-05-14T11:30:00",
+          "type": "rebooking_prompt",
+          "channel": "in_app",
+          "audience": "user",
+          "message_ur": "Aap ki service achhi rahi! Aglay visit ki schedule karein?",
+          "message_en": "Glad your service went well! Schedule your next visit?",
+          "auto_send": false
+        }
+      ],
+      "branching_rules": [
+        {
+          "if_response": "1",
+          "on_event_type": "service_progress_check",
+          "then": "mark_in_progress"
+        },
+        {
+          "if_response": "2",
+          "on_event_type": "service_progress_check",
+          "then": "escalate_to_provider"
+        },
+        {
+          "if_response": "3",
+          "on_event_type": "service_progress_check",
+          "then": "escalate_to_support"
+        },
+        {
+          "if_response": "1",
+          "on_event_type": "completion_check",
+          "then": "mark_complete"
+        },
+        {
+          "if_response": "3",
+          "on_event_type": "completion_check",
+          "then": "escalate_to_support"
+        }
+      ],
+      "issue_detection_keywords": [
+        "nahi aaya",
+        "didn't come",
+        "problem",
+        "complaint",
+        "refund",
+        "shikayat"
+      ],
+      "completion_estimated_at": "2026-05-13T11:30:00",
+      "total_events_scheduled": 7,
+      "reasoning": "Generated standard service follow-up for tutor with 7 touchpoints; included escalation rules for no-show and issues; language: english."
+    },
+    "trace": {
+      "trace_id": "TRC-2026-05-12-I5M1",
+      "workflow_id": "khidmat_main_orchestration_v1",
+      "started_at": "2026-05-12T20:48:36.706364",
+      "user_input": "I need a math tutor for O-Levels in F-10 Islamabad",
+      "user_id": "U001",
+      "steps": [
+        {
+          "step": 1,
+          "agent": "intent_parser",
+          "started_at": "2026-05-12T20:48:36.706364",
+          "duration_ms": 0,
+          "engine": "rule_based",
+          "tool_calls": [
+            {
+              "tool": "get_service_catalog",
+              "result": "20 categories loaded"
+            },
+            {
+              "tool": "get_city_catalog",
+              "result": "4 cities loaded"
+            },
+            {
+              "tool": "detect_language",
+              "result": "english"
+            }
+          ],
+          "output": {
+            "language_detected": "english",
+            "service_category_id": "tutor",
+            "service_category_confidence": 0.95,
+            "raw_service_phrase": "math tutor",
+            "location": {
+              "city": "islamabad",
+              "sector": "F-10",
+              "raw_phrase": "F-10",
+              "confidence": 0.98
+            },
+            "time": {
+              "preference": "flexible",
+              "specific_iso": null,
+              "raw_phrase": ""
+            },
+            "urgency": "normal",
+            "urgency_signals": [],
+            "constraints": {
+              "max_budget_pkr": null,
+              "gender_preference": "any",
+              "language_preference": []
+            },
+            "missing_info": [],
+            "clarification_question_ur": null,
+            "clarification_question_en": null,
+            "reasoning": "Identified service as tutor (confidence 0.95). Location parsed: F-10, islamabad.",
+            "_engine": "rule_based"
+          },
+          "reasoning_text": "Identified service as tutor (confidence 0.95). Location parsed: F-10, islamabad."
+        },
+        {
+          "step": 2,
+          "agent": "provider_discovery",
+          "started_at": "2026-05-12T20:48:36.706364",
+          "duration_ms": 0,
+          "tool_calls": [
+            {
+              "tool": "find_providers_by_category_and_city",
+              "args": {
+                "category_id": "tutor",
+                "city_id": "islamabad"
+              },
+              "result": "1 matched"
+            },
+            {
+              "tool": "compute_distance",
+              "result": "1 candidates with distance"
+            }
+          ],
+          "output": {
+            "total_matched": 1,
+            "candidates_ids": [
+              "P1060"
+            ],
+            "filtered_out_count": 0,
+            "filtered_out_sample": []
+          },
+          "reasoning_text": "Found 1 primary + 0 secondary providers for tutor in islamabad. Filtered 0 due to constraints. Sorted by proximity to F-10. Top 1 returned."
+        },
+        {
+          "step": 4,
+          "agent": "ranking_reasoning",
+          "started_at": "2026-05-12T20:48:36.706364",
+          "duration_ms": 0,
+          "tool_calls": [
+            {
+              "tool": "compute_score",
+              "args": {
+                "urgency": "normal",
+                "weights_used": "normal"
+              },
+              "calls": 1
+            }
+          ],
+          "output": {
+            "top_3_ids": [
+              "P1060"
+            ],
+            "decision_summary_en": "Selected Nasir Tuition Center as top recommendation — Good available option — only 20.7 km away in Bahria Town, rated 4.9★ with 186 reviews, 88% completion rate, verified provider.",
+            "decision_summary_ur": "Nasir Tuition Center ko top choice diya hai — Achhi available choice — sirf 20.7 km door Bahria Town mein, 4.9★ rating aur 186 reviews, 88% kaam complete karte hain, verified hain."
+          },
+          "reasoning_text": "Selected Nasir Tuition Center as top recommendation — Good available option — only 20.7 km away in Bahria Town, rated 4.9★ with 186 reviews, 88% completion rate, verified provider."
+        },
+        {
+          "step": 5,
+          "agent": "booking_executor",
+          "started_at": "2026-05-12T20:48:36.713995",
+          "duration_ms": 2,
+          "tool_calls": [
+            {
+              "tool": "generate_booking_id",
+              "result": "KHD-2026-05-12-X28G3"
+            },
+            {
+              "tool": "reserve_slot",
+              "args": {
+                "provider_id": "P1060",
+                "slot_iso": "2026-05-13T10:00:00"
+              },
+              "result": "success"
+            },
+            {
+              "tool": "create_booking_record",
+              "result": "stored"
+            },
+            {
+              "tool": "generate_receipt",
+              "result": "RCP-ERC7IPER"
+            },
+            {
+              "tool": "draft_user_notification",
+              "result": "ready"
+            },
+            {
+              "tool": "draft_provider_notification",
+              "result": "ready"
+            },
+            {
+              "tool": "generate_ics_calendar",
+              "result": "ready"
+            },
+            {
+              "tool": "update_system_state",
+              "result": "3 changes applied"
+            }
+          ],
+          "output": {
+            "booking_id": "KHD-2026-05-12-X28G3",
+            "receipt_id": "RCP-ERC7IPER",
+            "scheduled_for": "2026-05-13T10:00:00",
+            "state_changes": [
+              {
+                "type": "provider_availability",
+                "provider_id": "P1060",
+                "slot_taken": "2026-05-13T10:00:00"
+              },
+              {
+                "type": "booking_created",
+                "booking_id": "KHD-2026-05-12-X28G3"
+              },
+              {
+                "type": "user_history",
+                "user_id": "U001",
+                "added": "KHD-2026-05-12-X28G3"
+              }
+            ]
+          },
+          "reasoning_text": "Booking executed end-to-end with 8 tool calls. Slot reserved at 2026-05-13T10:00:00. Notifications drafted for user and provider."
+        },
+        {
+          "step": 6,
+          "agent": "followup_automator",
+          "started_at": "2026-05-12T20:48:36.716126",
+          "duration_ms": 2,
+          "tool_calls": [
+            {
+              "tool": "schedule_event",
+              "calls": 7
+            },
+            {
+              "tool": "register_branching_rule",
+              "calls": 5
+            }
+          ],
+          "output": {
+            "follow_up_plan_id": "FLP-U6GI5I",
+            "total_events_scheduled": 7,
+            "completion_estimated_at": "2026-05-13T11:30:00"
+          },
+          "reasoning_text": "Generated standard service follow-up for tutor with 7 touchpoints; included escalation rules for no-show and issues; language: english."
+        }
+      ],
+      "completed_at": "2026-05-12T20:48:36.716126",
+      "duration_ms": 0,
+      "final_state": {
+        "status": "confirmed_with_followup_scheduled",
+        "booking_id": "KHD-2026-05-12-X28G3",
+        "follow_up_plan_id": "FLP-U6GI5I"
+      }
+    }
+  }
+}

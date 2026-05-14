@@ -1,0 +1,804 @@
+{
+  "scenario_name": "happy_path_ac_tech_g13",
+  "input": "Mujhe kal subah G-13 mein AC technician chahiye",
+  "parse_response": {
+    "trace_id": "TRC-2026-05-12-186G",
+    "intent": {
+      "language_detected": "roman_urdu",
+      "service_category_id": "ac_technician",
+      "service_category_confidence": 0.95,
+      "raw_service_phrase": "ac technician",
+      "location": {
+        "city": "islamabad",
+        "sector": "G-13",
+        "raw_phrase": "G-13",
+        "confidence": 0.98
+      },
+      "time": {
+        "preference": "tomorrow_morning",
+        "specific_iso": "2026-05-13T10:00:00",
+        "raw_phrase": "kal subah"
+      },
+      "urgency": "normal",
+      "urgency_signals": [],
+      "constraints": {
+        "max_budget_pkr": null,
+        "gender_preference": "any",
+        "language_preference": []
+      },
+      "missing_info": [],
+      "clarification_question_ur": null,
+      "clarification_question_en": null,
+      "reasoning": "Identified service as ac_technician (confidence 0.95). Location parsed: G-13, islamabad. Time preference: tomorrow_morning (kal subah).",
+      "_engine": "rule_based"
+    },
+    "crisis": null,
+    "discovery_summary": {
+      "total_matched": 3,
+      "filtered_out_count": 1
+    },
+    "ranking": {
+      "top_3": [
+        {
+          "rank": 1,
+          "provider_id": "P1007",
+          "provider": {
+            "name": "Iqbal Mirza",
+            "business_name": "Iqbal AC Solutions",
+            "rating": 3.9,
+            "reviews_count": 131,
+            "phone": "0308-3770370",
+            "profile_image": "https://i.pravatar.cc/300?u=P1007",
+            "sector": "G-13",
+            "city": "Islamabad",
+            "price_range": "PKR 1394-5776",
+            "experience_years": 19,
+            "languages": [
+              "Urdu",
+              "Pashto"
+            ],
+            "completion_rate_percent": 97,
+            "avg_response_minutes": 18,
+            "verified": true,
+            "emergency_24x7": false,
+            "availability": "available_today",
+            "description": "Certified AC technician with experience in all major brands — Haier, Gree, Dawlance, Orient, Mitsubishi. Specializing in deep cleaning and gas top-up.",
+            "location": {
+              "lat": 33.63901825227649,
+              "lng": 72.99503401974594
+            }
+          },
+          "distance_km": 1.06,
+          "final_score": 0.768,
+          "score_breakdown": {
+            "distance": 0.929,
+            "rating": 0.45,
+            "reviews": 0.707,
+            "verified": 1.0,
+            "availability": 0.85,
+            "completion": 0.85,
+            "response_time": 0.8
+          },
+          "reasoning_en": "Best match because only 1.1 km away in G-13, rated 3.9★ with 131 reviews, available today, 97% completion rate, verified provider.",
+          "reasoning_ur": "Sab se behtareen choice kyunke sirf 1.1 km door G-13 mein, 3.9★ rating aur 131 reviews, aaj available hai, 97% kaam complete karte hain, verified hain.",
+          "tradeoffs": [],
+          "highlight_badges": [
+            "Closest",
+            "Verified",
+            "Fastest Response",
+            "Most Experienced",
+            "Reliable"
+          ]
+        },
+        {
+          "rank": 2,
+          "provider_id": "P1001",
+          "provider": {
+            "name": "Vakeel Chaudhry",
+            "business_name": "Vakeel Cooling Experts",
+            "rating": 3.9,
+            "reviews_count": 385,
+            "phone": "0321-1445199",
+            "profile_image": "https://i.pravatar.cc/300?u=P1001",
+            "sector": "F-6",
+            "city": "Islamabad",
+            "price_range": "PKR 1527-5503",
+            "experience_years": 4,
+            "languages": [
+              "Urdu",
+              "English",
+              "Pashto"
+            ],
+            "completion_rate_percent": 91,
+            "avg_response_minutes": 85,
+            "verified": true,
+            "emergency_24x7": true,
+            "availability": "available_now",
+            "description": "Premium AC installation, ducting, and 24/7 emergency repairs. Trained engineers, original parts only.",
+            "location": {
+              "lat": 33.723548685756676,
+              "lng": 73.06018386144137
+            }
+          },
+          "distance_km": 10.55,
+          "final_score": 0.581,
+          "score_breakdown": {
+            "distance": 0.297,
+            "rating": 0.45,
+            "reviews": 0.862,
+            "verified": 1.0,
+            "availability": 1.0,
+            "completion": 0.55,
+            "response_time": 0.056
+          },
+          "reasoning_en": "Good available option — only 10.6 km away in F-6, rated 3.9★ with 385 reviews, available right now, 91% completion rate, verified provider.",
+          "reasoning_ur": "Achhi available choice — sirf 10.6 km door F-6 mein, 3.9★ rating aur 385 reviews, abhi available hai, 91% kaam complete karte hain, verified hain.",
+          "tradeoffs": [
+            "9.5 km farther than the closest option, but stronger overall score"
+          ],
+          "highlight_badges": [
+            "Verified",
+            "24/7"
+          ]
+        },
+        {
+          "rank": 3,
+          "provider_id": "P1002",
+          "provider": {
+            "name": "Shahid Rana",
+            "business_name": "Shahid AC Solutions",
+            "rating": 4.0,
+            "reviews_count": 118,
+            "phone": "0301-7350753",
+            "profile_image": "https://i.pravatar.cc/300?u=P1002",
+            "sector": "G-6",
+            "city": "Islamabad",
+            "price_range": "PKR 1310-4763",
+            "experience_years": 11,
+            "languages": [
+              "Urdu",
+              "English",
+              "Pashto"
+            ],
+            "completion_rate_percent": 94,
+            "avg_response_minutes": 54,
+            "verified": false,
+            "emergency_24x7": false,
+            "availability": "available_now",
+            "description": "Quick AC repair, PCB fault diagnosis, compressor replacement, and seasonal maintenance. 90-day service warranty.",
+            "location": {
+              "lat": 33.70304281063015,
+              "lng": 73.08502619711213
+            }
+          },
+          "distance_km": 10.62,
+          "final_score": 0.557,
+          "score_breakdown": {
+            "distance": 0.292,
+            "rating": 0.5,
+            "reviews": 0.692,
+            "verified": 0.5,
+            "availability": 1.0,
+            "completion": 0.7,
+            "response_time": 0.4
+          },
+          "reasoning_en": "Good available option — only 10.6 km away in G-6, rated 4.0★ with 118 reviews, available right now, 94% completion rate.",
+          "reasoning_ur": "Achhi available choice — sirf 10.6 km door G-6 mein, 4.0★ rating aur 118 reviews, abhi available hai, 94% kaam complete karte hain.",
+          "tradeoffs": [
+            "9.6 km farther than the closest option, but stronger overall score"
+          ],
+          "highlight_badges": []
+        }
+      ],
+      "decision_summary_en": "Selected Iqbal AC Solutions as top recommendation — Best match because only 1.1 km away in G-13, rated 3.9★ with 131 reviews, available today, 97% completion rate, verified provider.",
+      "decision_summary_ur": "Iqbal AC Solutions ko top choice diya hai — Sab se behtareen choice kyunke sirf 1.1 km door G-13 mein, 3.9★ rating aur 131 reviews, aaj available hai, 97% kaam complete karte hain, verified hain.",
+      "alternative_consideration": "If you prioritize rating over distance, see rank 2.",
+      "weights_used_urgency": "normal"
+    },
+    "trace": {
+      "trace_id": "TRC-2026-05-12-186G",
+      "workflow_id": "khidmat_main_orchestration_v1",
+      "started_at": "2026-05-12T20:48:36.660304",
+      "user_input": "Mujhe kal subah G-13 mein AC technician chahiye",
+      "user_id": "U001",
+      "steps": [
+        {
+          "step": 1,
+          "agent": "intent_parser",
+          "started_at": "2026-05-12T20:48:36.660304",
+          "duration_ms": 0,
+          "engine": "rule_based",
+          "tool_calls": [
+            {
+              "tool": "get_service_catalog",
+              "result": "20 categories loaded"
+            },
+            {
+              "tool": "get_city_catalog",
+              "result": "4 cities loaded"
+            },
+            {
+              "tool": "detect_language",
+              "result": "roman_urdu"
+            }
+          ],
+          "output": {
+            "language_detected": "roman_urdu",
+            "service_category_id": "ac_technician",
+            "service_category_confidence": 0.95,
+            "raw_service_phrase": "ac technician",
+            "location": {
+              "city": "islamabad",
+              "sector": "G-13",
+              "raw_phrase": "G-13",
+              "confidence": 0.98
+            },
+            "time": {
+              "preference": "tomorrow_morning",
+              "specific_iso": "2026-05-13T10:00:00",
+              "raw_phrase": "kal subah"
+            },
+            "urgency": "normal",
+            "urgency_signals": [],
+            "constraints": {
+              "max_budget_pkr": null,
+              "gender_preference": "any",
+              "language_preference": []
+            },
+            "missing_info": [],
+            "clarification_question_ur": null,
+            "clarification_question_en": null,
+            "reasoning": "Identified service as ac_technician (confidence 0.95). Location parsed: G-13, islamabad. Time preference: tomorrow_morning (kal subah).",
+            "_engine": "rule_based"
+          },
+          "reasoning_text": "Identified service as ac_technician (confidence 0.95). Location parsed: G-13, islamabad. Time preference: tomorrow_morning (kal subah)."
+        },
+        {
+          "step": 2,
+          "agent": "provider_discovery",
+          "started_at": "2026-05-12T20:48:36.660304",
+          "duration_ms": 0,
+          "tool_calls": [
+            {
+              "tool": "find_providers_by_category_and_city",
+              "args": {
+                "category_id": "ac_technician",
+                "city_id": "islamabad"
+              },
+              "result": "3 matched"
+            },
+            {
+              "tool": "compute_distance",
+              "result": "3 candidates with distance"
+            }
+          ],
+          "output": {
+            "total_matched": 3,
+            "candidates_ids": [
+              "P1007",
+              "P1001",
+              "P1002"
+            ],
+            "filtered_out_count": 1,
+            "filtered_out_sample": [
+              {
+                "provider_id": "P1003",
+                "reason": "availability: busy_until_evening, incompatible with tomorrow_morning"
+              }
+            ]
+          },
+          "reasoning_text": "Found 4 primary + 0 secondary providers for ac_technician in islamabad. Filtered 1 due to constraints. Sorted by proximity to G-13. Top 3 returned."
+        },
+        {
+          "step": 4,
+          "agent": "ranking_reasoning",
+          "started_at": "2026-05-12T20:48:36.660304",
+          "duration_ms": 0,
+          "tool_calls": [
+            {
+              "tool": "compute_score",
+              "args": {
+                "urgency": "normal",
+                "weights_used": "normal"
+              },
+              "calls": 3
+            }
+          ],
+          "output": {
+            "top_3_ids": [
+              "P1007",
+              "P1001",
+              "P1002"
+            ],
+            "decision_summary_en": "Selected Iqbal AC Solutions as top recommendation — Best match because only 1.1 km away in G-13, rated 3.9★ with 131 reviews, available today, 97% completion rate, verified provider.",
+            "decision_summary_ur": "Iqbal AC Solutions ko top choice diya hai — Sab se behtareen choice kyunke sirf 1.1 km door G-13 mein, 3.9★ rating aur 131 reviews, aaj available hai, 97% kaam complete karte hain, verified hain."
+          },
+          "reasoning_text": "Selected Iqbal AC Solutions as top recommendation — Best match because only 1.1 km away in G-13, rated 3.9★ with 131 reviews, available today, 97% completion rate, verified provider."
+        }
+      ],
+      "completed_at": "2026-05-12T20:48:36.660304",
+      "duration_ms": 0,
+      "final_state": {
+        "status": "awaiting_user_choice",
+        "presented_options": 3
+      }
+    }
+  },
+  "booking_response": {
+    "trace_id": "TRC-2026-05-12-186G",
+    "booking": {
+      "booking_id": "KHD-2026-05-12-RDHID",
+      "status": "confirmed",
+      "created_at": "2026-05-12T20:48:36.664550",
+      "scheduled_for": "2026-05-13T10:00:00",
+      "provider": {
+        "id": "P1007",
+        "name": "Iqbal Mirza",
+        "business_name": "Iqbal AC Solutions",
+        "phone": "0308-3770370",
+        "rating": 3.9,
+        "profile_image": "https://i.pravatar.cc/300?u=P1007"
+      },
+      "user": {
+        "id": "U001",
+        "name": "Huzaifa",
+        "phone": "0300-1234567"
+      },
+      "service": {
+        "category": "ac_technician",
+        "category_name_en": "AC Technician",
+        "estimated_duration_minutes": 90
+      },
+      "location": {
+        "city": "islamabad",
+        "sector": "G-13",
+        "address_text": "G-13, Islamabad"
+      },
+      "pricing": {
+        "estimated_range_pkr": "PKR 1394-5776",
+        "visit_charge_pkr": 500,
+        "payment_method": "cash_on_completion"
+      },
+      "receipt": {
+        "receipt_id": "RCP-XNUDNY7C",
+        "lines": [
+          {
+            "label": "Service",
+            "value": "AC Technician — Diagnosis & Service"
+          },
+          {
+            "label": "Provider",
+            "value": "Iqbal AC Solutions"
+          },
+          {
+            "label": "Slot",
+            "value": "Wed, 13 May 2026 — 10:00 AM"
+          },
+          {
+            "label": "Location",
+            "value": "G-13, Islamabad"
+          },
+          {
+            "label": "Visit Charge",
+            "value": "PKR 500"
+          },
+          {
+            "label": "Estimated Total",
+            "value": "PKR 1394-5776"
+          }
+        ],
+        "qr_payload": "khidmat://booking/KHD-2026-05-12-RDHID"
+      },
+      "notifications": {
+        "user_in_app": "✅ Booking Confirmed!\nIqbal AC Solutions will arrive at G-13 on Wed, 13 May 2026 — 10:00 AM. Booking ID: KHD-2026-05-12-RDHID.",
+        "user_sms": "Khidmat AI: Booking confirmed with Iqbal AC Solutions for Wed, 13 May 2026 — 10:00 AM at G-13. Reply CANCEL to cancel. Receipt: khidmat.ai/r/KHD-2026-05-12-RDHID",
+        "provider_whatsapp": "Assalam-o-alaikum Iqbal Mirza bhai. Aap ko ek booking mili hai:\n• Service: AC Technician\n• Time: Wed, 13 May 2026 — 10:00 AM\n• Location: G-13 Islamabad\n• Customer: Huzaifa (0300-1234567)\nReply YES to confirm.",
+        "provider_sms": "Khidmat: New booking — AC Technician, G-13, Wed, 13 May 2026 — 10:00 AM. Confirm: khidmat.ai/p/KHD-2026-05-12-RDHID"
+      },
+      "calendar_ics_url": "/api/bookings/KHD-2026-05-12-RDHID/ics",
+      "system_state_changes": [
+        {
+          "type": "provider_availability",
+          "provider_id": "P1007",
+          "slot_taken": "2026-05-13T10:00:00"
+        },
+        {
+          "type": "booking_created",
+          "booking_id": "KHD-2026-05-12-RDHID"
+        },
+        {
+          "type": "user_history",
+          "user_id": "U001",
+          "added": "KHD-2026-05-12-RDHID"
+        }
+      ],
+      "action_log": [
+        {
+          "step": 1,
+          "action": "generate_booking_id",
+          "result": "KHD-2026-05-12-RDHID",
+          "ts": "2026-05-12T20:48:36.664550"
+        },
+        {
+          "step": 2,
+          "action": "reserve_slot",
+          "result": "success",
+          "ts": "2026-05-12T20:48:36.664550"
+        },
+        {
+          "step": 3,
+          "action": "create_booking_record",
+          "result": "stored",
+          "ts": "2026-05-12T20:48:36.664550"
+        },
+        {
+          "step": 4,
+          "action": "generate_receipt",
+          "result": "RCP-XNUDNY7C",
+          "ts": "2026-05-12T20:48:36.664550"
+        },
+        {
+          "step": 5,
+          "action": "draft_user_notification",
+          "result": "ready",
+          "ts": "2026-05-12T20:48:36.664550"
+        },
+        {
+          "step": 6,
+          "action": "draft_provider_notification",
+          "result": "ready",
+          "ts": "2026-05-12T20:48:36.664550"
+        },
+        {
+          "step": 7,
+          "action": "generate_ics_calendar",
+          "result": "ready",
+          "ts": "2026-05-12T20:48:36.664550"
+        },
+        {
+          "step": 8,
+          "action": "update_system_state",
+          "result": "applied",
+          "ts": "2026-05-12T20:48:36.664550"
+        }
+      ],
+      "calendar_ics": "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Khidmat AI//EN\nBEGIN:VEVENT\nUID:KHD-2026-05-12-RDHID@khidmat.ai\nDTSTAMP:20260512T204836Z\nDTSTART:20260513T100000\nDTEND:20260513T113000\nSUMMARY:Khidmat AI — Iqbal AC Solutions\nLOCATION:G-13, islamabad\nDESCRIPTION:Booking ID: KHD-2026-05-12-RDHID\\nService: ac_technician\nEND:VEVENT\nEND:VCALENDAR"
+    },
+    "followup_plan": {
+      "booking_id": "KHD-2026-05-12-RDHID",
+      "follow_up_plan_id": "FLP-VRKASE",
+      "language": "roman_urdu",
+      "events": [
+        {
+          "event_id": "FE-VGJ0AY",
+          "trigger_at": "2026-05-12T10:00:00",
+          "type": "reminder_24h",
+          "channel": "sms",
+          "audience": "user",
+          "message_ur": "Kal aap ki AC Technician appointment hai Iqbal AC Solutions ke saath 10:00 AM baje G-13 par. Confirm karne ke liye reply karein YES.",
+          "message_en": "Reminder: Tomorrow's AC Technician appointment with Iqbal AC Solutions at 10:00 AM in G-13. Reply YES to confirm.",
+          "auto_send": true,
+          "expected_response": "confirmation"
+        },
+        {
+          "event_id": "FE-ZR1Y95",
+          "trigger_at": "2026-05-13T08:00:00",
+          "type": "provider_status_check",
+          "channel": "whatsapp",
+          "audience": "provider",
+          "message_ur": "Bhai aap ka AC Technician appointment 2 ghante mein hai G-13 par. Aap on the way honge?",
+          "message_en": "Reminder: AC Technician appointment in 2 hours at G-13. Confirm you're prepared.",
+          "auto_send": true,
+          "expected_response": "confirmation_or_eta"
+        },
+        {
+          "event_id": "FE-9LV39D",
+          "trigger_at": "2026-05-13T09:30:00",
+          "type": "user_eta_update",
+          "channel": "push",
+          "audience": "user",
+          "message_ur": "Iqbal AC Solutions aap ke ghar ki taraf rawana ho rahe hain. ETA 30 min.",
+          "message_en": "Iqbal AC Solutions is on the way. ETA 30 min.",
+          "auto_send": true
+        },
+        {
+          "event_id": "FE-UGP8L0",
+          "trigger_at": "2026-05-13T10:30:00",
+          "type": "service_progress_check",
+          "channel": "in_app",
+          "audience": "user",
+          "message_ur": "Kya service shuru ho gayi hai? Reply: 1=Haan shuru hui, 2=Provider nahi aaya, 3=Koi issue hai",
+          "message_en": "Has the service started? Reply: 1=Yes started, 2=Provider not arrived, 3=Issue",
+          "auto_send": true,
+          "expected_response": "1|2|3"
+        },
+        {
+          "event_id": "FE-D11A3O",
+          "trigger_at": "2026-05-13T11:30:00",
+          "type": "completion_check",
+          "channel": "in_app",
+          "audience": "user",
+          "message_ur": "Aap ki service complete ho gayi? Reply: 1=Mukammal, 2=Abhi nahi, 3=Koi issue hai",
+          "message_en": "Service complete? Reply: 1=Complete, 2=Not yet, 3=Issue",
+          "auto_send": true,
+          "expected_response": "1|2|3"
+        },
+        {
+          "event_id": "FE-QJVEM1",
+          "trigger_at": "2026-05-13T11:45:00",
+          "type": "rating_prompt",
+          "channel": "push",
+          "audience": "user",
+          "message_ur": "Please Iqbal AC Solutions ko rate karein (1-5 stars) aur 1 line feedback dein.",
+          "message_en": "Please rate Iqbal AC Solutions (1-5 stars) and share a one-line feedback.",
+          "auto_send": true
+        },
+        {
+          "event_id": "FE-7BQE9H",
+          "trigger_at": "2026-05-14T11:30:00",
+          "type": "rebooking_prompt",
+          "channel": "in_app",
+          "audience": "user",
+          "message_ur": "Aap ki service achhi rahi! Aglay visit ki schedule karein?",
+          "message_en": "Glad your service went well! Schedule your next visit?",
+          "auto_send": false
+        }
+      ],
+      "branching_rules": [
+        {
+          "if_response": "1",
+          "on_event_type": "service_progress_check",
+          "then": "mark_in_progress"
+        },
+        {
+          "if_response": "2",
+          "on_event_type": "service_progress_check",
+          "then": "escalate_to_provider"
+        },
+        {
+          "if_response": "3",
+          "on_event_type": "service_progress_check",
+          "then": "escalate_to_support"
+        },
+        {
+          "if_response": "1",
+          "on_event_type": "completion_check",
+          "then": "mark_complete"
+        },
+        {
+          "if_response": "3",
+          "on_event_type": "completion_check",
+          "then": "escalate_to_support"
+        }
+      ],
+      "issue_detection_keywords": [
+        "nahi aaya",
+        "didn't come",
+        "problem",
+        "complaint",
+        "refund",
+        "shikayat"
+      ],
+      "completion_estimated_at": "2026-05-13T11:30:00",
+      "total_events_scheduled": 7,
+      "reasoning": "Generated standard service follow-up for ac_technician with 7 touchpoints; included escalation rules for no-show and issues; language: roman_urdu."
+    },
+    "trace": {
+      "trace_id": "TRC-2026-05-12-186G",
+      "workflow_id": "khidmat_main_orchestration_v1",
+      "started_at": "2026-05-12T20:48:36.660304",
+      "user_input": "Mujhe kal subah G-13 mein AC technician chahiye",
+      "user_id": "U001",
+      "steps": [
+        {
+          "step": 1,
+          "agent": "intent_parser",
+          "started_at": "2026-05-12T20:48:36.660304",
+          "duration_ms": 0,
+          "engine": "rule_based",
+          "tool_calls": [
+            {
+              "tool": "get_service_catalog",
+              "result": "20 categories loaded"
+            },
+            {
+              "tool": "get_city_catalog",
+              "result": "4 cities loaded"
+            },
+            {
+              "tool": "detect_language",
+              "result": "roman_urdu"
+            }
+          ],
+          "output": {
+            "language_detected": "roman_urdu",
+            "service_category_id": "ac_technician",
+            "service_category_confidence": 0.95,
+            "raw_service_phrase": "ac technician",
+            "location": {
+              "city": "islamabad",
+              "sector": "G-13",
+              "raw_phrase": "G-13",
+              "confidence": 0.98
+            },
+            "time": {
+              "preference": "tomorrow_morning",
+              "specific_iso": "2026-05-13T10:00:00",
+              "raw_phrase": "kal subah"
+            },
+            "urgency": "normal",
+            "urgency_signals": [],
+            "constraints": {
+              "max_budget_pkr": null,
+              "gender_preference": "any",
+              "language_preference": []
+            },
+            "missing_info": [],
+            "clarification_question_ur": null,
+            "clarification_question_en": null,
+            "reasoning": "Identified service as ac_technician (confidence 0.95). Location parsed: G-13, islamabad. Time preference: tomorrow_morning (kal subah).",
+            "_engine": "rule_based"
+          },
+          "reasoning_text": "Identified service as ac_technician (confidence 0.95). Location parsed: G-13, islamabad. Time preference: tomorrow_morning (kal subah)."
+        },
+        {
+          "step": 2,
+          "agent": "provider_discovery",
+          "started_at": "2026-05-12T20:48:36.660304",
+          "duration_ms": 0,
+          "tool_calls": [
+            {
+              "tool": "find_providers_by_category_and_city",
+              "args": {
+                "category_id": "ac_technician",
+                "city_id": "islamabad"
+              },
+              "result": "3 matched"
+            },
+            {
+              "tool": "compute_distance",
+              "result": "3 candidates with distance"
+            }
+          ],
+          "output": {
+            "total_matched": 3,
+            "candidates_ids": [
+              "P1007",
+              "P1001",
+              "P1002"
+            ],
+            "filtered_out_count": 1,
+            "filtered_out_sample": [
+              {
+                "provider_id": "P1003",
+                "reason": "availability: busy_until_evening, incompatible with tomorrow_morning"
+              }
+            ]
+          },
+          "reasoning_text": "Found 4 primary + 0 secondary providers for ac_technician in islamabad. Filtered 1 due to constraints. Sorted by proximity to G-13. Top 3 returned."
+        },
+        {
+          "step": 4,
+          "agent": "ranking_reasoning",
+          "started_at": "2026-05-12T20:48:36.660304",
+          "duration_ms": 0,
+          "tool_calls": [
+            {
+              "tool": "compute_score",
+              "args": {
+                "urgency": "normal",
+                "weights_used": "normal"
+              },
+              "calls": 3
+            }
+          ],
+          "output": {
+            "top_3_ids": [
+              "P1007",
+              "P1001",
+              "P1002"
+            ],
+            "decision_summary_en": "Selected Iqbal AC Solutions as top recommendation — Best match because only 1.1 km away in G-13, rated 3.9★ with 131 reviews, available today, 97% completion rate, verified provider.",
+            "decision_summary_ur": "Iqbal AC Solutions ko top choice diya hai — Sab se behtareen choice kyunke sirf 1.1 km door G-13 mein, 3.9★ rating aur 131 reviews, aaj available hai, 97% kaam complete karte hain, verified hain."
+          },
+          "reasoning_text": "Selected Iqbal AC Solutions as top recommendation — Best match because only 1.1 km away in G-13, rated 3.9★ with 131 reviews, available today, 97% completion rate, verified provider."
+        },
+        {
+          "step": 5,
+          "agent": "booking_executor",
+          "started_at": "2026-05-12T20:48:36.664550",
+          "duration_ms": 0,
+          "tool_calls": [
+            {
+              "tool": "generate_booking_id",
+              "result": "KHD-2026-05-12-RDHID"
+            },
+            {
+              "tool": "reserve_slot",
+              "args": {
+                "provider_id": "P1007",
+                "slot_iso": "2026-05-13T10:00:00"
+              },
+              "result": "success"
+            },
+            {
+              "tool": "create_booking_record",
+              "result": "stored"
+            },
+            {
+              "tool": "generate_receipt",
+              "result": "RCP-XNUDNY7C"
+            },
+            {
+              "tool": "draft_user_notification",
+              "result": "ready"
+            },
+            {
+              "tool": "draft_provider_notification",
+              "result": "ready"
+            },
+            {
+              "tool": "generate_ics_calendar",
+              "result": "ready"
+            },
+            {
+              "tool": "update_system_state",
+              "result": "3 changes applied"
+            }
+          ],
+          "output": {
+            "booking_id": "KHD-2026-05-12-RDHID",
+            "receipt_id": "RCP-XNUDNY7C",
+            "scheduled_for": "2026-05-13T10:00:00",
+            "state_changes": [
+              {
+                "type": "provider_availability",
+                "provider_id": "P1007",
+                "slot_taken": "2026-05-13T10:00:00"
+              },
+              {
+                "type": "booking_created",
+                "booking_id": "KHD-2026-05-12-RDHID"
+              },
+              {
+                "type": "user_history",
+                "user_id": "U001",
+                "added": "KHD-2026-05-12-RDHID"
+              }
+            ]
+          },
+          "reasoning_text": "Booking executed end-to-end with 8 tool calls. Slot reserved at 2026-05-13T10:00:00. Notifications drafted for user and provider."
+        },
+        {
+          "step": 6,
+          "agent": "followup_automator",
+          "started_at": "2026-05-12T20:48:36.664550",
+          "duration_ms": 0,
+          "tool_calls": [
+            {
+              "tool": "schedule_event",
+              "calls": 7
+            },
+            {
+              "tool": "register_branching_rule",
+              "calls": 5
+            }
+          ],
+          "output": {
+            "follow_up_plan_id": "FLP-VRKASE",
+            "total_events_scheduled": 7,
+            "completion_estimated_at": "2026-05-13T11:30:00"
+          },
+          "reasoning_text": "Generated standard service follow-up for ac_technician with 7 touchpoints; included escalation rules for no-show and issues; language: roman_urdu."
+        }
+      ],
+      "completed_at": "2026-05-12T20:48:36.664550",
+      "duration_ms": 0,
+      "final_state": {
+        "status": "confirmed_with_followup_scheduled",
+        "booking_id": "KHD-2026-05-12-RDHID",
+        "follow_up_plan_id": "FLP-VRKASE"
+      }
+    }
+  }
+}
