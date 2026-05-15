@@ -17,12 +17,23 @@ import { Platform } from 'react-native';
 
 const BACKEND_PORT = 8000;
 
+// Production backend (Cloudflare tunnel) — hardcoded so the APK works out of the
+// box without needing the .env file bundled. Update this if the tunnel changes.
+const PRODUCTION_BACKEND = 'https://campus-forum-maker-perfectly.trycloudflare.com';
+
 const resolveBackendUrl = (): string => {
-  // 1. Explicit override
+  // 1. Explicit override (Expo Go uses .env at dev time)
   const envHost = process.env.EXPO_PUBLIC_BACKEND_HOST;
   if (envHost) return envHost;
 
-  // 2. Auto-detect from Metro hostUri
+  // 2. Production APK / standalone build — always use the cloud tunnel.
+  // (__DEV__ is false in EAS preview/production builds, true in Expo Go / dev client.)
+  if (!__DEV__) {
+    return PRODUCTION_BACKEND;
+  }
+
+  // 3. Dev — auto-detect from Metro hostUri so a real phone on Expo Go
+  //    can reach the laptop's LAN IP.
   const fromExpo =
     (Constants as any).expoConfig?.hostUri ||
     (Constants as any).expoGoConfig?.debuggerHost ||
@@ -37,7 +48,7 @@ const resolveBackendUrl = (): string => {
     }
   }
 
-  // 3. Platform fallback
+  // 4. Last-resort platform fallback
   if (Platform.OS === 'android') {
     return `http://10.0.2.2:${BACKEND_PORT}`;
   }
