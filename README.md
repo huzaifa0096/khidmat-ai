@@ -63,6 +63,8 @@ This gives us **breadth across 3 challenges' worth of capability** while staying
 
 For deep details, see [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
+> 📘 **For Judges:** The single most important file in this repo is [`MASTER_ANTIGRAVITY_PROMPT.md`](MASTER_ANTIGRAVITY_PROMPT.md) — a 1,070-line specification that any Antigravity Agent can read to recreate this entire project from scratch (every file, every screen, every agent, every behavior). It also doubles as your Q&A cheatsheet: section 11 has likely judge questions with answers, demo flow, backup paths, and submission field copy-paste.
+
 ---
 
 ## 🥇 What Makes Khidmat AI Different
