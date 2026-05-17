@@ -16,6 +16,7 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { MotiView } from 'moti';
@@ -67,27 +68,52 @@ export const BargainSheet = ({
 
   const canBargain = !finalDeal && rounds.length < 4;
 
-  const handleSubmitOffer = async () => {
-    const offer = parseInt(offerText.replace(/,/g, '').replace(/\D/g, ''), 10);
-    if (!offer || offer <= 0) return;
+  const submitOffer = async (rawOffer: number) => {
+    if (!rawOffer || rawOffer <= 0) {
+      Alert.alert(
+        lang === 'ur' ? 'Galat offer' : 'Invalid offer',
+        lang === 'ur' ? 'Sahi number type karein' : 'Enter a valid number'
+      );
+      return;
+    }
     setLoading(true);
     try {
       const res = await bargainNegotiate({
         provider_id: providerId,
-        customer_offer_pkr: offer,
+        customer_offer_pkr: rawOffer,
         proposed_price_pkr: currentQuote,
         round_number: rounds.length + 1,
       });
-      const newRound: Round = { ...res, customer_offered: offer };
-      const next = [...rounds, newRound];
-      setRounds(next);
+      if (!res || res.error || !res.decision) {
+        throw new Error(res?.error || 'No decision returned from server');
+      }
+      const newRound: Round = { ...res, customer_offered: rawOffer };
+      setRounds((prev) => [...prev, newRound]);
       setOfferText('');
 
       if (res.decision === 'accept') {
         setFinalDeal(res.agreed_price_pkr);
       }
-    } catch {}
-    setLoading(false);
+    } catch (e: any) {
+      console.log('[Bargain] error', e?.message, e?.response?.data);
+      Alert.alert(
+        lang === 'ur' ? 'Bargain nahi hua' : 'Bargain Failed',
+        e?.message || 'Network error — check backend is running'
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmitOffer = () => {
+    const offer = parseInt(offerText.replace(/,/g, '').replace(/\D/g, ''), 10);
+    submitOffer(offer);
+  };
+
+  // Quick-demo: 1 tap → typical 2-round bargain sequence
+  const handleQuickDemo = async () => {
+    const demoOffer = Math.round(initialPricePkr * 0.55); // 55% of original = likely counter
+    await submitOffer(demoOffer);
   };
 
   const handleAcceptCounter = () => {
@@ -190,18 +216,66 @@ export const BargainSheet = ({
               showsVerticalScrollIndicator={false}
             >
               {rounds.length === 0 ? (
-                <View
-                  style={{
-                    backgroundColor: colors.bg.surfaceSolid,
-                    borderRadius: radii.md,
-                    padding: 14,
-                  }}
-                >
-                  <Text style={{ color: colors.text.secondary, fontSize: 13, lineHeight: 19 }}>
-                    {lang === 'ur'
-                      ? 'Apni offer dalain — Bargain Agent dekhega ke provider accept karega, counter dega ya reject.'
-                      : "Enter your offer — Agent 7 simulates the provider's response: accept, counter, or reject."}
+                <View style={{ gap: 10 }}>
+                  <View
+                    style={{
+                      backgroundColor: colors.bg.surfaceSolid,
+                      borderRadius: radii.md,
+                      padding: 14,
+                    }}
+                  >
+                    <Text style={{ color: colors.text.secondary, fontSize: 13, lineHeight: 19 }}>
+                      {lang === 'ur'
+                        ? 'Apni offer dalain — Bargain Agent dekhega ke provider accept karega, counter dega ya reject.'
+                        : "Enter your offer — Agent 7 simulates the provider's response: accept, counter, or reject."}
+                    </Text>
+                  </View>
+
+                  {/* Quick suggestion chips */}
+                  <Text
+                    style={{
+                      color: colors.text.tertiary,
+                      fontSize: 10,
+                      fontWeight: '700',
+                      letterSpacing: 1,
+                      marginTop: 4,
+                    }}
+                  >
+                    {lang === 'ur' ? 'YA YEH OFFERS TRY KAREIN' : 'OR TRY THESE OFFERS'}
                   </Text>
+                  <View style={{ flexDirection: 'row', gap: 6, flexWrap: 'wrap' }}>
+                    {[
+                      { label: lang === 'ur' ? '70% offer' : '70% offer', value: Math.round(initialPricePkr * 0.7) },
+                      { label: lang === 'ur' ? '55% offer' : '55% offer', value: Math.round(initialPricePkr * 0.55) },
+                      { label: lang === 'ur' ? '40% offer' : '40% offer', value: Math.round(initialPricePkr * 0.4) },
+                      { label: lang === 'ur' ? '25% (lowball)' : '25% (lowball)', value: Math.round(initialPricePkr * 0.25) },
+                    ].map((opt) => (
+                      <Pressable
+                        key={opt.value}
+                        onPress={() => submitOffer(opt.value)}
+                        disabled={loading}
+                        style={({ pressed }) => ({
+                          paddingVertical: 8,
+                          paddingHorizontal: 12,
+                          borderRadius: radii.pill,
+                          backgroundColor: colors.brand.accent + '18',
+                          borderWidth: 1,
+                          borderColor: colors.brand.accent + '40',
+                          opacity: pressed ? 0.7 : 1,
+                        })}
+                      >
+                        <Text
+                          style={{
+                            color: colors.brand.accent,
+                            fontSize: 12,
+                            fontWeight: '700',
+                          }}
+                        >
+                          PKR {opt.value.toLocaleString()} · {opt.label}
+                        </Text>
+                      </Pressable>
+                    ))}
+                  </View>
                 </View>
               ) : (
                 rounds.map((r, i) => (
