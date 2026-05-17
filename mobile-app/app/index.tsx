@@ -24,6 +24,7 @@ import * as Haptics from 'expo-haptics';
 import { useApp } from '../src/state/AppContext';
 import { radii, spacing } from '../src/theme/colors';
 import { Logo } from '../src/components/Logo';
+import { AgentActivityStream } from '../src/components/AgentActivityStream';
 import { parseAndRank, fetchStateSummary } from '../src/services/api';
 
 const SERVICES = (colors: any) => [
@@ -291,15 +292,15 @@ export default function HomeScreen() {
                 width: 38,
                 height: 38,
                 borderRadius: 19,
-                backgroundColor: colors.bg.surfaceSolid,
+                backgroundColor: colors.brand.textAccent + '18',
                 alignItems: 'center',
                 justifyContent: 'center',
-                borderWidth: isDark ? 0.5 : 1,
-                borderColor: colors.border.divider,
+                borderWidth: 1,
+                borderColor: colors.brand.textAccent + '40',
                 opacity: pressed ? 0.6 : 1,
               })}
             >
-              <Ionicons name="notifications-outline" size={17} color={colors.text.primary} />
+              <Ionicons name="git-network-outline" size={17} color={colors.brand.textAccent} />
             </Pressable>
           </View>
 
@@ -452,6 +453,9 @@ export default function HomeScreen() {
               </MotiView>
             )}
           </Pressable>
+
+          {/* Agent Activity Stream — surfaces traces prominently */}
+          <AgentActivityStream />
 
           {/* Section: Services grid — collapsible (3 visible by default) */}
           <View

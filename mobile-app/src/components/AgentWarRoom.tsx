@@ -542,7 +542,7 @@ export const AgentWarRoom = ({
           <Text style={{ color: colors.text.tertiary, fontSize: 10, fontWeight: '700' }}>
             {visibleCount}/{script.length} MESSAGES · {completedAgents.size}/6 AGENTS
           </Text>
-          <Text style={{ color: colors.brand.primary, fontSize: 10, fontWeight: '800' }}>
+          <Text style={{ color: colors.brand.textAccent, fontSize: 10, fontWeight: '800' }}>
             {Math.round((visibleCount / script.length) * 100)}%
           </Text>
         </View>

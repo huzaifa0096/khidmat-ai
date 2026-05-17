@@ -13,6 +13,7 @@ import { useApp } from '../src/state/AppContext';
 import { radii, spacing } from '../src/theme/colors';
 import { GlassCard } from '../src/components/GlassCard';
 import { CancelBookingSheet } from '../src/components/CancelBookingSheet';
+import { ProviderAICoach } from '../src/components/ProviderAICoach';
 import { fetchMyJobs, fetchMyEarnings, respondToJob, cancelBooking, fetchMyProfile } from '../src/services/api';
 
 export default function ProviderHomeScreen() {
@@ -268,6 +269,9 @@ export default function ProviderHomeScreen() {
               />
             </View>
           </GlassCard>
+
+          {/* AI Business Coach — personalized weekly tips */}
+          <ProviderAICoach earnings={earnings} profile={profile} />
 
           {/* My Services — inline list with add button */}
           <View style={{ marginTop: spacing.md }}>

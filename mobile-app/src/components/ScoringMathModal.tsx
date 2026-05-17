@@ -395,7 +395,7 @@ export const ScoringMathModal = ({
               <Text
                 style={{
                   width: 60,
-                  color: colors.brand.primary,
+                  color: colors.brand.textAccent,
                   fontSize: 16,
                   fontWeight: '800',
                   textAlign: 'right',
