@@ -568,19 +568,23 @@ export default function ProviderDetailScreen() {
       <BargainSheet
         visible={bargainOpen}
         onClose={() => setBargainOpen(false)}
-        providerId={p.id}
-        providerName={p.business_name}
-        initialPricePkr={3500}
+        providerId={p?.id || data?.provider_id || (id as string) || 'P1001'}
+        providerName={p?.business_name || p?.name || 'Service Provider'}
+        initialPricePkr={
+          data?.pricing?.final_pkr ||
+          data?.pricing?.range_high_pkr ||
+          3500
+        }
         onAgreed={(price) => setAgreedPrice(price)}
       />
 
       <ScoringMathModal
         visible={scoringOpen}
         onClose={() => setScoringOpen(false)}
-        provider={p}
-        scoreBreakdown={data.score_breakdown}
-        finalScore={data.final_score}
-        rank={data.rank}
+        provider={p || { business_name: 'Provider', rating: 4.5, reviews_count: 100 }}
+        scoreBreakdown={data?.score_breakdown}
+        finalScore={data?.final_score}
+        rank={data?.rank}
       />
     </SafeAreaView>
   );

@@ -76,16 +76,25 @@ export const BargainSheet = ({
       );
       return;
     }
+    // Defensive: if providerId is empty (deep-link with no trace), fall back to demo provider
+    const safeProviderId = providerId && providerId.trim() ? providerId : 'P1001';
+    const safeProposedPrice = currentQuote && currentQuote > 0 ? Math.round(currentQuote) : 3500;
+
     setLoading(true);
     try {
       const res = await bargainNegotiate({
-        provider_id: providerId,
-        customer_offer_pkr: rawOffer,
-        proposed_price_pkr: currentQuote,
+        provider_id: safeProviderId,
+        customer_offer_pkr: Math.round(rawOffer),
+        proposed_price_pkr: safeProposedPrice,
         round_number: rounds.length + 1,
       });
       if (!res || res.error || !res.decision) {
-        throw new Error(res?.error || 'No decision returned from server');
+        const detail = res?.detail
+          ? typeof res.detail === 'string'
+            ? res.detail
+            : JSON.stringify(res.detail)
+          : '';
+        throw new Error(res?.error || detail || 'No decision returned from server');
       }
       const newRound: Round = { ...res, customer_offered: rawOffer };
       setRounds((prev) => [...prev, newRound]);
@@ -95,10 +104,16 @@ export const BargainSheet = ({
         setFinalDeal(res.agreed_price_pkr);
       }
     } catch (e: any) {
-      console.log('[Bargain] error', e?.message, e?.response?.data);
+      const apiErrorDetail = e?.response?.data?.detail;
+      const apiMsg = apiErrorDetail
+        ? typeof apiErrorDetail === 'string'
+          ? apiErrorDetail
+          : JSON.stringify(apiErrorDetail).slice(0, 200)
+        : null;
+      console.log('[Bargain] error', e?.message, apiErrorDetail);
       Alert.alert(
         lang === 'ur' ? 'Bargain nahi hua' : 'Bargain Failed',
-        e?.message || 'Network error — check backend is running'
+        apiMsg || e?.message || 'Network error — check backend is running'
       );
     } finally {
       setLoading(false);
