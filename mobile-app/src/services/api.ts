@@ -266,6 +266,17 @@ export const providerCounterOffer = (jobId: string, payload: { counter_price_pkr
 export const customerCounterResponse = (bookingId: string, payload: { action: 'accept' | 'counter'; counter_price_pkr?: number }) =>
   api.post(`/api/bookings/${bookingId}/counter-response`, payload).then((r) => r.data);
 
+// Photo estimate — list scenarios + run estimate
+export const fetchEstimateScenarios = () =>
+  api.get('/api/estimate/scenarios').then((r) => r.data);
+
+export const estimateFromImage = (payload: { scenario_id: string; user_id?: string }) =>
+  api.post('/api/estimate/from-image', payload).then((r) => r.data);
+
+// Live tracking — poll provider position
+export const fetchTracking = (bookingId: string) =>
+  api.get(`/api/tracking/${bookingId}`).then((r) => r.data);
+
 // ============================================================================
 // Admin Dashboard
 // ============================================================================

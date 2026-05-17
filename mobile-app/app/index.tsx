@@ -24,6 +24,7 @@ import * as Haptics from 'expo-haptics';
 import { useApp } from '../src/state/AppContext';
 import { radii, spacing } from '../src/theme/colors';
 import { Logo } from '../src/components/Logo';
+import { PhotoEstimatorSheet } from '../src/components/PhotoEstimatorSheet';
 import { parseAndRank, fetchStateSummary } from '../src/services/api';
 
 const SERVICES = (colors: any) => [
@@ -138,6 +139,7 @@ export default function HomeScreen() {
   const [loading, setLoading] = useState(false);
   const [stats, setStats] = useState<any>(null);
   const [showAllServices, setShowAllServices] = useState(false);
+  const [photoEstimatorOpen, setPhotoEstimatorOpen] = useState(false);
 
   useEffect(() => {
     fetchStateSummary().then(setStats).catch(() => {});
@@ -366,6 +368,48 @@ export default function HomeScreen() {
               <Ionicons name={loading ? 'hourglass' : 'arrow-forward'} size={16} color="#fff" />
             </Pressable>
           </View>
+
+          {/* Photo Estimator quick action */}
+          <Pressable
+            onPress={() => setPhotoEstimatorOpen(true)}
+            style={({ pressed }) => ({
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 10,
+              paddingVertical: 12,
+              paddingHorizontal: 14,
+              borderRadius: radii.lg,
+              backgroundColor: colors.brand.accent + '12',
+              borderWidth: 1,
+              borderColor: colors.brand.accent + '35',
+              marginBottom: spacing.lg,
+              opacity: pressed ? 0.7 : 1,
+            })}
+          >
+            <View
+              style={{
+                width: 34,
+                height: 34,
+                borderRadius: 10,
+                backgroundColor: colors.brand.accent,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Ionicons name="camera" size={17} color="#fff" />
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={{ color: colors.text.primary, fontSize: 13, fontWeight: '700', letterSpacing: -0.2 }}>
+                {lang === 'ur' ? 'Photo se AI Estimate' : 'AI Photo Estimate'}
+              </Text>
+              <Text style={{ color: colors.text.tertiary, fontSize: 11, marginTop: 1 }}>
+                {lang === 'ur'
+                  ? 'Problem ki photo dikhayein — instant price + provider match'
+                  : 'Show your problem — instant price + provider match'}
+              </Text>
+            </View>
+            <Ionicons name="chevron-forward" size={16} color={colors.brand.accent} />
+          </Pressable>
 
           {/* Promotional banner */}
           <Pressable onPress={() => handleSubmit(samples[0])}>
@@ -701,6 +745,14 @@ export default function HomeScreen() {
           </Text>
         </ScrollView>
       </KeyboardAvoidingView>
+
+      <PhotoEstimatorSheet
+        visible={photoEstimatorOpen}
+        onClose={() => setPhotoEstimatorOpen(false)}
+        onFindProviders={() => {
+          router.push('/results');
+        }}
+      />
     </SafeAreaView>
   );
 }

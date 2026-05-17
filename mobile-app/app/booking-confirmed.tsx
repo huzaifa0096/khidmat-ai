@@ -762,6 +762,16 @@ export default function BookingConfirmedScreen() {
           size="lg"
           style={{ marginTop: spacing.md }}
         />
+        {/* Live Provider Tracking — visible once booking is confirmed */}
+        {isConfirmed && b?.booking_id ? (
+          <GradientButton
+            label={lang === 'ur' ? 'Provider ko Live Track Karein' : 'Track Provider Live'}
+            icon="navigate"
+            onPress={() => router.push(`/track/${b.booking_id}`)}
+            variant="primary"
+            size="lg"
+          />
+        ) : null}
         <GradientButton
           label={lang === 'ur' ? 'Agent Trace Dekhein (Logs)' : 'View Agent Trace (Logs)'}
           icon="git-network"
@@ -770,7 +780,7 @@ export default function BookingConfirmedScreen() {
             if (tid) router.push(`/trace/${tid}`);
             else router.push('/history');
           }}
-          variant="primary"
+          variant="secondary"
           size="lg"
         />
         <GradientButton
