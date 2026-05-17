@@ -709,9 +709,20 @@ export default function ProviderHomeScreen() {
         jobId={counterJob?.job_id || ''}
         customerOfferedPkr={
           (() => {
-            const est = counterJob?.price_estimate || '';
-            const num = parseInt(String(est).replace(/[^\d]/g, '').slice(0, 5), 10);
-            return num || 2000;
+            // 1. Backend provides a clean numeric `customer_final_pkr` — use it first.
+            if (typeof counterJob?.customer_final_pkr === 'number' && counterJob.customer_final_pkr > 0) {
+              return counterJob.customer_final_pkr;
+            }
+            // 2. Fallback: parse the FIRST number out of the price_estimate string.
+            //    e.g. 'PKR 1,815–1,815' → first match '1,815' → 1815
+            //    Old bug: stripping non-digits concatenated low+high digits.
+            const est = String(counterJob?.price_estimate || '');
+            const match = est.match(/(\d[\d,]*)/);
+            if (match) {
+              const num = parseInt(match[1].replace(/,/g, ''), 10);
+              if (num > 0 && num < 1000000) return num;
+            }
+            return 2000;
           })()
         }
         onCounterSent={() => {

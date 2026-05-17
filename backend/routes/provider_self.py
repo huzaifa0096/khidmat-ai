@@ -183,6 +183,17 @@ async def my_jobs(request: Request, user_id: Optional[str] = None, provider_id: 
                 loc = b.get("location") or {}
                 rec = b.get("receipt") or {}
 
+                # Numeric customer offer for the provider counter sheet
+                # (avoids string parsing bugs on the mobile side)
+                customer_final_pkr = None
+                try:
+                    if "final_pkr" in pricing:
+                        customer_final_pkr = int(pricing["final_pkr"])
+                    elif "range_low_pkr" in pricing:
+                        customer_final_pkr = int(pricing["range_low_pkr"])
+                except Exception:
+                    customer_final_pkr = None
+
                 item = {
                     "job_id": b.get("booking_id") or b.get("id") or "—",
                     "service_text": svc.get("category_name_en") or svc.get("name_en") or "Service",
@@ -192,6 +203,8 @@ async def my_jobs(request: Request, user_id: Optional[str] = None, provider_id: 
                     "city": loc.get("city", "—"),
                     "scheduled_for": b.get("scheduled_for", ""),
                     "price_estimate": price_estimate,
+                    "customer_final_pkr": customer_final_pkr,
+                    "is_bargained": bool(pricing.get("bargained")),
                     "receipt_id": rec.get("receipt_id", "—") if isinstance(rec, dict) else "—",
                     "is_real": True,
                     "status": b.get("status", "confirmed"),
