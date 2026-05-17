@@ -38,6 +38,7 @@ class ConfirmBookingRequest(BaseModel):
     user: dict
     time_preference: Optional[str] = None
     time_specific_iso: Optional[str] = None
+    agreed_price_pkr: Optional[int] = None  # bargained price (Agent 7) — overrides pricing
 
 
 def _step(step_num, agent_name, action, started, output, tool_calls=None, reasoning_text=None):
@@ -332,7 +333,8 @@ async def confirm_booking(payload: ConfirmBookingRequest, request: Request):
         user=payload.user,
         intent=intent,
         time_preference=time_pref,
-        time_specific_iso=time_specific
+        time_specific_iso=time_specific,
+        agreed_price_pkr=payload.agreed_price_pkr,
     )
     booking = await create_booking(booking_req, request)
 

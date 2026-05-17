@@ -85,11 +85,14 @@ export default function ProviderDetailScreen() {
       return;
     }
 
+    // If user bargained, that price overrides whatever the backend would compute.
+    const bargainedPrice = agreedPrice && agreedPrice > 0 ? agreedPrice : null;
+
     // Path 1: existing trace
     const tryWithTrace = async (tid?: string) => {
       if (!tid) return null;
       try {
-        const res = await confirmBooking(tid, provId, userPayload);
+        const res = await confirmBooking(tid, provId, userPayload, undefined, undefined, bargainedPrice);
         if (res && !res.error) return res;
       } catch {}
       return null;
@@ -104,7 +107,7 @@ export default function ProviderDetailScreen() {
             : `Need ${(p?.primary_service || 'service').replace(/_/g, ' ')} in ${p?.sector || 'G-13'}`;
         const fresh = await parseAndRank(synthInput, userPayload.id);
         if (fresh?.trace_id) {
-          const res = await confirmBooking(fresh.trace_id, provId, userPayload);
+          const res = await confirmBooking(fresh.trace_id, provId, userPayload, undefined, undefined, bargainedPrice);
           if (res && !res.error) return res;
         }
       } catch {}
@@ -129,6 +132,7 @@ export default function ProviderDetailScreen() {
           user: userPayload,
           intent,
           time_preference: 'now',
+          agreed_price_pkr: bargainedPrice,
         });
         // Direct endpoint returns the booking object directly (not wrapped in {booking})
         if (res && !res.error && res.booking_id) {

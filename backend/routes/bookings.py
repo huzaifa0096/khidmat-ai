@@ -75,6 +75,7 @@ class BookingCreate(BaseModel):
     time_preference: str
     time_specific_iso: Optional[str] = None
     pricing: Optional[dict] = None  # optional pre-computed pricing breakdown
+    agreed_price_pkr: Optional[int] = None  # if user bargained, this overrides pricing
 
 
 def _compute_distance_km_approx(provider: dict, intent: dict) -> float:
@@ -118,6 +119,29 @@ async def create_booking(payload: BookingCreate, request: Request):
             urgency=payload.intent.get("urgency", "normal"),
             provider_price_range=provider.get("price_range"),
         )
+
+    # BARGAIN OVERRIDE: if customer bargained to an agreed price, that wins.
+    bargained = False
+    if payload.agreed_price_pkr and payload.agreed_price_pkr > 0:
+        agreed = int(payload.agreed_price_pkr)
+        original_final = pricing.get("final_pkr", agreed)
+        # Recalculate commission + earnings on the agreed price
+        commission_pct = pricing.get("commission_percent", 5)
+        new_commission = int(agreed * commission_pct / 100)
+        new_earnings = agreed - new_commission
+        pricing = {
+            **pricing,
+            "final_pkr": agreed,
+            "range_low_pkr": agreed,
+            "range_high_pkr": agreed,
+            "platform_commission_pkr": new_commission,
+            "provider_earnings_pkr": new_earnings,
+            "bargained": True,
+            "original_quote_pkr": original_final,
+            "bargain_savings_pkr": max(0, original_final - agreed),
+        }
+        bargained = True
+
     final_pkr = pricing["final_pkr"]
     commission = pricing["platform_commission_pkr"]
     provider_earnings = pricing["provider_earnings_pkr"]
@@ -153,22 +177,37 @@ async def create_booking(payload: BookingCreate, request: Request):
         "trust": trust,
         "receipt": {
             "receipt_id": rcpt_id,
-            "lines": [
-                {"label": "Service", "value": f"{cat_name} — Diagnosis & Service"},
-                {"label": "Provider", "value": provider["business_name"]},
-                {"label": "Slot", "value": slot_human},
-                {"label": "Location", "value": f"{payload.intent['location']['sector']}, {payload.intent['location']['city'].title()}"},
-                {"label": "Trust Score", "value": f"{trust['score']}/100 ({trust['tier_label']})"},
-                {"label": "Base Price", "value": f"PKR {pricing['base_pkr']:,}"},
-                {"label": "Distance Cost", "value": f"PKR {pricing['distance_cost_pkr']:,} ({pricing['distance_km']} km)"},
-                {"label": "Urgency Multiplier", "value": f"×{pricing['urgency_multiplier']:.2f} ({pricing['urgency']})"},
-                {"label": "Provider Variation", "value": f"×{pricing['provider_variation']:.2f}"},
-                {"label": "Visit Charge", "value": f"PKR {visit_charge}"},
-                {"label": "Estimated Total", "value": f"PKR {final_pkr:,} (range PKR {pricing['range_low_pkr']:,}–{pricing['range_high_pkr']:,})"},
-                {"label": "Platform Commission (5%)", "value": f"-PKR {commission:,}"},
-                {"label": "Provider Earnings", "value": f"PKR {provider_earnings:,}"},
-            ],
+            "lines": (
+                [
+                    {"label": "Service", "value": f"{cat_name} — Diagnosis & Service"},
+                    {"label": "Provider", "value": provider["business_name"]},
+                    {"label": "Slot", "value": slot_human},
+                    {"label": "Location", "value": f"{payload.intent['location']['sector']}, {payload.intent['location']['city'].title()}"},
+                    {"label": "Trust Score", "value": f"{trust['score']}/100 ({trust['tier_label']})"},
+                ]
+                + (
+                    [
+                        {"label": "Original Quote", "value": f"PKR {pricing.get('original_quote_pkr', final_pkr):,}"},
+                        {"label": "🤝 Bargained Price (FINAL)", "value": f"PKR {final_pkr:,}"},
+                        {"label": "Bargain Savings", "value": f"-PKR {pricing.get('bargain_savings_pkr', 0):,}"},
+                        {"label": "Platform Commission (5%)", "value": f"-PKR {commission:,}"},
+                        {"label": "Provider Earnings", "value": f"PKR {provider_earnings:,}"},
+                    ]
+                    if bargained
+                    else [
+                        {"label": "Base Price", "value": f"PKR {pricing['base_pkr']:,}"},
+                        {"label": "Distance Cost", "value": f"PKR {pricing['distance_cost_pkr']:,} ({pricing['distance_km']} km)"},
+                        {"label": "Urgency Multiplier", "value": f"×{pricing['urgency_multiplier']:.2f} ({pricing['urgency']})"},
+                        {"label": "Provider Variation", "value": f"×{pricing['provider_variation']:.2f}"},
+                        {"label": "Visit Charge", "value": f"PKR {visit_charge}"},
+                        {"label": "Estimated Total", "value": f"PKR {final_pkr:,} (range PKR {pricing['range_low_pkr']:,}–{pricing['range_high_pkr']:,})"},
+                        {"label": "Platform Commission (5%)", "value": f"-PKR {commission:,}"},
+                        {"label": "Provider Earnings", "value": f"PKR {provider_earnings:,}"},
+                    ]
+                )
+            ),
             "pricing_breakdown": pricing,
+            "bargained": bargained,
             "qr_payload": f"khidmat://booking/{bid}"
         },
         "notifications": {

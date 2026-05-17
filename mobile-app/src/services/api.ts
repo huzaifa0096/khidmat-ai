@@ -87,7 +87,8 @@ export const confirmBooking = (
   providerId: string,
   user: { id: string; name: string; phone: string },
   timePreference?: string,
-  timeSpecificIso?: string
+  timeSpecificIso?: string,
+  agreedPricePkr?: number | null
 ) =>
   api
     .post('/api/orchestrate/confirm-booking', {
@@ -96,6 +97,7 @@ export const confirmBooking = (
       user,
       time_preference: timePreference,
       time_specific_iso: timeSpecificIso,
+      agreed_price_pkr: agreedPricePkr || undefined,
     })
     .then((r) => r.data);
 
@@ -109,6 +111,7 @@ export const createDirectBooking = (payload: {
   user: { id: string; name: string; phone: string };
   intent: any;
   time_preference?: string;
+  agreed_price_pkr?: number | null;
 }) =>
   api
     .post('/api/bookings', {
@@ -116,6 +119,7 @@ export const createDirectBooking = (payload: {
       user: payload.user,
       intent: payload.intent,
       time_preference: payload.time_preference || 'now',
+      agreed_price_pkr: payload.agreed_price_pkr || undefined,
     })
     .then((r) => r.data);
 
