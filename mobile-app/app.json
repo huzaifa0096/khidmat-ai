@@ -31,7 +31,10 @@
       "permissions": [
         "RECORD_AUDIO",
         "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION"
+        "ACCESS_COARSE_LOCATION",
+        "CAMERA",
+        "READ_MEDIA_IMAGES",
+        "READ_EXTERNAL_STORAGE"
       ]
     },
     "web": {
@@ -39,7 +42,14 @@
       "bundler": "metro"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Khidmat AI needs photo library access so you can upload a problem photo for instant AI estimate.",
+          "cameraPermission": "Khidmat AI needs camera access so you can capture a photo of your problem for instant AI estimate."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

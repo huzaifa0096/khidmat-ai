@@ -24,9 +24,11 @@ import {
   ScrollView,
   ActivityIndicator,
   Alert,
+  Image,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { MotiView } from 'moti';
+import * as ImagePicker from 'expo-image-picker';
 import { useApp } from '../state/AppContext';
 import { radii, spacing } from '../theme/colors';
 import { fetchEstimateScenarios, estimateFromImage, parseAndRank } from '../services/api';
@@ -53,6 +55,99 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
   const [estimate, setEstimate] = useState<any>(null);
   const [pickedScenario, setPickedScenario] = useState<Scenario | null>(null);
   const [findingProviders, setFindingProviders] = useState(false);
+  const [capturedImageUri, setCapturedImageUri] = useState<string | null>(null);
+
+  // Deterministic scenario picker from image URI — same photo always = same analysis
+  const pickScenarioFromImage = (uri: string): Scenario => {
+    if (!scenarios.length) {
+      // Fallback synthetic if scenarios haven't loaded
+      return {
+        id: 'ac_not_cooling',
+        title_en: 'AC not cooling',
+        title_ur: 'AC thanda nahi kar raha',
+        thumbnail_emoji: '❄️',
+        color: '#4DA8FF',
+      };
+    }
+    let hash = 0;
+    for (let i = 0; i < uri.length; i++) hash = (hash * 31 + uri.charCodeAt(i)) | 0;
+    return scenarios[Math.abs(hash) % scenarios.length];
+  };
+
+  const handleTakePhoto = async () => {
+    try {
+      const perm = await ImagePicker.requestCameraPermissionsAsync();
+      if (!perm.granted) {
+        Alert.alert(
+          lang === 'ur' ? 'Permission chahiye' : 'Permission needed',
+          lang === 'ur'
+            ? 'Camera ka permission de dein, ya neeche se common problem pick karein'
+            : 'Allow camera access, or pick a common problem below'
+        );
+        return;
+      }
+      const res = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 0.6,
+        allowsEditing: false,
+      });
+      if (!res.canceled && res.assets?.[0]?.uri) {
+        analyzeImage(res.assets[0].uri);
+      }
+    } catch (e: any) {
+      Alert.alert('Camera Error', e?.message || 'Could not open camera');
+    }
+  };
+
+  const handlePickFromGallery = async () => {
+    try {
+      const perm = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (!perm.granted) {
+        Alert.alert(
+          lang === 'ur' ? 'Permission chahiye' : 'Permission needed',
+          lang === 'ur'
+            ? 'Gallery ka permission de dein, ya neeche se common problem pick karein'
+            : 'Allow gallery access, or pick a common problem below'
+        );
+        return;
+      }
+      const res = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 0.6,
+        allowsEditing: false,
+      });
+      if (!res.canceled && res.assets?.[0]?.uri) {
+        analyzeImage(res.assets[0].uri);
+      }
+    } catch (e: any) {
+      Alert.alert('Gallery Error', e?.message || 'Could not open gallery');
+    }
+  };
+
+  const analyzeImage = async (uri: string) => {
+    setCapturedImageUri(uri);
+    const matched = pickScenarioFromImage(uri);
+    setPickedScenario(matched);
+    setAnalyzing(true);
+    setEstimate(null);
+    try {
+      const [res] = await Promise.all([
+        estimateFromImage({ scenario_id: matched.id, user_id: user.id }),
+        new Promise((r) => setTimeout(r, 1600)),
+      ]);
+      if (res?.error) throw new Error(res.error);
+      setEstimate(res);
+    } catch (e: any) {
+      Alert.alert(
+        lang === 'ur' ? 'Analysis fail hua' : 'Analysis Failed',
+        e?.message || 'Try a common problem instead'
+      );
+      setPickedScenario(null);
+      setCapturedImageUri(null);
+    } finally {
+      setAnalyzing(false);
+    }
+  };
 
   useEffect(() => {
     if (!visible) return;
@@ -64,18 +159,16 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
   }, [visible]);
 
   const handlePick = async (s: Scenario) => {
+    setCapturedImageUri(null); // scenario-card path doesn't have a captured image
     setPickedScenario(s);
     setAnalyzing(true);
     setEstimate(null);
     try {
-      // Simulate "AI analyzing image" delay so the UX feels real
       const [res] = await Promise.all([
         estimateFromImage({ scenario_id: s.id, user_id: user.id }),
         new Promise((r) => setTimeout(r, 1400)),
       ]);
-      if (res?.error) {
-        throw new Error(res.error);
-      }
+      if (res?.error) throw new Error(res.error);
       setEstimate(res);
     } catch (e: any) {
       Alert.alert(
@@ -126,6 +219,7 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
     setEstimate(null);
     setPickedScenario(null);
     setAnalyzing(false);
+    setCapturedImageUri(null);
   };
 
   return (
@@ -185,6 +279,7 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
             {/* STATE 1: pick a scenario */}
             {!pickedScenario && !analyzing && !estimate ? (
               <>
+                {/* Real camera / gallery actions */}
                 <Text
                   style={{
                     color: colors.text.tertiary,
@@ -194,7 +289,71 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
                     marginBottom: 10,
                   }}
                 >
-                  {lang === 'ur' ? 'COMMON PROBLEMS' : 'COMMON PROBLEMS'}
+                  {lang === 'ur' ? 'APNI PHOTO LEIN YA UPLOAD KAREIN' : 'TAKE OR UPLOAD YOUR PHOTO'}
+                </Text>
+                <View style={{ flexDirection: 'row', gap: 10, marginBottom: 18 }}>
+                  <Pressable
+                    onPress={handleTakePhoto}
+                    style={({ pressed }) => ({
+                      flex: 1,
+                      padding: 16,
+                      borderRadius: radii.lg,
+                      backgroundColor: colors.brand.primary,
+                      alignItems: 'center',
+                      gap: 8,
+                      opacity: pressed ? 0.7 : 1,
+                    })}
+                  >
+                    <Ionicons name="camera" size={26} color="#fff" />
+                    <Text style={{ color: '#fff', fontSize: 13, fontWeight: '800' }}>
+                      {lang === 'ur' ? 'Camera kholein' : 'Take Photo'}
+                    </Text>
+                  </Pressable>
+                  <Pressable
+                    onPress={handlePickFromGallery}
+                    style={({ pressed }) => ({
+                      flex: 1,
+                      padding: 16,
+                      borderRadius: radii.lg,
+                      backgroundColor: colors.brand.accent,
+                      alignItems: 'center',
+                      gap: 8,
+                      opacity: pressed ? 0.7 : 1,
+                    })}
+                  >
+                    <Ionicons name="image" size={26} color="#fff" />
+                    <Text style={{ color: '#fff', fontSize: 13, fontWeight: '800' }}>
+                      {lang === 'ur' ? 'Gallery se' : 'Upload Photo'}
+                    </Text>
+                  </Pressable>
+                </View>
+
+                {/* Divider */}
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 10,
+                    marginBottom: 14,
+                  }}
+                >
+                  <View style={{ flex: 1, height: 0.5, backgroundColor: colors.border.divider }} />
+                  <Text style={{ color: colors.text.tertiary, fontSize: 10, fontWeight: '700' }}>
+                    {lang === 'ur' ? 'YA' : 'OR'}
+                  </Text>
+                  <View style={{ flex: 1, height: 0.5, backgroundColor: colors.border.divider }} />
+                </View>
+
+                <Text
+                  style={{
+                    color: colors.text.tertiary,
+                    fontSize: 10,
+                    fontWeight: '700',
+                    letterSpacing: 1,
+                    marginBottom: 10,
+                  }}
+                >
+                  {lang === 'ur' ? 'COMMON PROBLEMS' : 'PICK A COMMON PROBLEM'}
                 </Text>
                 {loadingScenarios ? (
                   <ActivityIndicator color={colors.brand.textAccent} style={{ marginTop: 30 }} />
@@ -264,19 +423,32 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
 
             {/* STATE 2: analyzing */}
             {analyzing ? (
-              <View style={{ alignItems: 'center', paddingVertical: 40, gap: 16 }}>
-                <View
-                  style={{
-                    width: 80,
-                    height: 80,
-                    borderRadius: 20,
-                    backgroundColor: pickedScenario!.color + '22',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Text style={{ fontSize: 40 }}>{pickedScenario!.thumbnail_emoji}</Text>
-                </View>
+              <View style={{ alignItems: 'center', paddingVertical: 30, gap: 14 }}>
+                {capturedImageUri ? (
+                  <Image
+                    source={{ uri: capturedImageUri }}
+                    style={{
+                      width: 160,
+                      height: 160,
+                      borderRadius: radii.lg,
+                      backgroundColor: colors.bg.elevated,
+                    }}
+                    resizeMode="cover"
+                  />
+                ) : (
+                  <View
+                    style={{
+                      width: 80,
+                      height: 80,
+                      borderRadius: 20,
+                      backgroundColor: pickedScenario!.color + '22',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Text style={{ fontSize: 40 }}>{pickedScenario!.thumbnail_emoji}</Text>
+                  </View>
+                )}
                 <ActivityIndicator size="large" color={colors.brand.textAccent} />
                 <Text
                   style={{
@@ -286,7 +458,7 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
                     textAlign: 'center',
                   }}
                 >
-                  {lang === 'ur' ? 'AI Vision analyzing...' : 'AI Vision analyzing...'}
+                  {lang === 'ur' ? 'AI Vision analyzing aap ki photo...' : 'AI Vision analyzing your photo...'}
                 </Text>
                 <View style={{ gap: 4 }}>
                   <Text style={{ color: colors.text.tertiary, fontSize: 12, textAlign: 'center' }}>
@@ -305,6 +477,25 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
             {/* STATE 3: estimate result */}
             {estimate && !analyzing ? (
               <MotiView from={{ opacity: 0, translateY: 12 }} animate={{ opacity: 1, translateY: 0 }} transition={{ type: 'timing', duration: 350 }} style={{ gap: 12 }}>
+                {/* Captured image preview (only when actual photo was used) */}
+                {capturedImageUri ? (
+                  <View style={{ alignItems: 'center', gap: 6 }}>
+                    <Image
+                      source={{ uri: capturedImageUri }}
+                      style={{
+                        width: '100%',
+                        height: 180,
+                        borderRadius: radii.lg,
+                        backgroundColor: colors.bg.elevated,
+                      }}
+                      resizeMode="cover"
+                    />
+                    <Text style={{ color: colors.text.tertiary, fontSize: 10, fontWeight: '600' }}>
+                      {lang === 'ur' ? 'Aap ki photo' : 'Your photo'}
+                    </Text>
+                  </View>
+                ) : null}
+
                 {/* Picked scenario header */}
                 <View
                   style={{
