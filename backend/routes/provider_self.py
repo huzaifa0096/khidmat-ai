@@ -241,6 +241,73 @@ async def my_jobs(request: Request, user_id: Optional[str] = None, provider_id: 
         }
 
 
+@router.post("/me/jobs/{job_id}/counter-offer")
+async def provider_counter_offer(job_id: str, payload: dict, request: Request):
+    """Provider counter-offers a new price on a pending booking.
+    Customer then sees the counter on their booking-confirmed screen and
+    can accept it or counter back."""
+    store = request.app.state.store
+    counter_price = payload.get("counter_price_pkr")
+    note_ur = payload.get("note_ur") or ""
+
+    if not isinstance(counter_price, (int, float)) or counter_price <= 0:
+        return {"error": "invalid_counter_price"}
+
+    real_booking = store.bookings.get(job_id)
+    if not real_booking:
+        return {"error": "booking_not_found"}
+
+    counter_price = int(counter_price)
+    now_iso = datetime.now().isoformat()
+    pricing = real_booking.get("pricing") or {}
+    customer_offered = pricing.get("final_pkr", 0)
+
+    # Initialize negotiation history if missing
+    if "negotiation_history" not in real_booking:
+        real_booking["negotiation_history"] = [
+            {
+                "by": "customer",
+                "price_pkr": customer_offered,
+                "ts": real_booking.get("created_at", now_iso),
+                "note": "Initial bargained price from Agent 7",
+            }
+        ]
+
+    # Append provider counter
+    real_booking["negotiation_history"].append({
+        "by": "provider",
+        "price_pkr": counter_price,
+        "ts": now_iso,
+        "note": note_ur or f"Provider counter-offer: PKR {counter_price:,}",
+    })
+
+    # Status changes to await customer response
+    real_booking["status"] = "pending_customer_counter_response"
+    real_booking["provider_counter_pkr"] = counter_price
+    real_booking["provider_countered_at"] = now_iso
+
+    store.log_state_change({
+        "type": "provider_counter_offer",
+        "booking_id": job_id,
+        "counter_price": counter_price,
+        "previous_price": customer_offered,
+        "ts": now_iso,
+    })
+
+    return {
+        "success": True,
+        "job_id": job_id,
+        "counter_price_pkr": counter_price,
+        "previous_price_pkr": customer_offered,
+        "new_status": real_booking["status"],
+        "negotiation_history": real_booking["negotiation_history"],
+        "provider_message_ur": note_ur or (
+            f"Bhai PKR {counter_price:,} kar do, isse kam mushkil hai. "
+            f"Customer ki original offer PKR {customer_offered:,} thi."
+        ),
+    }
+
+
 @router.post("/me/jobs/{job_id}/respond")
 async def respond_to_job(job_id: str, payload: dict, request: Request):
     """Accept or decline a pending job. If job_id matches a real booking,

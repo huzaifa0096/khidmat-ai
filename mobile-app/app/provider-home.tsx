@@ -14,6 +14,7 @@ import { radii, spacing } from '../src/theme/colors';
 import { GlassCard } from '../src/components/GlassCard';
 import { CancelBookingSheet } from '../src/components/CancelBookingSheet';
 import { ProviderAICoach } from '../src/components/ProviderAICoach';
+import { ProviderCounterSheet } from '../src/components/ProviderCounterSheet';
 import { fetchMyJobs, fetchMyEarnings, respondToJob, cancelBooking, fetchMyProfile } from '../src/services/api';
 
 export default function ProviderHomeScreen() {
@@ -25,6 +26,7 @@ export default function ProviderHomeScreen() {
   const [loading, setLoading] = useState(true);
   const [isOnline, setIsOnline] = useState(true);
   const [cancellingJobId, setCancellingJobId] = useState<string | null>(null);
+  const [counterJob, setCounterJob] = useState<any>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -556,6 +558,7 @@ export default function ProviderHomeScreen() {
                   lang={lang}
                   onAccept={() => handleAcceptJob(j.job_id)}
                   onDecline={() => handleDeclineJob(j.job_id)}
+                  onCounter={() => setCounterJob(j)}
                 />
               </MotiView>
             ))
@@ -699,6 +702,26 @@ export default function ProviderHomeScreen() {
         byParty="provider"
         lang={lang}
       />
+
+      <ProviderCounterSheet
+        visible={!!counterJob}
+        onClose={() => setCounterJob(null)}
+        jobId={counterJob?.job_id || ''}
+        customerOfferedPkr={
+          (() => {
+            const est = counterJob?.price_estimate || '';
+            const num = parseInt(String(est).replace(/[^\d]/g, '').slice(0, 5), 10);
+            return num || 2000;
+          })()
+        }
+        onCounterSent={() => {
+          // Remove from pending list since status is now pending_customer_counter_response
+          setJobs((j: any) => ({
+            ...j,
+            pending: j.pending.filter((p: any) => p.job_id !== counterJob?.job_id),
+          }));
+        }}
+      />
     </SafeAreaView>
   );
 }
@@ -777,7 +800,7 @@ const Mini = ({ icon, color, value, label, small }: any) => {
   );
 };
 
-const JobCard = ({ job, lang, onAccept, onDecline }: any) => {
+const JobCard = ({ job, lang, onAccept, onDecline, onCounter }: any) => {
   const { colors } = useApp();
   return (
   <View
@@ -848,7 +871,7 @@ const JobCard = ({ job, lang, onAccept, onDecline }: any) => {
         </Text>
       </View>
 
-      <View style={{ flexDirection: 'row', gap: 8, marginTop: 12 }}>
+      <View style={{ flexDirection: 'row', gap: 6, marginTop: 12 }}>
         <Pressable
           onPress={onDecline}
           style={({ pressed }) => ({
@@ -860,27 +883,50 @@ const JobCard = ({ job, lang, onAccept, onDecline }: any) => {
             opacity: pressed ? 0.6 : 1,
           })}
         >
-          <Text style={{ color: colors.text.secondary, fontSize: 13, fontWeight: '700' }}>
+          <Text style={{ color: colors.text.secondary, fontSize: 12, fontWeight: '700' }}>
             {lang === 'ur' ? 'Decline' : 'Decline'}
           </Text>
         </Pressable>
+        {job.is_real && onCounter ? (
+          <Pressable
+            onPress={onCounter}
+            style={({ pressed }) => ({
+              flex: 1.3,
+              paddingVertical: 10,
+              borderRadius: radii.pill,
+              backgroundColor: colors.brand.accent + '22',
+              borderWidth: 1,
+              borderColor: colors.brand.accent + '55',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 4,
+              opacity: pressed ? 0.6 : 1,
+            })}
+          >
+            <Ionicons name="swap-horizontal" size={12} color={colors.brand.accent} />
+            <Text style={{ color: colors.brand.accent, fontSize: 12, fontWeight: '700' }}>
+              {lang === 'ur' ? 'Counter' : 'Counter'}
+            </Text>
+          </Pressable>
+        ) : null}
         <Pressable
           onPress={onAccept}
           style={({ pressed }) => ({
-            flex: 2,
+            flex: 1.5,
             paddingVertical: 10,
             borderRadius: radii.pill,
             backgroundColor: colors.brand.primary,
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: 6,
+            gap: 4,
             opacity: pressed ? 0.7 : 1,
           })}
         >
-          <Ionicons name="checkmark" size={14} color="#fff" />
-          <Text style={{ color: '#fff', fontSize: 13, fontWeight: '800' }}>
-            {lang === 'ur' ? 'Accept Job' : 'Accept Job'}
+          <Ionicons name="checkmark" size={12} color="#fff" />
+          <Text style={{ color: '#fff', fontSize: 12, fontWeight: '800' }}>
+            {lang === 'ur' ? 'Accept' : 'Accept'}
           </Text>
         </Pressable>
       </View>

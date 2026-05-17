@@ -449,24 +449,45 @@ const WelcomeStep = ({ onNext, lang, setLang, onGoogleSignIn, onDemoCustomer, on
       style={{
         marginTop: spacing.xl,
         width: '100%',
-        padding: 12,
+        padding: 14,
         borderRadius: radii.lg,
-        borderWidth: 1,
-        borderColor: colors.ios.yellow + '44',
-        backgroundColor: colors.ios.yellow + '10',
+        backgroundColor: colors.bg.surfaceSolid,
       }}
     >
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 10 }}>
-        <Ionicons name="flash" size={14} color={colors.ios.yellow} />
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+          <View
+            style={{
+              width: 18,
+              height: 18,
+              borderRadius: 6,
+              backgroundColor: colors.brand.textAccent + '22',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Ionicons name="flash" size={11} color={colors.brand.textAccent} />
+          </View>
+          <Text
+            style={{
+              color: colors.text.primary,
+              fontSize: 12,
+              fontWeight: '700',
+              letterSpacing: -0.1,
+            }}
+          >
+            {lang === 'ur' ? 'Quick Demo Sign-In' : 'Quick Demo Sign-In'}
+          </Text>
+        </View>
         <Text
           style={{
-            color: colors.ios.yellow,
-            fontSize: 11,
-            fontWeight: '800',
-            letterSpacing: 1.2,
+            color: colors.text.tertiary,
+            fontSize: 10,
+            fontWeight: '600',
+            letterSpacing: 0.5,
           }}
         >
-          {lang === 'ur' ? 'DEMO · 2 DEVICES PE TEST' : 'DEMO · TEST ON 2 DEVICES'}
+          {lang === 'ur' ? '2 ROLES' : '2 ROLES'}
         </Text>
       </View>
       <View style={{ flexDirection: 'row', gap: 8 }}>
@@ -474,7 +495,8 @@ const WelcomeStep = ({ onNext, lang, setLang, onGoogleSignIn, onDemoCustomer, on
           {({ pressed }) => (
             <View
               style={{
-                padding: 12,
+                paddingVertical: 12,
+                paddingHorizontal: 10,
                 borderRadius: radii.md,
                 backgroundColor: colors.brand.primary,
                 alignItems: 'center',
@@ -493,9 +515,10 @@ const WelcomeStep = ({ onNext, lang, setLang, onGoogleSignIn, onDemoCustomer, on
           {({ pressed }) => (
             <View
               style={{
-                padding: 12,
+                paddingVertical: 12,
+                paddingHorizontal: 10,
                 borderRadius: radii.md,
-                backgroundColor: colors.ios.orange,
+                backgroundColor: colors.brand.accent,
                 alignItems: 'center',
                 gap: 4,
                 opacity: pressed ? 0.7 : 1,

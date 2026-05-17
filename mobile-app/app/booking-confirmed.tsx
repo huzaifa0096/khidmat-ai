@@ -19,7 +19,7 @@ import { GlassCard } from '../src/components/GlassCard';
 import { GradientButton } from '../src/components/GradientButton';
 import { CancelBookingSheet } from '../src/components/CancelBookingSheet';
 import { RatingModal } from '../src/components/RatingModal';
-import { fetchBookingStatus, cancelBooking, fetchBookings } from '../src/services/api';
+import { fetchBookingStatus, cancelBooking, fetchBookings, customerCounterResponse } from '../src/services/api';
 
 export default function BookingConfirmedScreen() {
   const router = useRouter();
@@ -31,6 +31,8 @@ export default function BookingConfirmedScreen() {
   const [hydrating, setHydrating] = useState(!currentBooking);
   const [showRating, setShowRating] = useState(false);
   const [feedbackResult, setFeedbackResult] = useState<any>(null);
+  const [providerCounterPkr, setProviderCounterPkr] = useState<number | null>(null);
+  const [respondingToCounter, setRespondingToCounter] = useState(false);
 
   // Fallback: if user reloaded the page or deep-linked, restore latest booking
   useEffect(() => {
@@ -70,10 +72,42 @@ export default function BookingConfirmedScreen() {
           setStatus(data.status);
           setAcceptedAt(data.accepted_at || null);
         }
+        // Capture provider counter if present
+        if (data?.provider_counter_pkr && data.provider_counter_pkr !== providerCounterPkr) {
+          setProviderCounterPkr(data.provider_counter_pkr);
+        }
       } catch {}
     }, 3000);
     return () => clearInterval(id);
-  }, [currentBooking?.booking?.booking_id, status]);
+  }, [currentBooking?.booking?.booking_id, status, providerCounterPkr]);
+
+  const handleAcceptProviderCounter = async () => {
+    if (!currentBooking?.booking?.booking_id || !providerCounterPkr) return;
+    setRespondingToCounter(true);
+    try {
+      const res = await customerCounterResponse(currentBooking.booking.booking_id, {
+        action: 'accept',
+      });
+      if (res?.success) {
+        setStatus('confirmed');
+        // Update local booking pricing
+        if (currentBooking?.booking) {
+          const updated = { ...currentBooking };
+          updated.booking = {
+            ...updated.booking,
+            status: 'confirmed',
+            pricing: {
+              ...(updated.booking.pricing || {}),
+              final_pkr: providerCounterPkr,
+              bargained: true,
+            },
+          };
+          setCurrentBooking(updated);
+        }
+      }
+    } catch {}
+    setRespondingToCounter(false);
+  };
 
   if (hydrating) {
     return (
@@ -116,6 +150,7 @@ export default function BookingConfirmedScreen() {
   const isPending = status === 'pending_provider_acceptance';
   const isDeclined = status === 'declined_by_provider';
   const isConfirmed = status === 'confirmed';
+  const hasProviderCounter = status === 'pending_customer_counter_response' && !!providerCounterPkr;
   const isCancelled = status === 'cancelled_by_customer' || status === 'cancelled_by_provider';
   const cancelledByCustomer = status === 'cancelled_by_customer';
   const cancelledByProvider = status === 'cancelled_by_provider';
@@ -382,6 +417,83 @@ export default function BookingConfirmedScreen() {
           byParty="customer"
           lang={lang}
         />
+
+        {/* PROVIDER COUNTER-OFFER notification */}
+        {hasProviderCounter ? (
+          <View
+            style={{
+              padding: 14,
+              borderRadius: radii.lg,
+              backgroundColor: colors.brand.accent + '15',
+              borderWidth: 1,
+              borderColor: colors.brand.accent + '40',
+              gap: 10,
+            }}
+          >
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+              <View
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: 10,
+                  backgroundColor: colors.brand.accent,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Ionicons name="swap-horizontal" size={16} color="#fff" />
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={{ color: colors.text.primary, fontSize: 14, fontWeight: '800' }}>
+                  {lang === 'ur' ? 'Provider ne Counter Offer ki' : 'Provider counter-offered'}
+                </Text>
+                <Text style={{ color: colors.text.tertiary, fontSize: 11, marginTop: 1 }}>
+                  {b.provider?.business_name}
+                </Text>
+              </View>
+            </View>
+            <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 8 }}>
+              <Text style={{ color: colors.text.tertiary, fontSize: 12 }}>
+                {lang === 'ur' ? 'Naya price:' : 'New price:'}
+              </Text>
+              <Text style={{ color: colors.text.primary, fontSize: 22, fontWeight: '800', letterSpacing: -0.4 }}>
+                PKR {providerCounterPkr?.toLocaleString()}
+              </Text>
+            </View>
+            <Text style={{ color: colors.text.secondary, fontSize: 12, lineHeight: 17 }}>
+              {lang === 'ur'
+                ? `Bhai PKR ${providerCounterPkr?.toLocaleString()} kar do, isse kam mushkil hai. Aap accept karein to booking confirm ho jaye gi.`
+                : `Provider proposes PKR ${providerCounterPkr?.toLocaleString()}. Accept to confirm the booking.`}
+            </Text>
+            <Pressable
+              onPress={handleAcceptProviderCounter}
+              disabled={respondingToCounter}
+              style={({ pressed }) => ({
+                paddingVertical: 12,
+                borderRadius: radii.pill,
+                backgroundColor: colors.semantic.success,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 6,
+                opacity: pressed ? 0.7 : 1,
+              })}
+            >
+              {respondingToCounter ? (
+                <ActivityIndicator size="small" color="#fff" />
+              ) : (
+                <>
+                  <Ionicons name="checkmark" size={14} color="#fff" />
+                  <Text style={{ color: '#fff', fontSize: 13, fontWeight: '800' }}>
+                    {lang === 'ur'
+                      ? `Accept @ PKR ${providerCounterPkr?.toLocaleString()}`
+                      : `Accept @ PKR ${providerCounterPkr?.toLocaleString()}`}
+                  </Text>
+                </>
+              )}
+            </Pressable>
+          </View>
+        ) : null}
 
         {/* Receipt */}
         <GlassCard>

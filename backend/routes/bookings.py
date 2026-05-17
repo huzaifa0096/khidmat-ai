@@ -271,6 +271,101 @@ async def get_booking_status(booking_id: str, request: Request):
         "cancellation_reason": b.get("cancellation_reason"),
         "cancelled_by": b.get("cancelled_by"),
         "provider_name": b["provider"].get("business_name"),
+        # Provider counter-offer (if any) for customer to act on
+        "provider_counter_pkr": b.get("provider_counter_pkr"),
+        "provider_countered_at": b.get("provider_countered_at"),
+        "current_price_pkr": (b.get("pricing") or {}).get("final_pkr"),
+        "negotiation_history": b.get("negotiation_history", []),
+    }
+
+
+@router.post("/{booking_id}/counter-response")
+async def customer_counter_response(booking_id: str, payload: dict, request: Request):
+    """Customer responds to a provider's counter-offer.
+    action: 'accept' (book at counter price) | 'counter' (send a new offer)"""
+    store = request.app.state.store
+    b = store.bookings.get(booking_id)
+    if not b:
+        return {"error": "booking_not_found"}
+
+    action = payload.get("action")
+    if action not in ("accept", "counter"):
+        return {"error": "invalid_action"}
+
+    now_iso = datetime.now().isoformat()
+    history = b.get("negotiation_history", [])
+
+    if action == "accept":
+        # Customer accepts the provider's counter-offer
+        provider_counter = b.get("provider_counter_pkr", b.get("pricing", {}).get("final_pkr"))
+        # Update pricing to provider's counter
+        if "pricing" in b:
+            old_final = b["pricing"].get("final_pkr", provider_counter)
+            commission_pct = b["pricing"].get("commission_percent", 5)
+            new_commission = int(provider_counter * commission_pct / 100)
+            b["pricing"].update({
+                "final_pkr": provider_counter,
+                "range_low_pkr": provider_counter,
+                "range_high_pkr": provider_counter,
+                "platform_commission_pkr": new_commission,
+                "provider_earnings_pkr": provider_counter - new_commission,
+                "bargained": True,
+                "original_quote_pkr": b["pricing"].get("original_quote_pkr", old_final),
+                "bargain_savings_pkr": max(0, b["pricing"].get("original_quote_pkr", old_final) - provider_counter),
+            })
+        b["status"] = "confirmed"
+        b["accepted_at"] = now_iso
+        history.append({
+            "by": "customer",
+            "price_pkr": provider_counter,
+            "ts": now_iso,
+            "note": "Customer accepted provider's counter-offer",
+            "decision": "accept",
+        })
+        b["negotiation_history"] = history
+        store.log_state_change({
+            "type": "customer_accepted_counter",
+            "booking_id": booking_id,
+            "final_price": provider_counter,
+            "ts": now_iso,
+        })
+        return {
+            "success": True,
+            "booking_id": booking_id,
+            "new_status": "confirmed",
+            "final_price_pkr": provider_counter,
+            "negotiation_history": history,
+        }
+
+    # action == "counter" → customer counter-offers back
+    new_offer = payload.get("counter_price_pkr")
+    if not isinstance(new_offer, (int, float)) or new_offer <= 0:
+        return {"error": "invalid_counter_price"}
+    new_offer = int(new_offer)
+    history.append({
+        "by": "customer",
+        "price_pkr": new_offer,
+        "ts": now_iso,
+        "note": f"Customer counter-back: PKR {new_offer:,}",
+    })
+    b["negotiation_history"] = history
+    b["status"] = "pending_provider_acceptance"  # back to provider
+    b["customer_counter_pkr"] = new_offer
+    if "pricing" in b:
+        b["pricing"]["final_pkr"] = new_offer  # update so provider sees new offer
+        b["pricing"]["bargained"] = True
+    store.log_state_change({
+        "type": "customer_counter_back",
+        "booking_id": booking_id,
+        "new_offer": new_offer,
+        "ts": now_iso,
+    })
+    return {
+        "success": True,
+        "booking_id": booking_id,
+        "new_status": "pending_provider_acceptance",
+        "customer_counter_pkr": new_offer,
+        "negotiation_history": history,
     }
 
 

@@ -258,6 +258,14 @@ export const bargainSession = (payload: {
   urgency?: string;
 }) => api.post('/api/bargain/session', payload).then((r) => r.data);
 
+// Provider posts a counter-offer on a pending job
+export const providerCounterOffer = (jobId: string, payload: { counter_price_pkr: number; note_ur?: string }) =>
+  api.post(`/api/providers-self/me/jobs/${jobId}/counter-offer`, payload).then((r) => r.data);
+
+// Customer responds to provider's counter-offer (accept or counter-back)
+export const customerCounterResponse = (bookingId: string, payload: { action: 'accept' | 'counter'; counter_price_pkr?: number }) =>
+  api.post(`/api/bookings/${bookingId}/counter-response`, payload).then((r) => r.data);
+
 // ============================================================================
 // Admin Dashboard
 // ============================================================================
