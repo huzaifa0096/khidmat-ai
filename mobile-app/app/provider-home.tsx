@@ -616,6 +616,22 @@ export default function ProviderHomeScreen() {
                 {j.is_real ? (
                   <>
                     <Pressable
+                      onPress={() => router.push(`/track/${j.job_id}`)}
+                      style={({ pressed }) => ({
+                        width: 30,
+                        height: 30,
+                        borderRadius: 10,
+                        borderWidth: 1,
+                        borderColor: colors.brand.accent + '55',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        opacity: pressed ? 0.6 : 1,
+                        marginRight: 6,
+                      })}
+                    >
+                      <Ionicons name="navigate" size={14} color={colors.brand.accent} />
+                    </Pressable>
+                    <Pressable
                       onPress={() => router.push(`/chat/${j.job_id}`)}
                       style={({ pressed }) => ({
                         width: 30,

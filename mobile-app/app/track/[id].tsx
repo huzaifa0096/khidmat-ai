@@ -28,7 +28,8 @@ import { fetchTracking } from '../../src/services/api';
 export default function TrackScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const { colors, lang } = useApp();
+  const { colors, lang, mode } = useApp();
+  const isProvider = mode === 'provider';
   const [tracking, setTracking] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -162,10 +163,32 @@ export default function TrackScreen() {
     router.push(`/chat/${id}`);
   };
 
+  // Open the destination in Google Maps for turn-by-turn driving directions.
+  // For provider: destination = customer location. For customer: destination = provider (already moving toward you, but useful to see route).
+  const handleOpenMaps = () => {
+    const dest = isProvider ? customer : provider;
+    const lat = dest.lat;
+    const lng = dest.lng;
+    const label = isProvider ? 'Customer' : (provider.business_name || 'Provider');
+    // Cross-platform Google Maps deep link with fallback to web
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving&dir_action=navigate`;
+    Linking.openURL(url).catch(() =>
+      Linking.openURL(`https://www.google.com/maps?q=${lat},${lng}(${encodeURIComponent(label)})`).catch(() => {})
+    );
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg.primary }} edges={['top']}>
       <Header
-        title={lang === 'ur' ? 'Live Tracking' : 'Live Tracking'}
+        title={
+          isProvider
+            ? lang === 'ur'
+              ? 'Customer ko Track Karein'
+              : 'Navigate to Customer'
+            : lang === 'ur'
+            ? 'Provider Live Tracking'
+            : 'Live Tracking'
+        }
         subtitle={id as string}
       />
 
@@ -222,9 +245,22 @@ export default function TrackScreen() {
           gap: spacing.md,
         }}
       >
-        {/* Provider info row */}
+        {/* Counterparty info row — for customer it's the provider, for provider it's the destination */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-          {provider.profile_image ? (
+          {isProvider ? (
+            <View
+              style={{
+                width: 48,
+                height: 48,
+                borderRadius: 24,
+                backgroundColor: colors.brand.primary + '22',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Ionicons name="location" size={22} color={colors.brand.textAccent} />
+            </View>
+          ) : provider.profile_image ? (
             <Image
               source={{ uri: provider.profile_image }}
               style={{
@@ -250,10 +286,10 @@ export default function TrackScreen() {
           )}
           <View style={{ flex: 1 }}>
             <Text style={{ color: colors.text.primary, fontSize: 15, fontWeight: '700', letterSpacing: -0.2 }}>
-              {provider.business_name}
+              {isProvider ? (lang === 'ur' ? 'Customer ki Location' : 'Customer Location') : provider.business_name}
             </Text>
             <Text style={{ color: colors.text.tertiary, fontSize: 11, marginTop: 1 }}>
-              {provider.phone || '—'}
+              {isProvider ? customer.label : (provider.phone || '—')}
             </Text>
           </View>
         </View>
@@ -335,6 +371,26 @@ export default function TrackScreen() {
 
         {/* Action buttons */}
         <View style={{ flexDirection: 'row', gap: 8 }}>
+          {/* Open in Google Maps for real driving directions (especially useful for provider) */}
+          <Pressable
+            onPress={handleOpenMaps}
+            style={({ pressed }) => ({
+              flex: 1,
+              paddingVertical: 12,
+              borderRadius: radii.pill,
+              backgroundColor: colors.bg.elevated,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 6,
+              opacity: pressed ? 0.6 : 1,
+            })}
+          >
+            <Ionicons name="navigate" size={14} color={colors.brand.accent} />
+            <Text style={{ color: colors.text.primary, fontSize: 12, fontWeight: '700' }}>
+              {lang === 'ur' ? 'Maps' : 'Maps'}
+            </Text>
+          </Pressable>
           <Pressable
             onPress={handleChat}
             style={({ pressed }) => ({

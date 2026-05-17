@@ -4,7 +4,7 @@
  * flips booking status to `pending_customer_counter_response` so the customer's
  * booking-confirmed screen surfaces the counter for accept-or-counter-back.
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Modal,
   View,
@@ -19,7 +19,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useApp } from '../state/AppContext';
 import { radii, spacing } from '../theme/colors';
-import { providerCounterOffer } from '../services/api';
+import { providerCounterOffer, fetchBookingStatus } from '../services/api';
 
 type Props = {
   visible: boolean;
@@ -39,12 +39,47 @@ export const ProviderCounterSheet = ({
   const { colors, lang } = useApp();
   const [counter, setCounter] = useState('');
   const [sending, setSending] = useState(false);
+  const [authoritativePrice, setAuthoritativePrice] = useState<number | null>(null);
+
+  // SAFETY: clamp prop value to realistic range. If a parser bug upstream sent
+  // something like 18185 for a 1815 offer, divide by 10 (no Pakistani home service
+  // costs > 100k per visit). This is a last-resort guard.
+  const clamped = useMemo(() => {
+    let v = customerOfferedPkr;
+    while (v > 100000) v = Math.round(v / 10);
+    return v > 0 ? v : 2000;
+  }, [customerOfferedPkr]);
+
+  // Always re-fetch the booking from backend when modal opens, to get the
+  // authoritative pricing.final_pkr. This bypasses ANY upstream parser issues.
+  useEffect(() => {
+    if (!visible || !jobId || jobId.startsWith('JOB-')) {
+      setAuthoritativePrice(null);
+      return;
+    }
+    let mounted = true;
+    fetchBookingStatus(jobId)
+      .then((data) => {
+        if (!mounted) return;
+        const p = data?.current_price_pkr;
+        if (typeof p === 'number' && p > 0 && p < 100000) {
+          setAuthoritativePrice(p);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      mounted = false;
+    };
+  }, [visible, jobId]);
+
+  // Effective customer offer (in order of trust): backend fetch > prop clamped
+  const effectiveOffer = authoritativePrice ?? clamped;
 
   // Suggested counter-offers (10%, 20%, 30% above customer's offer)
   const suggestions = [
-    { label: '+10%', value: Math.round(customerOfferedPkr * 1.1) },
-    { label: '+20%', value: Math.round(customerOfferedPkr * 1.2) },
-    { label: '+30%', value: Math.round(customerOfferedPkr * 1.3) },
+    { label: '+10%', value: Math.round(effectiveOffer * 1.1) },
+    { label: '+20%', value: Math.round(effectiveOffer * 1.2) },
+    { label: '+30%', value: Math.round(effectiveOffer * 1.3) },
   ];
 
   const submit = async (price: number) => {
@@ -55,12 +90,12 @@ export const ProviderCounterSheet = ({
       );
       return;
     }
-    if (price <= customerOfferedPkr) {
+    if (price <= effectiveOffer) {
       Alert.alert(
         lang === 'ur' ? 'Galat counter' : 'Invalid counter',
         lang === 'ur'
-          ? `Counter customer ki offer (PKR ${customerOfferedPkr.toLocaleString()}) se zyada hona chahiye`
-          : `Counter must be higher than customer's offer of PKR ${customerOfferedPkr.toLocaleString()}`
+          ? `Counter customer ki offer (PKR ${effectiveOffer.toLocaleString()}) se zyada hona chahiye`
+          : `Counter must be higher than customer's offer of PKR ${effectiveOffer.toLocaleString()}`
       );
       return;
     }
@@ -124,8 +159,8 @@ export const ProviderCounterSheet = ({
                 </Text>
                 <Text style={{ color: colors.text.tertiary, fontSize: 11, marginTop: 1 }}>
                   {lang === 'ur'
-                    ? `Customer ne PKR ${customerOfferedPkr.toLocaleString()} offer ki hai`
-                    : `Customer offered PKR ${customerOfferedPkr.toLocaleString()}`}
+                    ? `Customer ne PKR ${effectiveOffer.toLocaleString()} offer ki hai`
+                    : `Customer offered PKR ${effectiveOffer.toLocaleString()}`}
                 </Text>
               </View>
               <Pressable onPress={onClose}>
@@ -187,7 +222,7 @@ export const ProviderCounterSheet = ({
                 <TextInput
                   value={counter}
                   onChangeText={setCounter}
-                  placeholder={`${Math.round(customerOfferedPkr * 1.2)}`}
+                  placeholder={`${Math.round(effectiveOffer * 1.2)}`}
                   placeholderTextColor={colors.text.placeholder}
                   keyboardType="numeric"
                   style={{
