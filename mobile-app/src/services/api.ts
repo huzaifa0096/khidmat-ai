@@ -19,7 +19,7 @@ const BACKEND_PORT = 8000;
 
 // Production backend (Cloudflare tunnel) — hardcoded so the APK works out of the
 // box without needing the .env file bundled. Update this if the tunnel changes.
-const PRODUCTION_BACKEND = 'https://dash-psi-winners-alpha.trycloudflare.com';
+const PRODUCTION_BACKEND = 'https://expo-shark-declaration-header.trycloudflare.com';
 
 const resolveBackendUrl = (): string => {
   // 1. Explicit override (Expo Go uses .env at dev time)

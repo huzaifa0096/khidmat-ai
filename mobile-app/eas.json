@@ -11,7 +11,7 @@
     "preview": {
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_BACKEND_HOST": "https://dash-psi-winners-alpha.trycloudflare.com"
+        "EXPO_PUBLIC_BACKEND_HOST": "https://expo-shark-declaration-header.trycloudflare.com"
       },
       "android": {
         "buildType": "apk"
@@ -20,7 +20,7 @@
     "production": {
       "autoIncrement": true,
       "env": {
-        "EXPO_PUBLIC_BACKEND_HOST": "https://dash-psi-winners-alpha.trycloudflare.com"
+        "EXPO_PUBLIC_BACKEND_HOST": "https://expo-shark-declaration-header.trycloudflare.com"
       },
       "android": {
         "buildType": "app-bundle"
