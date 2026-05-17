@@ -23,7 +23,8 @@ import { useApp } from '../../src/state/AppContext';
 import { radii, spacing } from '../../src/theme/colors';
 import { Header } from '../../src/components/Header';
 import { RealMap } from '../../src/components/RealMap';
-import { fetchTracking } from '../../src/services/api';
+import { fetchTracking, updateTrackingPosition } from '../../src/services/api';
+import * as Location from 'expo-location';
 
 export default function TrackScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -33,7 +34,9 @@ export default function TrackScreen() {
   const [tracking, setTracking] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [gpsActive, setGpsActive] = useState(false);
 
+  // 1) Poll backend every 2.5s for the latest combined tracking state
   useEffect(() => {
     if (!id) return;
     let mounted = true;
@@ -59,6 +62,53 @@ export default function TrackScreen() {
       clearInterval(intv);
     };
   }, [id]);
+
+  // 2) Stream THIS device's REAL GPS to backend every 5s.
+  //    Provider's location goes to the customer; customer's goes to the provider.
+  useEffect(() => {
+    if (!id) return;
+    let mounted = true;
+    let intv: any = null;
+
+    const role: 'provider' | 'customer' = isProvider ? 'provider' : 'customer';
+
+    const ensurePermsAndPush = async () => {
+      try {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          setGpsActive(false);
+          return;
+        }
+        const push = async () => {
+          try {
+            const pos = await Location.getCurrentPositionAsync({
+              accuracy: Location.Accuracy.Balanced,
+            });
+            if (!mounted) return;
+            await updateTrackingPosition(id as string, {
+              role,
+              lat: pos.coords.latitude,
+              lng: pos.coords.longitude,
+              accuracy_m: pos.coords.accuracy ?? undefined,
+            });
+            setGpsActive(true);
+          } catch {
+            // Silently — GPS may be off, in emulator, etc.
+          }
+        };
+        await push();
+        intv = setInterval(push, 5000);
+      } catch {
+        setGpsActive(false);
+      }
+    };
+
+    ensurePermsAndPush();
+    return () => {
+      mounted = false;
+      if (intv) clearInterval(intv);
+    };
+  }, [id, isProvider]);
 
   if (loading) {
     return (
@@ -231,6 +281,21 @@ export default function TrackScreen() {
           <Text style={{ color: statusBadgeColor, fontSize: 12, fontWeight: '800', letterSpacing: 0.5 }}>
             {statusLabel.toUpperCase()}
           </Text>
+          {tracking?.is_live_provider || tracking?.is_live_customer ? (
+            <View
+              style={{
+                marginLeft: 4,
+                paddingHorizontal: 6,
+                paddingVertical: 2,
+                borderRadius: 999,
+                backgroundColor: colors.semantic.success + '22',
+              }}
+            >
+              <Text style={{ color: colors.semantic.success, fontSize: 9, fontWeight: '800' }}>
+                LIVE GPS
+              </Text>
+            </View>
+          ) : null}
         </View>
       </View>
 

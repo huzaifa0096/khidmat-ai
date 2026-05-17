@@ -270,12 +270,21 @@ export const customerCounterResponse = (bookingId: string, payload: { action: 'a
 export const fetchEstimateScenarios = () =>
   api.get('/api/estimate/scenarios').then((r) => r.data);
 
-export const estimateFromImage = (payload: { scenario_id: string; user_id?: string }) =>
-  api.post('/api/estimate/from-image', payload).then((r) => r.data);
+export const estimateFromImage = (payload: {
+  scenario_id?: string;
+  image_base64?: string;
+  user_id?: string;
+}) => api.post('/api/estimate/from-image', payload, { timeout: 30000 }).then((r) => r.data);
 
-// Live tracking — poll provider position
+// Live tracking — poll latest position
 export const fetchTracking = (bookingId: string) =>
   api.get(`/api/tracking/${bookingId}`).then((r) => r.data);
+
+// Push our own current GPS position for a booking
+export const updateTrackingPosition = (
+  bookingId: string,
+  payload: { role: 'provider' | 'customer'; lat: number; lng: number; accuracy_m?: number }
+) => api.post(`/api/tracking/${bookingId}/update`, payload).then((r) => r.data);
 
 // ============================================================================
 // Admin Dashboard

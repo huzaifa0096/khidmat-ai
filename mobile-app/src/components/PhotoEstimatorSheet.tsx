@@ -56,8 +56,10 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
   const [pickedScenario, setPickedScenario] = useState<Scenario | null>(null);
   const [findingProviders, setFindingProviders] = useState(false);
   const [capturedImageUri, setCapturedImageUri] = useState<string | null>(null);
+  const [capturedImageBase64, setCapturedImageBase64] = useState<string | null>(null);
   const [awaitingConfirm, setAwaitingConfirm] = useState(false);
   const [aiGuess, setAiGuess] = useState<Scenario | null>(null);
+  const [visionAnalyzing, setVisionAnalyzing] = useState(false);
 
   // Deterministic initial guess from image URI hash. Without a real Vision model
   // we can't classify the image content — so we offer the guess as a STARTING
@@ -91,11 +93,12 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
       }
       const res = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        quality: 0.6,
+        quality: 0.5,
         allowsEditing: false,
+        base64: true,
       });
       if (!res.canceled && res.assets?.[0]?.uri) {
-        analyzeImage(res.assets[0].uri);
+        analyzeImage(res.assets[0].uri, res.assets[0].base64 || null);
       }
     } catch (e: any) {
       Alert.alert('Camera Error', e?.message || 'Could not open camera');
@@ -116,27 +119,54 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
       }
       const res = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        quality: 0.6,
+        quality: 0.5,
         allowsEditing: false,
+        base64: true,
       });
       if (!res.canceled && res.assets?.[0]?.uri) {
-        analyzeImage(res.assets[0].uri);
+        analyzeImage(res.assets[0].uri, res.assets[0].base64 || null);
       }
     } catch (e: any) {
       Alert.alert('Gallery Error', e?.message || 'Could not open gallery');
     }
   };
 
-  // Step 1 of camera/gallery flow: store image + compute initial guess +
-  // hand control to the user to confirm/override the category. We do NOT
-  // call the estimate endpoint yet — that happens only after confirmation.
-  const analyzeImage = (uri: string) => {
+  // Step 1: photo captured. Try REAL Gemini Vision first if we have base64.
+  // If Vision succeeds + confidence is high, jump straight to the result.
+  // Otherwise fall through to the confirm-category step.
+  const analyzeImage = async (uri: string, base64: string | null) => {
     setCapturedImageUri(uri);
+    setCapturedImageBase64(base64);
+    setEstimate(null);
+    setPickedScenario(null);
+
+    // Path A: Try real Vision (if backend has GEMINI_API_KEY)
+    if (base64) {
+      setVisionAnalyzing(true);
+      try {
+        const res = await estimateFromImage({
+          image_base64: base64,
+          user_id: user.id,
+        });
+        if (res?.vision_classified && res?.scenario_id) {
+          // Real Vision came back — show the result directly
+          const matchedScenario =
+            scenarios.find((s) => s.id === res.scenario_id) || pickInitialGuess(uri);
+          setPickedScenario(matchedScenario);
+          setEstimate(res);
+          setVisionAnalyzing(false);
+          return;
+        }
+      } catch {
+        // fall through to confirm-category fallback
+      }
+      setVisionAnalyzing(false);
+    }
+
+    // Path B: No Vision (no key, or call failed) → show confirm-category UX
     const guess = pickInitialGuess(uri);
     setAiGuess(guess);
     setAwaitingConfirm(true);
-    setEstimate(null);
-    setPickedScenario(null);
     setAnalyzing(false);
   };
 
@@ -238,8 +268,10 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
     setPickedScenario(null);
     setAnalyzing(false);
     setCapturedImageUri(null);
+    setCapturedImageBase64(null);
     setAwaitingConfirm(false);
     setAiGuess(null);
+    setVisionAnalyzing(false);
   };
 
   return (
@@ -296,8 +328,8 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
             contentContainerStyle={{ padding: spacing.lg, paddingBottom: 12 }}
             showsVerticalScrollIndicator={false}
           >
-            {/* STATE 1: pick a scenario (hidden during awaitingConfirm) */}
-            {!pickedScenario && !analyzing && !estimate && !awaitingConfirm ? (
+            {/* STATE 1: pick a scenario (hidden during awaitingConfirm/visionAnalyzing) */}
+            {!pickedScenario && !analyzing && !estimate && !awaitingConfirm && !visionAnalyzing ? (
               <>
                 {/* Real camera / gallery actions */}
                 <Text
@@ -441,8 +473,42 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
               </>
             ) : null}
 
+            {/* STATE 1.4: Vision analyzing real Gemini call */}
+            {visionAnalyzing && capturedImageUri ? (
+              <View style={{ alignItems: 'center', paddingVertical: 30, gap: 14 }}>
+                <Image
+                  source={{ uri: capturedImageUri }}
+                  style={{
+                    width: 200,
+                    height: 200,
+                    borderRadius: radii.lg,
+                    backgroundColor: colors.bg.elevated,
+                  }}
+                  resizeMode="cover"
+                />
+                <ActivityIndicator size="large" color={colors.brand.textAccent} />
+                <Text
+                  style={{
+                    color: colors.text.primary,
+                    fontSize: 15,
+                    fontWeight: '700',
+                    textAlign: 'center',
+                  }}
+                >
+                  {lang === 'ur'
+                    ? 'Gemini Vision aap ki photo dekh raha hai...'
+                    : 'Gemini Vision is analyzing your photo...'}
+                </Text>
+                <Text style={{ color: colors.text.tertiary, fontSize: 11, textAlign: 'center' }}>
+                  {lang === 'ur'
+                    ? 'Real AI image classification — 5-10 sec'
+                    : 'Real AI image classification — 5-10 sec'}
+                </Text>
+              </View>
+            ) : null}
+
             {/* STATE 1.5: confirm category after photo capture */}
-            {awaitingConfirm && capturedImageUri && aiGuess && !analyzing && !estimate ? (
+            {awaitingConfirm && capturedImageUri && aiGuess && !analyzing && !estimate && !visionAnalyzing ? (
               <View style={{ gap: 14 }}>
                 {/* Show the photo */}
                 <View style={{ alignItems: 'center', gap: 6 }}>

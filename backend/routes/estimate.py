@@ -1,12 +1,21 @@
 """
-Photo-based estimate route — customer "uploads" a problem photo and gets an
+Photo-based estimate route — customer uploads a problem photo and gets an
 instant AI-style estimate (category, complexity, price range, urgency).
 
-This is scenario-based (not real ML) so it's deterministic and robust for
-the demo. A real implementation would use Vision LLM (Gemini/Claude) on the
-uploaded image. We expose the same input/output contract so the swap-in is
-trivial later.
+Two modes:
+  1. REAL VISION (preferred): If GEMINI_API_KEY is configured in env, the
+     uploaded image (base64) is sent to Gemini 2.5 Flash with a vision
+     prompt that asks it to classify the problem into one of our scenarios.
+     Returns the actual model's choice + confidence + reasoning.
+  2. SCENARIO LOOKUP (fallback): If no key OR Gemini call fails, falls
+     back to the user-picked scenario_id (or a deterministic guess from
+     image attributes if available).
+
+Either way the response contract is identical so the mobile UI is unchanged.
 """
+import os
+import base64
+import json as json_lib
 from fastapi import APIRouter, Request
 from pydantic import BaseModel
 from typing import Optional
@@ -181,9 +190,82 @@ SCENARIO_LIST = [
 
 
 class EstimateRequest(BaseModel):
-    scenario_id: str
+    scenario_id: Optional[str] = None  # if image_base64 not provided, use this
+    image_base64: Optional[str] = None  # if provided, run real Gemini Vision
     user_id: Optional[str] = "U001"
     location: Optional[dict] = None  # {city, sector}
+
+
+def _classify_with_gemini_vision(image_base64: str) -> dict:
+    """
+    Send the image to Gemini 2.5 Flash with a structured prompt asking it
+    to classify into one of our 6 known scenarios. Returns a dict with:
+      { scenario_id, confidence, model_reasoning } or { error: ... }.
+    Graceful no-op if GEMINI_API_KEY isn't set or the call fails.
+    """
+    key = os.getenv("GEMINI_API_KEY", "").strip()
+    if not key or key == "your_gemini_api_key_here":
+        return {"error": "no_key"}
+
+    try:
+        import urllib.request
+        # Gemini 2.5 Flash supports vision
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={key}"
+        prompt = (
+            "You are an image classifier for a Pakistani home-services app. "
+            "Look at this photo and tell me which ONE of these problem categories it best matches. "
+            "Respond ONLY with a strict JSON object of the form "
+            "{\"scenario_id\": \"<one_of_the_ids>\", \"confidence\": 0.0-1.0, \"reasoning\": \"<short Roman-Urdu/English explanation>\"}.\n\n"
+            "Categories (use the id as scenario_id):\n"
+            "- ac_not_cooling: AC unit, indoor/outdoor split unit, window AC, vents\n"
+            "- pipe_leak: water pipe, faucet leak, joint leak, water under sink, dripping pipe\n"
+            "- wiring_issue: exposed wiring, burnt socket, MCB, plug with damage, sparking\n"
+            "- geyser_issue: gas geyser, electric water heater, pilot light, gas valve\n"
+            "- broken_furniture: chair/table/cupboard/door/drawer with broken part, hinge, joint\n"
+            "- blocked_drain: clogged drain, standing water in sink/bathroom floor, drain cover\n\n"
+            "If unsure, pick the closest match and lower the confidence. Never invent a new id."
+        )
+        body = {
+            "contents": [
+                {
+                    "parts": [
+                        {"text": prompt},
+                        {
+                            "inline_data": {
+                                "mime_type": "image/jpeg",
+                                "data": image_base64,
+                            }
+                        },
+                    ]
+                }
+            ],
+            "generationConfig": {
+                "temperature": 0.2,
+                "responseMimeType": "application/json",
+            },
+        }
+        req = urllib.request.Request(
+            url,
+            data=json_lib.dumps(body).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            raw = resp.read().decode("utf-8")
+        parsed = json_lib.loads(raw)
+        # Extract the text from the first candidate
+        text = parsed["candidates"][0]["content"]["parts"][0]["text"]
+        cls = json_lib.loads(text)
+        sid = cls.get("scenario_id")
+        if sid in SCENARIOS:
+            return {
+                "scenario_id": sid,
+                "confidence": float(cls.get("confidence") or 0.7),
+                "reasoning": cls.get("reasoning") or "",
+            }
+        return {"error": f"unknown_scenario_returned: {sid}"}
+    except Exception as e:
+        return {"error": f"gemini_call_failed: {type(e).__name__}"}
 
 
 @router.get("/scenarios")
@@ -197,15 +279,29 @@ async def estimate_from_image(payload: EstimateRequest, request: Request):
     """
     Generate an AI-style estimate from a customer's problem photo.
 
-    Input: scenario_id (one of the keys above)
-    Output: structured estimate matching the demo contract.
-
-    Real implementation would use Gemini Vision on the actual uploaded image;
-    we use a deterministic scenario lookup for demo stability.
+    Two paths:
+      A. If image_base64 is provided AND GEMINI_API_KEY is set → call Gemini
+         Vision to actually classify the image content.
+      B. If scenario_id provided (fallback / user override) → use catalog lookup.
     """
-    scenario = SCENARIOS.get(payload.scenario_id)
+    vision_result: Optional[dict] = None
+    actual_scenario_id = payload.scenario_id
+
+    # Path A: Real Gemini Vision
+    if payload.image_base64:
+        vr = _classify_with_gemini_vision(payload.image_base64)
+        if "scenario_id" in vr:
+            actual_scenario_id = vr["scenario_id"]
+            vision_result = vr
+        # If Gemini fails, fall through to scenario_id path
+
+    scenario = SCENARIOS.get(actual_scenario_id) if actual_scenario_id else None
     if not scenario:
-        return {"error": "unknown_scenario", "supported": list(SCENARIOS.keys())}
+        return {
+            "error": "unknown_scenario",
+            "supported": list(SCENARIOS.keys()),
+            "vision_attempt": vision_result,
+        }
 
     store = request.app.state.store
     # Find a representative provider for the category to anchor the estimate
@@ -215,11 +311,18 @@ async def estimate_from_image(payload: EstimateRequest, request: Request):
     ]
     sample_provider = matching_providers[0] if matching_providers else None
 
-    estimate_id = f"EST-{datetime.now().strftime('%Y%m%d-%H%M%S')}-{payload.scenario_id[:4].upper()}"
+    estimate_id = f"EST-{datetime.now().strftime('%Y%m%d-%H%M%S')}-{actual_scenario_id[:4].upper()}"
 
+    # If Gemini identified a different scenario than what the user picked,
+    # surface that so the UI can show "AI identified this as X — was that
+    # right? Tap another category to change."
     response = {
         "estimate_id": estimate_id,
-        "scenario_id": payload.scenario_id,
+        "scenario_id": actual_scenario_id,
+        "user_picked_scenario_id": payload.scenario_id,
+        "vision_classified": vision_result is not None,
+        "vision_confidence": vision_result.get("confidence") if vision_result else None,
+        "vision_reasoning": vision_result.get("reasoning") if vision_result else None,
         "created_at": datetime.now().isoformat(),
         "category_id": scenario["category_id"],
         "issue_en": scenario["issue_en"],
@@ -246,15 +349,16 @@ async def estimate_from_image(payload: EstimateRequest, request: Request):
             else None
         ),
         "available_providers_count": len(matching_providers),
-        "ai_model": "khidmat-vision-v1-mock",
-        "ai_method": "image_analysis_with_scenario_match",
+        "ai_model": "gemini-2.0-flash-vision" if vision_result else "khidmat-vision-v1-mock",
+        "ai_method": "real_vision_llm" if vision_result else "scenario_lookup",
     }
 
     store.log_state_change({
         "type": "photo_estimate_generated",
         "estimate_id": estimate_id,
-        "scenario": payload.scenario_id,
+        "scenario": actual_scenario_id,
         "user_id": payload.user_id,
+        "via": "vision" if vision_result else "scenario",
     })
 
     return response

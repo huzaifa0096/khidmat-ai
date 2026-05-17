@@ -10,12 +10,56 @@ This is mock — no real GPS — but the math is correct and the UX is identical
 to a production system.
 """
 from fastapi import APIRouter, Request
+from pydantic import BaseModel
 from datetime import datetime, timedelta
-from typing import Optional
+from typing import Optional, Literal
 import math
 import random
 
 router = APIRouter()
+
+
+class PositionUpdate(BaseModel):
+    role: Literal["provider", "customer"]
+    lat: float
+    lng: float
+    accuracy_m: Optional[float] = None
+
+
+@router.post("/{booking_id}/update")
+async def update_position(booking_id: str, payload: PositionUpdate, request: Request):
+    """
+    Either party (provider or customer) posts their CURRENT GPS coordinates
+    for this booking. Saved on the booking object and surfaced by the GET
+    endpoint so the other party can see real-time location on their map.
+    """
+    store = request.app.state.store
+    b = store.bookings.get(booking_id)
+    if not b:
+        return {"error": "booking_not_found"}
+
+    now_iso = datetime.now().isoformat()
+    tracking_state = b.setdefault("live_tracking", {})
+    tracking_state[f"{payload.role}_lat"] = float(payload.lat)
+    tracking_state[f"{payload.role}_lng"] = float(payload.lng)
+    tracking_state[f"{payload.role}_updated_at"] = now_iso
+    if payload.accuracy_m is not None:
+        tracking_state[f"{payload.role}_accuracy_m"] = float(payload.accuracy_m)
+
+    store.log_state_change({
+        "type": "live_position_update",
+        "booking_id": booking_id,
+        "role": payload.role,
+        "ts": now_iso,
+    })
+    return {
+        "success": True,
+        "booking_id": booking_id,
+        "role": payload.role,
+        "lat": payload.lat,
+        "lng": payload.lng,
+        "updated_at": now_iso,
+    }
 
 
 def _sector_coords(store, city_id: str, sector_id: str) -> tuple[float, float]:
@@ -77,33 +121,47 @@ async def track_booking(booking_id: str, request: Request):
     location = booking.get("location") or {}
     city_id = location.get("city", "islamabad")
     sector_id = location.get("sector", "G-13")
-    customer_lat, customer_lng = _sector_coords(store, city_id, sector_id)
+    sector_lat, sector_lng = _sector_coords(store, city_id, sector_id)
 
-    # Deterministic provider starting offset (per booking_id)
-    d_lat, d_lng = _deterministic_start_offset(booking_id)
-    start_lat = customer_lat + d_lat
-    start_lng = customer_lng + d_lng
+    # If either party has streamed a REAL GPS position, prefer it over the
+    # sector-center default / mock interpolation.
+    live = booking.get("live_tracking") or {}
+    customer_real = "customer_lat" in live and "customer_lng" in live
+    provider_real = "provider_lat" in live and "provider_lng" in live
 
-    # Time-based interpolation
-    # Use accepted_at if available, else created_at, else now
+    customer_lat = float(live["customer_lat"]) if customer_real else sector_lat
+    customer_lng = float(live["customer_lng"]) if customer_real else sector_lng
+
+    # Time-based interpolation (used only when no live provider GPS)
     started_iso = booking.get("accepted_at") or booking.get("created_at")
     try:
         started = datetime.fromisoformat(started_iso) if started_iso else datetime.now()
     except Exception:
         started = datetime.now()
-
-    # ETA: assume 15 minutes from booking acceptance (typical urban dispatch)
-    # In a real system this would come from a routing API
     total_eta_minutes = 15
     elapsed = max(0, (datetime.now() - started).total_seconds() / 60.0)
     progress = min(1.0, elapsed / total_eta_minutes)
 
-    # Compute current position by linear interp from start → customer
-    current_lat = start_lat + (customer_lat - start_lat) * progress
-    current_lng = start_lng + (customer_lng - start_lng) * progress
+    # Deterministic offset is always computed (used for route.start when no real GPS)
+    d_lat, d_lng = _deterministic_start_offset(booking_id)
+    start_lat = customer_lat + d_lat
+    start_lng = customer_lng + d_lng
+
+    if provider_real:
+        current_lat = float(live["provider_lat"])
+        current_lng = float(live["provider_lng"])
+    else:
+        current_lat = start_lat + (customer_lat - start_lat) * progress
+        current_lng = start_lng + (customer_lng - start_lng) * progress
 
     remaining_km = _haversine_km(current_lat, current_lng, customer_lat, customer_lng)
     eta_min = max(0, int(round((1 - progress) * total_eta_minutes)))
+    if provider_real and remaining_km < 0.1:
+        eta_min = 0
+        progress = 1.0
+    elif provider_real:
+        # Recompute progress from real distance vs initial 5km assumption
+        progress = max(0.0, min(1.0, 1.0 - (remaining_km / 5.0)))
 
     status = (
         "completed" if booking.get("status") == "completed"
@@ -118,10 +176,13 @@ async def track_booking(booking_id: str, request: Request):
         "progress": round(progress, 3),
         "distance_km": round(remaining_km, 2),
         "eta_minutes": eta_min,
+        "is_live_provider": provider_real,
+        "is_live_customer": customer_real,
         "customer": {
             "lat": customer_lat,
             "lng": customer_lng,
             "label": f"{sector_id}, {city_id.title()}",
+            "is_live": customer_real,
         },
         "provider": {
             "id": provider.get("id"),
