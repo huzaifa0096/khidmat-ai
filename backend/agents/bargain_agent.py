@@ -61,59 +61,53 @@ def negotiate(
     """
     Run one bargaining round.
 
-    Args:
-        provider: Full provider record (with price_range, rating, etc.)
-        customer_offer_pkr: What the customer is offering (their counter)
-        proposed_price_pkr: The system's currently-quoted price
-        is_repeat_customer: True if the user has booked this provider before
-        urgency: "normal" | "urgent" | "emergency" — emergency = less flexible
-        round_number: 1, 2, 3 — counters get stricter after round 2
-
-    Returns:
-        {
-          "decision": "accept" | "counter" | "reject",
-          "agreed_price_pkr": int (if accept) | counter_price (if counter) | None (if reject),
-          "round": int,
-          "reasoning_en": "...",
-          "reasoning_ur": "...",
-          "provider_message_ur": "Bhai 2700 final hai, kam ni ho sakta",
-          "next_step": "user_can_accept_counter | user_can_counter_again | walk_away",
-          "context": { ... full signals ... }
-        }
+    Logic invariants (critical for correctness):
+      1. If customer_offer >= proposed_price → AUTO ACCEPT at proposed_price.
+         No haggling needed if customer is willing to pay full price (or more).
+      2. Counter price is ALWAYS strictly between (customer_offer, proposed_price].
+         Never below customer's offer (illogical) and never above the original
+         quote (provider would never raise the price).
+      3. Effective floor is capped at proposed_price — provider cannot have a
+         "minimum" higher than their own asking price.
+      4. Reject only when offer is meaningfully below the floor (sanity check).
     """
     low, high = _parse_price_range(provider.get("price_range", "PKR 1500-5000"))
-    # Floor = a bit below the low end (provider's real walk-away point)
-    floor = int(low * 0.88)
-    # Acceptable margin = how close to floor the provider will go
-    margin = int(low * 0.05)
-    # Sweet spot = mid-low
-    sweet = int(low + (high - low) * 0.20)
+    # Provider's real walk-away point (a bit below the stated low end)
+    base_floor = int(low * 0.85)
 
     now = datetime.now()
     demand = _demand_multiplier(now.hour, now.weekday())
 
-    # Loyalty discount
+    # Loyalty discount + emergency rules
     loyalty_discount = 0.05 if is_repeat_customer else 0.0
-    # Emergency = no discount, harder to negotiate
     if urgency == "emergency":
         demand = max(demand, 1.25)
         loyalty_discount = 0.0
 
     # Adjust floor by demand
-    effective_floor = int(floor * demand)
+    effective_floor = int(base_floor * demand)
 
-    # Round-based strictness: after round 2, provider gets firmer
-    strictness = 1.0 + (round_number - 1) * 0.05  # round 1 = 1.0, round 2 = 1.05, etc.
-    effective_floor = int(effective_floor * strictness)
+    # Round strictness — provider gets firmer over rounds, BUT we cap below.
+    if round_number > 1:
+        strictness = 1.0 + (round_number - 1) * 0.04
+        effective_floor = int(effective_floor * strictness)
 
+    # SAFEGUARD: floor must never exceed proposed price (logically impossible).
+    # Cap at 88% of proposed so there's always room for a sensible counter.
+    effective_floor = min(effective_floor, int(proposed_price_pkr * 0.88))
+
+    business_name = provider.get("business_name", "Provider")
     context = {
         "provider_low": low,
         "provider_high": high,
-        "provider_floor": floor,
+        "provider_base_floor": base_floor,
         "effective_floor_after_demand": effective_floor,
         "proposed_price": proposed_price_pkr,
         "customer_offer": customer_offer_pkr,
         "demand_multiplier": round(demand, 2),
+        "demand_label": (
+            "high" if demand >= 1.15 else "medium" if demand >= 1.05 else "normal"
+        ),
         "is_repeat_customer": is_repeat_customer,
         "urgency": urgency,
         "round_number": round_number,
@@ -121,15 +115,36 @@ def negotiate(
         "hour": now.hour,
     }
 
-    gap = proposed_price_pkr - customer_offer_pkr
-    business_name = provider.get("business_name", "Provider")
+    # ===== DECISION 1: AUTO-ACCEPT when customer matches or exceeds the quote =====
+    if customer_offer_pkr >= proposed_price_pkr:
+        agreed = proposed_price_pkr
+        if is_repeat_customer:
+            agreed = int(proposed_price_pkr * (1 - loyalty_discount))
+        return {
+            "decision": "accept",
+            "agreed_price_pkr": agreed,
+            "round": round_number,
+            "reasoning_en": (
+                f"Provider accepted at PKR {agreed:,}. "
+                f"{'Customer matched the quoted price' if customer_offer_pkr == proposed_price_pkr else 'Customer offered at or above the asking price'} "
+                f"of PKR {proposed_price_pkr:,}. No further haggling needed."
+                f"{f' Loyalty discount of {int(loyalty_discount*100)}% applied for repeat customer.' if is_repeat_customer and loyalty_discount > 0 else ''}"
+            ),
+            "reasoning_ur": (
+                f"Provider ne PKR {agreed:,} pe accept kar liya. "
+                f"Aap ne quote ke barabar ya zyada offer kiya tha, isi liye bargain ki zaroorat nahi pari."
+                f"{f' Repeat customer ke liye {int(loyalty_discount*100)}% loyalty discount mila.' if is_repeat_customer and loyalty_discount > 0 else ''}"
+            ),
+            "provider_message_ur": f"Theek hai bhai, PKR {agreed:,} mein kar denge. Aap aaayien.",
+            "next_step": "user_can_accept_counter",
+            "context": context,
+        }
 
-    # DECISION 1: customer offer is >= effective floor → ACCEPT
+    # ===== DECISION 2: ACCEPT when customer offer is at or above the effective floor =====
     if customer_offer_pkr >= effective_floor:
-        # Find a "fair" price between floor and customer offer
         agreed = customer_offer_pkr
-        # Apply small loyalty discount if applicable
-        agreed = int(agreed * (1 - loyalty_discount))
+        if is_repeat_customer:
+            agreed = int(agreed * (1 - loyalty_discount))
         savings = proposed_price_pkr - agreed
         return {
             "decision": "accept",
@@ -137,43 +152,41 @@ def negotiate(
             "round": round_number,
             "reasoning_en": (
                 f"Provider accepted at PKR {agreed:,}. "
-                f"This is {savings:,} below the initial quote of PKR {proposed_price_pkr:,} "
-                f"({int(savings/max(1,proposed_price_pkr)*100)}% saving). "
-                f"Reason: customer's offer was at or above the provider's effective floor "
-                f"(PKR {effective_floor:,}) for current demand conditions "
-                f"({'high' if demand >= 1.15 else 'medium' if demand >= 1.05 else 'normal'} demand). "
-                f"{'Repeat-customer loyalty discount applied. ' if is_repeat_customer else ''}"
+                f"This is PKR {savings:,} below the initial quote of PKR {proposed_price_pkr:,} "
+                f"({int(savings / max(1, proposed_price_pkr) * 100)}% saving). "
+                f"Reason: customer's offer met the provider's effective floor of PKR {effective_floor:,} "
+                f"(adjusted for {context['demand_label']} demand)."
+                f"{' Loyalty discount applied.' if is_repeat_customer else ''}"
             ),
             "reasoning_ur": (
                 f"Provider ne PKR {agreed:,} pe accept kar liya. "
                 f"Yeh original quote (PKR {proposed_price_pkr:,}) se {savings:,} kam hai "
-                f"({int(savings/max(1,proposed_price_pkr)*100)}% bachat). "
-                f"Wajah: aap ki offer provider ke floor (PKR {effective_floor:,}) ke barabar ya zyada thi. "
-                f"{'Repeat customer ke liye loyalty discount bhi mila. ' if is_repeat_customer else ''}"
+                f"({int(savings / max(1, proposed_price_pkr) * 100)}% bachat). "
+                f"Aap ki offer provider ke floor (PKR {effective_floor:,}) ke barabar ya zyada thi."
+                f"{' Loyalty discount bhi mila.' if is_repeat_customer else ''}"
             ),
             "provider_message_ur": f"Theek hai bhai, PKR {agreed:,} mein kar denge. Aap aaayien.",
             "next_step": "user_can_accept_counter",
             "context": context,
         }
 
-    # DECISION 2: customer offer is WAY below floor (>20% below) → REJECT
-    if customer_offer_pkr < int(effective_floor * 0.80):
-        walk_away_price = effective_floor + margin
+    # ===== DECISION 3: REJECT when offer is WAY below floor (sanity threshold) =====
+    reject_threshold = int(effective_floor * 0.65)
+    if customer_offer_pkr < reject_threshold:
+        walk_away_price = effective_floor + int(low * 0.03)
         return {
             "decision": "reject",
             "agreed_price_pkr": None,
             "round": round_number,
             "reasoning_en": (
                 f"Provider can't accept PKR {customer_offer_pkr:,} — that's "
-                f"{int((1-customer_offer_pkr/effective_floor)*100)}% below their floor of "
-                f"PKR {effective_floor:,} given current "
-                f"{'emergency-priority' if urgency=='emergency' else 'demand'} conditions. "
-                f"The walk-away minimum would be PKR {walk_away_price:,}."
+                f"{int((1 - customer_offer_pkr / effective_floor) * 100)}% below the floor of "
+                f"PKR {effective_floor:,} given {context['demand_label']} demand. "
+                f"The walk-away minimum is PKR {walk_away_price:,}."
             ),
             "reasoning_ur": (
-                f"Provider PKR {customer_offer_pkr:,} pe nahi kar sakta — yeh unke floor "
-                f"(PKR {effective_floor:,}) se {int((1-customer_offer_pkr/effective_floor)*100)}% kam hai. "
-                f"{'Emergency demand ki wajah se. ' if urgency=='emergency' else ''}"
+                f"Provider PKR {customer_offer_pkr:,} pe nahi kar sakta — yeh floor "
+                f"(PKR {effective_floor:,}) se {int((1 - customer_offer_pkr / effective_floor) * 100)}% kam hai. "
                 f"Minimum PKR {walk_away_price:,} chahiye hoga."
             ),
             "provider_message_ur": (
@@ -183,36 +196,60 @@ def negotiate(
             "context": context,
         }
 
-    # DECISION 3: COUNTER — split the difference, biased toward provider
-    # Counter price = customer offer + 60% of gap (provider gives up 40% of the gap)
-    counter = customer_offer_pkr + int(gap * 0.60)
-    # Apply loyalty discount even on counter
-    counter = int(counter * (1 - loyalty_discount * 0.5))
-    # Clamp counter to be >= effective_floor
+    # ===== DECISION 4: COUNTER — must be strictly between (offer, proposed) =====
+    # Provider meets the customer ~55% of the way (slightly biased toward provider)
+    gap = proposed_price_pkr - customer_offer_pkr
+    counter_bias = 0.55 if round_number == 1 else 0.65 if round_number == 2 else 0.75
+    counter = customer_offer_pkr + int(gap * counter_bias)
+
+    # Apply small loyalty discount on counter
+    if is_repeat_customer:
+        counter = int(counter * (1 - loyalty_discount * 0.5))
+
+    # ENFORCE INVARIANTS:
+    # 1. Counter must be at or above effective floor
     counter = max(counter, effective_floor)
-    # Ensure counter is < proposed_price (else why bother)
-    counter = min(counter, proposed_price_pkr - 50)
+    # 2. Counter must be STRICTLY GREATER than the customer's offer (else accept)
+    counter = max(counter, customer_offer_pkr + max(50, int(gap * 0.10)))
+    # 3. Counter must NEVER exceed the proposed price (provider can't raise it)
+    counter = min(counter, proposed_price_pkr)
+
+    # Sanity: if after all clamping counter ended up >= proposed, accept at proposed
+    if counter >= proposed_price_pkr:
+        return {
+            "decision": "accept",
+            "agreed_price_pkr": proposed_price_pkr,
+            "round": round_number,
+            "reasoning_en": (
+                f"Counter rounded up to the original quote of PKR {proposed_price_pkr:,}. "
+                f"Provider accepted at the asking price."
+            ),
+            "reasoning_ur": (
+                f"Counter PKR {proposed_price_pkr:,} ke barabar pohch gaya. "
+                f"Provider ne original price pe accept kar liya."
+            ),
+            "provider_message_ur": f"Theek hai bhai, PKR {proposed_price_pkr:,} mein kar denge.",
+            "next_step": "user_can_accept_counter",
+            "context": context,
+        }
 
     counter_savings = proposed_price_pkr - counter
-
     return {
         "decision": "counter",
         "agreed_price_pkr": counter,
         "round": round_number,
         "reasoning_en": (
             f"Provider counter-offers PKR {counter:,} (down from PKR {proposed_price_pkr:,}). "
-            f"That's a saving of PKR {counter_savings:,} ({int(counter_savings/proposed_price_pkr*100)}% off). "
-            f"Customer's offer of PKR {customer_offer_pkr:,} is below the effective floor of "
-            f"PKR {effective_floor:,} (floor adjusted for "
-            f"{'high' if demand >= 1.15 else 'normal'} demand). "
-            f"The provider met the customer 60% of the way."
+            f"That's PKR {counter_savings:,} savings ({int(counter_savings / proposed_price_pkr * 100)}% off). "
+            f"Customer's offer of PKR {customer_offer_pkr:,} was below the effective floor of "
+            f"PKR {effective_floor:,} (floor adjusted for {context['demand_label']} demand). "
+            f"The provider met the customer roughly {int(counter_bias * 100)}% of the way."
             f"{' Loyalty discount included.' if is_repeat_customer else ''}"
         ),
         "reasoning_ur": (
             f"Provider ne counter offer ki: PKR {counter:,} (original PKR {proposed_price_pkr:,} se {counter_savings:,} kam — "
-            f"{int(counter_savings/proposed_price_pkr*100)}% bachat). "
-            f"Aap ki offer (PKR {customer_offer_pkr:,}) floor (PKR {effective_floor:,}) se neeche thi, "
-            f"to provider beech mein mil raha hai."
+            f"{int(counter_savings / proposed_price_pkr * 100)}% bachat). "
+            f"Aap ki offer (PKR {customer_offer_pkr:,}) floor (PKR {effective_floor:,}) se neeche thi."
             f"{' Loyalty discount bhi shamil hai.' if is_repeat_customer else ''}"
         ),
         "provider_message_ur": (
