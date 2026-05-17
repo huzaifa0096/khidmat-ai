@@ -56,11 +56,14 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
   const [pickedScenario, setPickedScenario] = useState<Scenario | null>(null);
   const [findingProviders, setFindingProviders] = useState(false);
   const [capturedImageUri, setCapturedImageUri] = useState<string | null>(null);
+  const [awaitingConfirm, setAwaitingConfirm] = useState(false);
+  const [aiGuess, setAiGuess] = useState<Scenario | null>(null);
 
-  // Deterministic scenario picker from image URI — same photo always = same analysis
-  const pickScenarioFromImage = (uri: string): Scenario => {
+  // Deterministic initial guess from image URI hash. Without a real Vision model
+  // we can't classify the image content — so we offer the guess as a STARTING
+  // point and let the user override with one tap. Honest UX.
+  const pickInitialGuess = (uri: string): Scenario => {
     if (!scenarios.length) {
-      // Fallback synthetic if scenarios haven't loaded
       return {
         id: 'ac_not_cooling',
         title_en: 'AC not cooling',
@@ -124,16 +127,30 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
     }
   };
 
-  const analyzeImage = async (uri: string) => {
+  // Step 1 of camera/gallery flow: store image + compute initial guess +
+  // hand control to the user to confirm/override the category. We do NOT
+  // call the estimate endpoint yet — that happens only after confirmation.
+  const analyzeImage = (uri: string) => {
     setCapturedImageUri(uri);
-    const matched = pickScenarioFromImage(uri);
-    setPickedScenario(matched);
+    const guess = pickInitialGuess(uri);
+    setAiGuess(guess);
+    setAwaitingConfirm(true);
+    setEstimate(null);
+    setPickedScenario(null);
+    setAnalyzing(false);
+  };
+
+  // Step 2: user has confirmed (or overridden) the category. Now run the
+  // estimate endpoint.
+  const confirmAndAnalyze = async (s: Scenario) => {
+    setPickedScenario(s);
+    setAwaitingConfirm(false);
     setAnalyzing(true);
     setEstimate(null);
     try {
       const [res] = await Promise.all([
-        estimateFromImage({ scenario_id: matched.id, user_id: user.id }),
-        new Promise((r) => setTimeout(r, 1600)),
+        estimateFromImage({ scenario_id: s.id, user_id: user.id }),
+        new Promise((r) => setTimeout(r, 1200)),
       ]);
       if (res?.error) throw new Error(res.error);
       setEstimate(res);
@@ -144,6 +161,7 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
       );
       setPickedScenario(null);
       setCapturedImageUri(null);
+      setAiGuess(null);
     } finally {
       setAnalyzing(false);
     }
@@ -220,6 +238,8 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
     setPickedScenario(null);
     setAnalyzing(false);
     setCapturedImageUri(null);
+    setAwaitingConfirm(false);
+    setAiGuess(null);
   };
 
   return (
@@ -276,8 +296,8 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
             contentContainerStyle={{ padding: spacing.lg, paddingBottom: 12 }}
             showsVerticalScrollIndicator={false}
           >
-            {/* STATE 1: pick a scenario */}
-            {!pickedScenario && !analyzing && !estimate ? (
+            {/* STATE 1: pick a scenario (hidden during awaitingConfirm) */}
+            {!pickedScenario && !analyzing && !estimate && !awaitingConfirm ? (
               <>
                 {/* Real camera / gallery actions */}
                 <Text
@@ -419,6 +439,143 @@ export const PhotoEstimatorSheet = ({ visible, onClose, onFindProviders }: Props
                     : 'AI Vision will analyze the photo of your problem'}
                 </Text>
               </>
+            ) : null}
+
+            {/* STATE 1.5: confirm category after photo capture */}
+            {awaitingConfirm && capturedImageUri && aiGuess && !analyzing && !estimate ? (
+              <View style={{ gap: 14 }}>
+                {/* Show the photo */}
+                <View style={{ alignItems: 'center', gap: 6 }}>
+                  <Image
+                    source={{ uri: capturedImageUri }}
+                    style={{
+                      width: '100%',
+                      height: 180,
+                      borderRadius: radii.lg,
+                      backgroundColor: colors.bg.elevated,
+                    }}
+                    resizeMode="cover"
+                  />
+                  <Text style={{ color: colors.text.tertiary, fontSize: 10, fontWeight: '600' }}>
+                    {lang === 'ur' ? 'Aap ki photo' : 'Your photo'}
+                  </Text>
+                </View>
+
+                {/* AI's guess panel — honest about uncertainty */}
+                <View
+                  style={{
+                    padding: 14,
+                    borderRadius: radii.lg,
+                    backgroundColor: aiGuess.color + '15',
+                    borderWidth: 1,
+                    borderColor: aiGuess.color + '40',
+                    gap: 6,
+                  }}
+                >
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                    <Ionicons name="sparkles" size={14} color={aiGuess.color} />
+                    <Text style={{ color: aiGuess.color, fontSize: 11, fontWeight: '800', letterSpacing: 0.6 }}>
+                      {lang === 'ur' ? 'AI KA ANDAZA' : "AI'S BEST GUESS"}
+                    </Text>
+                  </View>
+                  <Text style={{ color: colors.text.primary, fontSize: 15, fontWeight: '700' }}>
+                    {aiGuess.thumbnail_emoji}  {lang === 'ur' ? aiGuess.title_ur : aiGuess.title_en}
+                  </Text>
+                  <Text style={{ color: colors.text.tertiary, fontSize: 11, lineHeight: 16 }}>
+                    {lang === 'ur'
+                      ? 'Yeh sahi hai? Tap karke confirm karein — ya neeche sahi category pick karein.'
+                      : 'Is this right? Tap to confirm — or pick the correct category below.'}
+                  </Text>
+                  <Pressable
+                    onPress={() => confirmAndAnalyze(aiGuess)}
+                    style={({ pressed }) => ({
+                      marginTop: 4,
+                      paddingVertical: 10,
+                      borderRadius: radii.pill,
+                      backgroundColor: aiGuess.color,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 6,
+                      opacity: pressed ? 0.7 : 1,
+                    })}
+                  >
+                    <Ionicons name="checkmark" size={14} color="#fff" />
+                    <Text style={{ color: '#fff', fontSize: 13, fontWeight: '800' }}>
+                      {lang === 'ur' ? `Haan, ${aiGuess.title_ur}` : `Yes, it's ${aiGuess.title_en}`}
+                    </Text>
+                  </Pressable>
+                </View>
+
+                {/* Override grid */}
+                <Text
+                  style={{
+                    color: colors.text.tertiary,
+                    fontSize: 10,
+                    fontWeight: '700',
+                    letterSpacing: 1,
+                    marginTop: 4,
+                  }}
+                >
+                  {lang === 'ur' ? 'YA SAHI CATEGORY PICK KAREIN' : 'OR PICK THE CORRECT CATEGORY'}
+                </Text>
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+                  {scenarios
+                    .filter((s) => s.id !== aiGuess.id)
+                    .map((s) => (
+                      <Pressable
+                        key={s.id}
+                        onPress={() => confirmAndAnalyze(s)}
+                        style={({ pressed }) => ({
+                          width: '48%',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          gap: 8,
+                          padding: 10,
+                          borderRadius: radii.md,
+                          backgroundColor: colors.bg.surfaceSolid,
+                          opacity: pressed ? 0.6 : 1,
+                        })}
+                      >
+                        <View
+                          style={{
+                            width: 32,
+                            height: 32,
+                            borderRadius: 10,
+                            backgroundColor: s.color + '22',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <Text style={{ fontSize: 18 }}>{s.thumbnail_emoji}</Text>
+                        </View>
+                        <Text
+                          numberOfLines={2}
+                          style={{ flex: 1, color: colors.text.primary, fontSize: 11, fontWeight: '600' }}
+                        >
+                          {lang === 'ur' ? s.title_ur : s.title_en}
+                        </Text>
+                      </Pressable>
+                    ))}
+                </View>
+
+                <Pressable
+                  onPress={reset}
+                  style={({ pressed }) => ({
+                    paddingVertical: 10,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 4,
+                    opacity: pressed ? 0.5 : 1,
+                  })}
+                >
+                  <Ionicons name="arrow-back" size={13} color={colors.text.tertiary} />
+                  <Text style={{ color: colors.text.tertiary, fontSize: 12, fontWeight: '600' }}>
+                    {lang === 'ur' ? 'Doosri photo' : 'Different photo'}
+                  </Text>
+                </Pressable>
+              </View>
             ) : null}
 
             {/* STATE 2: analyzing */}
