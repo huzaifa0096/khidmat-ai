@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from dotenv import load_dotenv
 
-from routes import catalog, providers, geo, score, bookings, notifications, schedule, emergency, external, state, orchestrate, traces, provider_self, feedback, chat, admin
+from routes import catalog, providers, geo, score, bookings, notifications, schedule, emergency, external, state, orchestrate, traces, provider_self, feedback, chat, admin, bargain
 from utils.store import Store
 
 load_dotenv()
@@ -79,6 +79,7 @@ app.include_router(provider_self.router, prefix="/api/providers-self", tags=["Pr
 app.include_router(feedback.router, prefix="/api/bookings", tags=["Feedback"])
 app.include_router(chat.router, prefix="/api/chat", tags=["Chat"])
 app.include_router(admin.router, prefix="/api/admin", tags=["Admin"])
+app.include_router(bargain.router, prefix="/api/bargain", tags=["Bargain (Agent 7)"])
 
 
 if __name__ == "__main__":

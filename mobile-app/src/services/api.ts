@@ -235,6 +235,26 @@ export const fetchChatThreads = (params: { user_id?: string; provider_id?: strin
   api.get('/api/chat/threads', { params }).then((r) => r.data);
 
 // ============================================================================
+// Bargain (Agent 7 — Pakistani-style price negotiator)
+// ============================================================================
+export const bargainNegotiate = (payload: {
+  provider_id: string;
+  customer_offer_pkr: number;
+  proposed_price_pkr: number;
+  is_repeat_customer?: boolean;
+  urgency?: string;
+  round_number?: number;
+}) => api.post('/api/bargain/negotiate', payload).then((r) => r.data);
+
+export const bargainSession = (payload: {
+  provider_id: string;
+  initial_price_pkr: number;
+  customer_offers: number[];
+  is_repeat_customer?: boolean;
+  urgency?: string;
+}) => api.post('/api/bargain/session', payload).then((r) => r.data);
+
+// ============================================================================
 // Admin Dashboard
 // ============================================================================
 export const fetchAdminOverview = () =>

@@ -20,6 +20,9 @@ import { useApp } from '../../src/state/AppContext';
 import { radii, spacing } from '../../src/theme/colors';
 import { confirmBooking, parseAndRank, createDirectBooking } from '../../src/services/api';
 import { getProviderImage, getServicePortfolio } from '../../src/utils/providerImage';
+import { BargainSheet } from '../../src/components/BargainSheet';
+import { ScoringMathModal } from '../../src/components/ScoringMathModal';
+import { VibeSummary } from '../../src/components/VibeSummary';
 
 
 export default function ProviderDetailScreen() {
@@ -28,6 +31,9 @@ export default function ProviderDetailScreen() {
   const { lang, currentTrace, setCurrentBooking, user, colors, theme } = useApp();
   const isDark = theme === 'dark';
   const [booking, setBooking] = useState(false);
+  const [bargainOpen, setBargainOpen] = useState(false);
+  const [agreedPrice, setAgreedPrice] = useState<number | null>(null);
+  const [scoringOpen, setScoringOpen] = useState(false);
 
   // Find matching provider from currentTrace.ranking.top_3
   const top = currentTrace?.ranking?.top_3 || [];
@@ -379,6 +385,31 @@ export default function ProviderDetailScreen() {
             <Text style={{ color: colors.brand.textAccent, fontWeight: '600' }}>See More</Text>
           </Text>
 
+          {/* "Why this provider?" — Scoring Math transparency */}
+          <Pressable
+            onPress={() => setScoringOpen(true)}
+            style={({ pressed }) => ({
+              marginTop: 12,
+              flexDirection: 'row',
+              alignItems: 'center',
+              alignSelf: 'flex-start',
+              paddingHorizontal: 12,
+              paddingVertical: 8,
+              borderRadius: radii.pill,
+              backgroundColor: colors.brand.primary + '15',
+              gap: 6,
+              opacity: pressed ? 0.7 : 1,
+            })}
+          >
+            <Ionicons name="analytics" size={13} color={colors.brand.textAccent} />
+            <Text style={{ color: colors.brand.textAccent, fontSize: 12, fontWeight: '700' }}>
+              {lang === 'ur' ? 'Yeh Provider Kyun? — Scoring Math Dekhein' : 'Why this provider? — See scoring math'}
+            </Text>
+          </Pressable>
+
+          {/* AI Vibe Summary */}
+          <VibeSummary provider={p} />
+
           {/* Stats */}
           <View style={{ flexDirection: 'row', gap: 12, marginTop: spacing.lg }}>
             <Stat label="Reviews" value={p.reviews_count} colors={colors} />
@@ -389,6 +420,53 @@ export default function ProviderDetailScreen() {
               colors={colors}
             />
           </View>
+
+          {/* Bargain / Bhao Karein button */}
+          <Pressable
+            onPress={() => setBargainOpen(true)}
+            style={({ pressed }) => ({
+              marginTop: spacing.lg,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: 14,
+              borderRadius: radii.lg,
+              backgroundColor: colors.brand.accent + '15',
+              borderWidth: 1,
+              borderColor: colors.brand.accent + '40',
+              opacity: pressed ? 0.7 : 1,
+            })}
+          >
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, flex: 1 }}>
+              <View
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 10,
+                  backgroundColor: colors.brand.accent,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Ionicons name="cash" size={18} color="#fff" />
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={{ color: colors.text.primary, fontSize: 14, fontWeight: '700' }}>
+                  {lang === 'ur' ? 'Bhao Karein' : 'Bargain Price'}
+                </Text>
+                <Text style={{ color: colors.text.tertiary, fontSize: 11, marginTop: 1 }}>
+                  {agreedPrice
+                    ? lang === 'ur'
+                      ? `Final: PKR ${agreedPrice.toLocaleString()}`
+                      : `Agreed at PKR ${agreedPrice.toLocaleString()}`
+                    : lang === 'ur'
+                    ? 'Bargain Agent (7) ke saath negotiate karein'
+                    : 'Negotiate with Bargain Agent (Agent 7)'}
+                </Text>
+              </View>
+            </View>
+            <Ionicons name="chevron-forward" size={18} color={colors.brand.accent} />
+          </Pressable>
 
           {/* See More Photos */}
           <Text
@@ -486,6 +564,24 @@ export default function ProviderDetailScreen() {
           )}
         </Pressable>
       </View>
+
+      <BargainSheet
+        visible={bargainOpen}
+        onClose={() => setBargainOpen(false)}
+        providerId={p.id}
+        providerName={p.business_name}
+        initialPricePkr={3500}
+        onAgreed={(price) => setAgreedPrice(price)}
+      />
+
+      <ScoringMathModal
+        visible={scoringOpen}
+        onClose={() => setScoringOpen(false)}
+        provider={p}
+        scoreBreakdown={data.score_breakdown}
+        finalScore={data.final_score}
+        rank={data.rank}
+      />
     </SafeAreaView>
   );
 }
